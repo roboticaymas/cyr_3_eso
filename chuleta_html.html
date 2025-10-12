@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuleta HTML y CSS (ESO)</title>
+    <!-- Incluimos Tailwind CSS para un diseño rápido y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuramos la fuente Inter para un look moderno */
+        body { font-family: 'Inter', sans-serif; }
+
+        /*
+        ==================================================
+        DEFINICIÓN DE ANIMACIONES CSS
+        Estas animaciones usan @keyframes y se aplican con clases.
+        Los alumnos pueden copiar estos bloques a sus proyectos.
+        ==================================================
+        */
+
+        /* 1. PULSE (Pulso): Aumenta y disminuye el tamaño ligeramente */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        .animate-pulse-custom {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        /* 2. ROTATE 360 (Rotación): Gira 360 grados */
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-rotate-custom {
+            animation: rotate360 4s linear infinite;
+        }
+
+        /* 3. SLIDE-IN (Entrada Deslizante): Aparece desde la izquierda */
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        .animate-slide-in-custom {
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        /* 4. BACKGROUND SHIFT (Cambio de Fondo): Alterna entre dos colores */
+        @keyframes backgroundShift {
+            0% { background-color: #fca5a5; } /* Rojo claro */
+            50% { background-color: #3b82f6; } /* Azul medio */
+            100% { background-color: #fca5a5; }
+        }
+        .animate-bg-shift-custom {
+            animation: backgroundShift 5s infinite alternate;
+        }
+
+        /* 5. BOUNCE (Rebote): Simula un pequeño salto */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .animate-bounce-custom {
+            animation: bounce 1s infinite ease-in-out;
+        }
+
+        /* Estilos para el contenedor de código */
+        .code-container {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #1e293b; /* slate-800 */
+            color: #f8fafc; /* slate-50 */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+
+    <!-- HEADER: Encabezado principal de la página -->
+    <header class="bg-blue-600 text-white p-6 rounded-t-lg shadow-xl mb-8 animate-slide-in-custom">
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-1">Chuleta HTML y CSS (ESO)</h1>
+        <p class="text-xl opacity-90">Estructura Semántica y Animaciones Reutilizables</p>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- ARTICLE & SECTION: Contenido principal (Estructura) -->
+        <article class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">1. Estructura Semántica HTML (¡La clave!)</h2>
+            <p class="mb-4 text-gray-600">
+                Usa estas etiquetas para organizar tu web. Ayudan a los buscadores y a la accesibilidad.
+            </p>
+
+            <div class="code-container text-sm">
+                <!-- Fragmento de Código HTML de Estructura -->
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi Proyecto de la ESO&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- El encabezado de la web: Título, logo, etc. --&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mi Web Genial&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;!-- La barra de navegación: Enlaces principales --&gt;
+    &lt;nav&gt;
+        &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+        &lt;a href="#servicios"&gt;Servicios&lt;/a&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- Contenido principal de la página --&gt;
+    &lt;main&gt;
+        &lt;!-- Un artículo autocontenido (ej: una noticia, una entrada de blog) --&gt;
+        &lt;article&gt;
+            &lt;h2&gt;Título del Artículo&lt;/h2&gt;
+            &lt;p&gt;Contenido principal del artículo...&lt;/p&gt;
+
+            &lt;!-- Una sección dentro del artículo (ej: un capítulo o comentarios) --&gt;
+            &lt;section&gt;
+                &lt;h3&gt;Sección de Comentarios&lt;/h3&gt;
+                &lt;p&gt;Deja tu opinión aquí.&lt;/p&gt;
+            &lt;/section&gt;
+        &lt;/article&gt;
+    &lt;/main&gt;
+
+    &lt;!-- Contenido secundario, barras laterales, publicidad, enlaces relacionados --&gt;
+    &lt;aside&gt;
+        &lt;h3&gt;Enlaces relacionados&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Enlace 1&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- Pie de página: Copyright, contacto, redes sociales --&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2025 Mi Web. Hecho con &lt;3 en la clase de Robótica.&lt;/p&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+            </div>
+        </article>
+        
+        <!-- ASIDE: Demostración de Animaciones CSS -->
+        <aside class="lg:col-span-1 bg-yellow-100 p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">2. Animaciones CSS (¡Efectos!)</h2>
+            <p class="mb-4 text-gray-600">
+                Aquí tienes 5 efectos que puedes aplicar con la clase CSS correspondiente.
+            </p>
+
+            <!-- Animación 1: PULSE -->
+            <div class="mb-6 p-4 bg-green-500 text-white text-center rounded-xl shadow-md animate-pulse-custom">
+                <p class="font-bold">Pulso (Pulse)</p>
+                <p class="text-sm">animation: pulse 2s infinite</p>
+            </div>
+
+            <!-- Animación 2: ROTATE 360 -->
+            <div class="mb-6 flex justify-center">
+                <div class="w-16 h-16 bg-red-500 text-white flex items-center justify-center rounded-full shadow-md animate-rotate-custom">
+                    <span class="font-bold">360°</span>
+                </div>
+            </div>
+
+            <!-- Animación 3: SLIDE-IN (Se ve en el header al cargar la página) -->
+            <div class="mb-6 p-4 bg-purple-500 text-white text-center rounded-xl shadow-md">
+                <p class="font-bold">Entrada Deslizante (Slide-In)</p>
+                <p class="text-sm">¡Mira el encabezado (Header)!</p>
+            </div>
+
+            <!-- Animación 4: BACKGROUND SHIFT -->
+            <div class="mb-6 p-4 text-white text-center rounded-xl shadow-md animate-bg-shift-custom">
+                <p class="font-bold">Cambio de Fondo (BG Shift)</p>
+                <p class="text-sm">animation: backgroundShift 5s infinite</p>
+            </div>
+            
+            <!-- Animación 5: BOUNCE -->
+            <div class="mb-6 flex justify-center">
+                <div class="w-20 p-2 bg-pink-500 text-white text-center rounded-lg shadow-md animate-bounce-custom">
+                    <p class="font-bold">Rebote</p>
+                </div>
+            </div>
+
+
+        </aside>
+
+    </main>
+
+    <!-- FOOTER: Pie de página, siempre al final -->
+    <footer class="mt-8 p-4 bg-gray-800 text-white text-center rounded-b-lg shadow-xl">
+        <p class="text-sm opacity-70">
+            ¡Ahora a practicar! Intenta añadir una de estas animaciones a un elemento de la estructura HTML.
+        </p>
+    </footer>
+
+</body>
+</html>

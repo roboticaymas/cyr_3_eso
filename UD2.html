@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somos desarrolladores web</title>
+    <!-- Enlace a Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluimos Three.js desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Fuente Inter para una mejor legibilidad -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Color de fondo suave */
+            color: #334155; /* Color de texto principal */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .section-title {
+            border-left: 8px solid #06b6d4; /* Borde turquesa para títulos de sección */
+            padding-left: 1rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* Bordes redondeados */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Azul más fuerte */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .quiz-option {
+            background-color: #e2e8f0;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .quiz-option:hover {
+            background-color: #cbd5e1;
+        }
+        /* Clases para feedback visual */
+        .correct {
+            background-color: #d1fae5; /* Verde muy claro */
+            border: 2px solid #10b981; /* Borde verde */
+            font-weight: 600;
+        }
+        .incorrect {
+            background-color: #fee2e2; /* Rojo muy claro */
+            border: 2px solid #ef4444; /* Borde rojo */
+        }
+        .evaluation-criteria {
+            background-color: #f0f9ff; /* Light blue background for criteria */
+            border-left: 4px solid #38bdf8; /* Blue border */
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        /* CSS para animaciones */
+        .animated-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .animated-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+        .code-block {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        /* Estilo para el botón de Chuleta (lo hacemos distintivo) */
+.btn-cheatsheet {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ef4444; /* Rojo vibrante */
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 9999px; /* Píldora */
+    font-size: 1.25rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    transition: all 0.3s ease;
+}
+.btn-cheatsheet:hover {
+    background-color: #dc2626;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+}
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-500 text-white p-6 shadow-lg rounded-b-xl">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <h1 class="text-4xl font-extrabold mb-2 md:mb-0">💻 Somos desarrolladores web ✨</h1>
+            <nav>
+                <ul class="flex space-x-6 text-lg font-medium">
+                    <li><a href="#introduccion" class="hover:text-gray-200 transition-colors duration-300">Introducción</a></li>
+                    <li><a href="#repaso-estructura" class="hover:text-gray-200 transition-colors duration-300">Repaso HTML</a></li>
+                    <li><a href="#estructura-web" class="hover:text-gray-200 transition-colors duration-300">Estructura Semántica</a></li>
+                    <li><a href="#servidores-tipologia" class="hover:text-gray-200 transition-colors duration-300">Servidores</a></li>
+                    <li><a href="#animacion-formatos" class="hover:text-gray-200 transition-colors duration-300">Animación Web</a></li>
+                    <li><a href="#threejs-3d" class="hover:text-gray-200 transition-colors duration-300">Three.js (3D)</a></li>
+                    <li><a href="#actividades-evaluables" class="hover:text-gray-200 transition-colors duration-300">Actividades Evaluables</a></li>
+                    <li><a href="#proyecto-final" class="hover:text-gray-200 transition-colors duration-300">Proyecto Final</a></li>
+                    <li><a href="#cuestionario" class="hover:text-gray-200 transition-colors duration-300">Cuestionario</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8 space-y-12">
+
+        <!-- Introducción -->
+        <section id="introduccion" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">¡El Gran Salto al Desarrollo Web!</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                ¡Bienvenidos al desarrollo web! En 1º de la ESO tuviste una pequeña introducción. Ahora, en 3º de la ESO, vamos a quitarnos el sombrero de usuarios para ponernos el de creadores. No solo verás la web, la entenderás, la estructurarás y le darás vida.
+            </p>
+            <p class="text-lg mb-4 leading-relaxed">
+                Aprenderemos a construir páginas modernas, atractivas y dinámicas usando el poder combinado de HTML y CSS, y exploraremos cómo las animaciones web hacen que la experiencia del usuario sea increíble. Además, daremos un paso al desarrollo 3D con librerías avanzadas.
+            </p>
+            <div class="flex justify-center mt-6">
+                <img src="web_ud2.png" alt="Desarrollo Web en un ordenador" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/3b82f6/ffffff?text=Desarrollo+Web+3ESO';">
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-2">
+                 - El lienzo digital te espera.
+            </p>
+        </section>
+
+        <!-- REPASO DE CURSO ANTERIOR (AÑADIDO) -->
+        <section id="repaso-estructura" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">Repaso: Construyendo la Estructura Base (1º/2º ESO)</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                Antes de profundizar, es crucial recordar las etiquetas básicas que forman la base de cualquier página web. Debes dominar estas etiquetas para construir el esqueleto de forma correcta.
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4 text-purple-600">Miniproyecto Guiado: Creando un CV Básico</h3>
+            <p class="text-lg mb-4 leading-relaxed">
+                Copia y pega el siguiente código en un archivo nuevo (`cv-repaso.html`). Luego, modifícalo para incluir tu propia información.
+            </p>
+            <div class="code-block">
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="es"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;Mi CV Básico&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>
+                &nbsp;&nbsp;&lt;h1&gt;[Tu Nombre Completo]&lt;/h1&gt;<br>
+                &nbsp;&nbsp;&lt;img src="[URL_IMAGEN_TUYA]" alt="Foto de perfil" width="100"&gt;<br>
+                &nbsp;&nbsp;&lt;p&gt;Soy estudiante de 3º de la ESO apasionado por la robótica y la tecnología.&lt;/p&gt;<br>
+                <br>
+                &nbsp;&nbsp;&lt;h2&gt;Mis Hobbies&lt;/h2&gt;<br>
+                &nbsp;&nbsp;&lt;ul&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Programar en Scratch&lt;/li&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ol&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Mi mejor juego es...&lt;/li&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ol&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Jugar al fútbol&lt;/li&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Leer ciencia ficción&lt;/li&gt;<br>
+                &nbsp;&nbsp;&lt;/ul&gt;<br>
+                <br>
+                &nbsp;&nbsp;&lt;h2&gt;Contacto&lt;/h2&gt;<br>
+                &nbsp;&nbsp;&lt;p&gt;Puedes visitar mi perfil en &lt;a href="[URL_DE_INTERES]"&gt;este enlace&lt;/a&gt;.&lt;/p&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;
+            </div>
+            <p class="text-lg mt-6 text-center">
+                <strong class="text-red-600">Etiquetas repasadas:</strong> <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>.
+            </p>
+        </section>
+
+
+        <!-- CYR.3.E.1. Análisis de la estructura de las páginas web. -->
+        <section id="estructura-web" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">1. Estructura de las Páginas Web: El Esqueleto Semántico</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                En 1º, aprendimos que HTML es el esqueleto. En 3º, vamos a analizar ese esqueleto usando etiquetas semánticas, que son etiquetas que le dan un significado claro al contenido, no solo apariencia.
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4">Etiquetas Semánticas Clave:</h3>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li><strong class="text-red-600">&lt;header&gt;:</strong> Contiene la introducción o el grupo de navegación (ej. logo, menú).</li>
+                <li><strong class="text-red-600">&lt;nav&gt;:</strong> Contiene los enlaces de navegación principales.</li>
+                <li><strong class="text-red-600">&lt;main&gt;:</strong> Contiene el contenido único y principal de la página.</li>
+                <li><strong class="text-red-600">&lt;section&gt;:</strong> Agrupa contenido relacionado (ej. una sección de "servicios").</li>
+                <li><strong class="text-red-600">&lt;article&gt;:</strong> Contenido independiente, como una entrada de blog o una noticia.</li>
+                <li><strong class="text-red-600">&lt;footer&gt;:</strong> Contiene información de contacto, derechos de autor o enlaces secundarios.</li>
+            </ul>
+            <p class="text-lg mb-4 leading-relaxed mt-4">
+                Usar estas etiquetas no solo organiza tu código, sino que ayuda a los motores de búsqueda (como Google) y a los lectores de pantalla para personas con discapacidad visual a entender mejor tu web.
+            </p>
+            <div class="flex justify-center mt-6">
+                <img src="estructura_ud2.png" alt="Diagrama de Estructura Semántica HTML" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/f87171/ffffff?text=Estructura+Sem\u00E1ntica+HTML';">
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-2">
+                 - El mapa de tu página web.
+            </p>
+            <p class="text-lg mt-6">
+                <strong class="text-blue-600">¡Actividad Práctica!</strong> Analiza tu web favorita (Netflix, una tienda de videojuegos, el blog del colegio). Identifica qué partes corresponderían a &lt;header&gt;, &lt;nav&gt;, &lt;main&gt; y &lt;footer&gt;.
+            </p>
+        </section>
+
+        <!-- CYR.3.E.2. Servidores web: tipología. -->
+        <section id="servidores-tipologia" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">2. Servidores Web: Tipología Avanzada</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                Ya sabes que un servidor web almacena y entrega las páginas. En 3º, vamos a ver los diferentes tipos de servidores y cómo se usan en la industria:
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4">Tipologías de Servidores:</h3>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li><strong class="text-green-600">Servidores Dedicados:</strong> Un ordenador físico entero es usado por un solo cliente. Ofrece el máximo rendimiento, seguridad y control. (Imagina un gimnasio que es solo para ti).</li>
+                <li><strong class="text-green-600">Servidores Compartidos:</strong> Muchos sitios web pequeños comparten el mismo servidor físico y sus recursos. Es la opción más barata y común para webs sencillas. (Imagina un autobús compartido).</li>
+                <li><strong class="text-green-600">Servidores en la Nube (Cloud Hosting):</strong> El sitio web se aloja en una red de servidores virtuales. Esto permite escalar el sitio web (crecer o reducirse) de forma muy fácil y solo pagas por lo que usas. Es la tecnología más moderna. (Imagina un taxi que se adapta a cuántas personas sois).</li>
+            </ul>
+            <p class="text-lg mb-4 leading-relaxed mt-4">
+                Entender la tipología es clave para saber dónde almacenar un sitio web, dependiendo de su tamaño y tráfico esperado.
+            </p>
+            <div class="flex justify-center mt-6">
+                <img src="servidores_ud2.png" alt="Tipos de Servidores Web" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/059669/ffffff?text=Tipos+de+Servidores+Web';">
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-2">
+                 - El "almacén" de los datos web.
+            </p>
+            <p class="text-lg mt-6">
+                <strong class="text-blue-600">¡Actividad Práctica!</strong> Si fueras a crear una web para un gran evento (ej. un festival de música), ¿qué tipo de servidor elegirías (Dedicado, Compartido, o Nube)? Justifica tu respuesta.
+            </p>
+        </section>
+
+        <!-- CYR.3.E.3. Formatos de animación web. -->
+        <section id="animacion-formatos" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">3. Formatos y Tipos de Animación Web</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                La animación da vida a la web. Para que un elemento se mueva, podemos usar diferentes formatos y técnicas:
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4">Formatos basados en Imágenes:</h3>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li><strong class="text-purple-600">GIF:</strong> El formato más antiguo. Ideal para animaciones cortas y de pocos colores. Su inconveniente es que el tamaño del archivo suele ser grande.</li>
+                <li><strong class="text-purple-600">APNG (Animated PNG):</strong> Una versión moderna y de alta calidad del GIF, que soporta más colores y transparencia.</li>
+                <li><strong class="text-purple-600">Vídeo (MP4, WebM):</strong> El más eficiente para animaciones largas o complejas.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold mt-6 mb-4">Formatos basados en Código (los más usados hoy):</h3>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li><strong class="text-purple-600">Animaciones y Transiciones CSS:</strong> Permiten mover, rotar o cambiar elementos usando el lenguaje de estilos. Es muy eficiente y ligero.</li>
+                <li><strong class="text-purple-600">SVG (Scalable Vector Graphics):</strong> Animación basada en vectores. Se ve perfecto en cualquier tamaño de pantalla. Ideal para logos y gráficos.</li>
+                <li><strong class="text-purple-600">Animación JavaScript (JS):</strong> Permite animaciones complejas y basadas en la lógica del programa (ej. efectos en juegos o transiciones complejas entre vistas).</li>
+            </ul>
+            <div class="flex justify-center mt-6">
+                <img src="giphy.gif" alt="Comparativa de Formatos de Animación Web" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/a78bfa/ffffff?text=Formatos+de+Animaci\u00F3n';">
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-2">
+                 - El tipo de animación afecta la velocidad de carga.
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">¡Actividad Práctica! Insertando un GIF Animado</h3>
+            <p class="text-lg mb-4 leading-relaxed">
+                Tu misión: Descargar un GIF animado e insertarlo en una página web básica para demostrar la animación por imagen.
+            </p>
+            <ol class="list-decimal list-inside text-lg space-y-2 ml-4">
+                <li>Ve a <a href="https://giphy.com" target="_blank" class="text-blue-500 hover:underline">Giphy.com</a> y busca un GIF que te guste (ej. de un robot).</li>
+                <li>Descarga o copia la URL del GIF (asegúrate de que termina en `.gif`).</li>
+                <li>Crea un archivo HTML simple y usa la etiqueta <code>&lt;img&gt;</code> para insertarlo:</li>
+            </ol>
+        </section>
+
+        <!-- Three.js (AÑADIDO) -->
+        <section id="threejs-3d" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">4. Three.js: Dando el Salto a la Animación 3D en la Web</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                Para llevar la interactividad y la animación al siguiente nivel, usamos librerías de JavaScript especializadas. Three.js es la más popular para crear gráficos en 3D directamente en el navegador. ¡Es lo que se usa para crear juegos y visualizaciones profesionales!
+            </p>
+            <p class="text-lg mb-4 leading-relaxed">
+                <strong class="text-cyan-600">Conceptos clave en Three.js:</strong>
+                <ul class="list-disc list-inside text-lg space-y-1 ml-4">
+                    <li><strong class="font-bold">Escena (Scene):</strong> El contenedor donde viven todos los objetos.</li>
+                    <li><strong class="font-bold">Cámara (Camera):</strong> Define lo que el usuario ve de la escena.</li>
+                    <li><strong class="font-bold">Renderizador (Renderer):</strong> Dibuja la escena para que la veamos en el &lt;canvas&gt; de HTML.</li>
+                    <li><strong class="font-bold">Malla (Mesh):</strong> La combinación de una geometría (forma, ej. cubo) y un material (color, textura).</li>
+                </ul>
+            </p>
+            
+            <h3 class="text-2xl font-semibold mt-6 mb-4 text-cyan-600">Miniproyecto Guiado: Creando un Cubo 3D</h3>
+            <p class="text-lg mb-4 leading-relaxed">
+                ¡Añade un &lt;canvas&gt; con un ID único al inicio de tu &lt;body&gt;! Luego, copia el siguiente código JavaScript (o crea un archivo .js y enlázalo) para crear y animar tu primer cubo.
+            </p>
+
+            <div class="code-block h-96 overflow-y-scroll">
+                &lt;script&gt;<br>
+                // 1. Configuración básica de Three.js<br>
+                const scene = new THREE.Scene();<br>
+                const camera = new THREE.PerspectiveCamera(75, 400 / 300, 0.1, 1000); // Ajusta 400/300 a tu canvas<br>
+                const renderer = new THREE.WebGLRenderer();<br>
+                renderer.setSize(400, 300); // Tamaño del canvas en píxeles<br>
+                document.getElementById('threejs-container').appendChild(renderer.domElement);<br>
+                <br>
+                // 2. Creación del cubo (Geometría y Material)<br>
+                const geometry = new THREE.BoxGeometry(1, 1, 1); // Cubo de 1x1x1<br>
+                const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Color verde<br>
+                const cube = new THREE.Mesh(geometry, material);<br>
+                scene.add(cube);<br>
+                <br>
+                camera.position.z = 5; // Mover la cámara hacia atrás para ver el cubo<br>
+                <br>
+                // 3. Función de animación (Loop)<br>
+                function animate() {<br>
+                &nbsp;&nbsp;requestAnimationFrame(animate);<br>
+                &nbsp;&nbsp;// Rotar el cubo en los ejes X e Y<br>
+                &nbsp;&nbsp;cube.rotation.x += 0.01;<br>
+                &nbsp;&nbsp;cube.rotation.y += 0.01;<br>
+                &nbsp;&nbsp;renderer.render(scene, camera);<br>
+                }<br>
+                <br>
+                animate();<br>
+                &lt;/script&gt;
+            </div>
+            
+            <p class="text-lg mt-6">
+                <strong class="text-blue-600">¡Reto Avanzado!</strong> Intenta cambiar la geometría del cubo a una esfera (`THREE.SphereGeometry`) o modificar la velocidad de rotación.
+            </p>
+        </section>
+
+        <!-- CYR.3.E.4. Herramientas de animación web. (ANTIGUA SECCIÓN 4, AHORA CONSOLIDADA) -->
+        <section id="herramientas-animacion" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">5. Otras Herramientas de Diseño y Desarrollo Web</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                Además de Three.js, existen muchas otras herramientas esenciales que un desarrollador web de 3º de la ESO debe conocer para crear webs modernas:
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4">Herramientas Clave para Diseño y CSS:</h3>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li><strong class="text-orange-600">Figma / Sketch:</strong> Se utilizan para diseñar la interfaz visual y la experiencia de usuario (UX/UI) antes de escribir cualquier código.</li>
+                <li><strong class="text-orange-600">Tailwind CSS:</strong> El framework de CSS que estamos usando. Permite diseñar rápidamente interfaces responsive y atractivas sin escribir CSS tradicional.</li>
+                <li><strong class="text-orange-600">Lottie:</strong> Herramienta que permite integrar animaciones vectoriales complejas (creadas en software como After Effects) de forma muy ligera en la web, usando JavaScript.</li>
+            </ul>
+        </section>
+        
+        <div class="flex justify-center my-10">
+    <!-- Enlace al archivo de chuleta. Asume que está en el mismo directorio (index.html) -->
+    <a href="chuleta_html.html" target="_blank" class="btn-cheatsheet">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Ver Chuleta HTML/CSS
+    </a>
+</div>
+        
+        <section id="actividades-evaluables" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">Actividades Evaluables: Consolidando el Desarrollo Web</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                Estas actividades sencillas te ayudarán a aplicar y demostrar los conocimientos fundamentales de la unidad, preparándote para el proyecto final.
+            </p>
+
+            <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">Actividad 1: Analizando un Sistema de Alojamiento</h3>
+            <p class="text-lg mb-4 leading-relaxed">
+                Elige una página web de alto tráfico (ej. la web de un equipo de fútbol famoso o una tienda online de videojuegos). Investiga y responde en un documento de texto a las siguientes preguntas:
+            </p>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li>¿Qué tipología de servidor crees que utilizaría esta web (Dedicado, Compartido, Nube)? ¿Por qué?</li>
+                <li>Identifica al menos 3 riesgos potenciales de seguridad que podrían surgir si el servidor no está bien protegido.</li>
+            </ul>
+            <div class="evaluation-criteria">
+                <p><strong>Criterios trabajados:</strong></p>
+                <ul class="list-disc list-inside ml-4">
+                    <li>5.1 Conocer la construcción de aplicaciones informáticas y web, entendiendo su funcionamiento interno, de forma segura, responsable y respetuosa.</li>
+                </ul>
+            </div>
+
+            <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">Actividad 2: Desafío de Diseño Semántico y Solución</h3>
+            <p class="text-lg mb-4 leading-relaxed">
+                Crea un archivo HTML llamado `desafio-semantico.html`. Tu misión es crear la estructura de una página de un blog sobre robótica:
+            </p>
+            <ol class="list-decimal list-inside text-lg space-y-2 ml-4">
+                <li>Define la estructura usando las etiquetas semánticas <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> y <code>&lt;footer&gt;</code>.</li>
+                <li>Dentro de <code>&lt;main&gt;</code>, usa dos etiquetas <code>&lt;article&gt;</code> para simular dos entradas de blog diferentes.</li>
+                <li>Añade una animación CSS a la etiqueta <code>&lt;header&gt;</code> (ej. un cambio de color suave al cargar la página) para demostrar la interactividad.</li>
+            </ol>
+            <p class="text-lg mt-4">
+                Explica brevemente cómo esta estructura soluciona el problema de la organización y accesibilidad del contenido.
+            </p>
+            <div class="evaluation-criteria">
+                <p><strong>Criterios trabajados:</strong></p>
+                <ul class="list-disc list-inside ml-4">
+                    <li>5.2. Conocer y resolver la variedad de problemas potencialmente presentes en el desarrollo de una aplicación web, tratando de generalizar posibles soluciones.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Proyecto Final de Unidad -->
+        <section id="proyecto-final" class="card p-8 animated-card">
+            <h2 class="text-3xl font-bold mb-6 section-title">Proyecto Final: "Mi Portafolio Web 3D"</h2>
+            <p class="text-lg mb-4 leading-relaxed">
+                Crearás una página web multipágina que sirva como tu portafolio digital. El requisito principal es que demuestres el uso de estructuras semánticas, diseño CSS avanzado y animación 3D.
+            </p>
+            <h3 class="text-2xl font-semibold mt-6 mb-4">Requisitos del Proyecto:</h3>
+            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
+                <li><strong class="font-bold">1. Estructura y Estilos:</strong>
+                    <ul>
+                        <li>Usa al menos las etiquetas semánticas: &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;footer&gt;.</li>
+                        <li>Aplica estilos responsive con CSS/Tailwind para que se vea bien en móvil y escritorio.</li>
+                    </ul>
+                </li>
+                <li><strong class="font-bold">2. Animación 3D (OBLIGATORIO):</strong>
+                    <ul>
+                        <li>La página principal debe incluir un elemento visual creado y animado con Three.js (ej. un cubo, una esfera, un texto 3D).</li>
+                        <li>Implementa al menos 2 animaciones CSS y 2 transiciones CSS adicionales.</li>
+                    </ul>
+                </li>
+                <li><strong class="font-bold">3. Seguridad, Responsabilidad y Generalización:</strong>
+                    <ul>
+                        <li>El contenido debe ser seguro, respetuoso y no contener información personal sensible. Debes citar la fuente de las imágenes/recursos.</li>
+                        <li>Explica cómo el uso de etiquetas semánticas y CSS/JS generaliza la solución para otros proyectos.</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="evaluation-criteria">
+                <p><strong>Criterios trabajados:</strong></p>
+                <ul class="list-disc list-inside ml-4">
+                    <li>5.1 Conocer la construcción de aplicaciones informáticas y web, entendiendo su funcionamiento interno, de forma segura, responsable y respetuosa.</li>
+                    <li>5.2. Conocer y resolver la variedad de problemas potencialmente presentes en el desarrollo de una aplicación web, tratando de generalizar posibles soluciones.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Cuestionario -->
+        <section id="cuestionario" class="card p-8">
+            <h2 class="text-3xl font-bold mb-6 section-title">Cuestionario: ¡Demuestra lo que sabes de Desarrollo Web!</h2>
+            <p class="text-lg mb-6 leading-relaxed">
+                Responde a las siguientes preguntas para comprobar lo que has aprendido en esta unidad.
+            </p>
+
+            <form id="quizFormWeb3ESO" onsubmit="event.preventDefault(); checkQuizWeb3ESO();">
+                <!-- Pregunta 1 -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="b">
+                    <p class="font-semibold text-xl mb-4">1. ¿Cuál es el objetivo principal de las etiquetas semánticas en HTML (como &lt;header&gt; o &lt;footer&gt;)?</p>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q1" value="a"> a) Darle color al texto de la página.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q1" value="b"> b) Dar un significado claro al contenido para navegadores y buscadores.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q1" value="c"> c) Ejecutar animaciones 3D.
+                    </label>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="c">
+                    <p class="font-semibold text-xl mb-4">2. ¿Qué tipo de servidor web es ideal para un sitio con tráfico variable y que paga solo por los recursos que utiliza?</p>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q2" value="a"> a) Servidor Dedicado.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q2" value="b"> b) Servidor Compartido.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q2" value="c"> c) Servidor en la Nube (Cloud Hosting).
+                    </label>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="b">
+                    <p class="font-semibold text-xl mb-4">3. ¿Qué formato de animación basado en código es ideal para gráficos que deben verse nítidos en cualquier tamaño de pantalla?</p>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q3" value="a"> a) GIF.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q3" value="b"> b) SVG.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q3" value="c"> c) APNG.
+                    </label>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="a">
+                    <p class="font-semibold text-xl mb-4">4. ¿Qué librería de JavaScript se recomienda para crear gráficos 3D directamente en el navegador?</p>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q4" value="a"> a) Three.js.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q4" value="b"> b) Tailwind.css.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q4" value="c"> c) Lottie.
+                    </label>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="b">
+                    <p class="font-semibold text-xl mb-4">5. ¿Cuál es un requisito de seguridad y responsabilidad al crear tu portafolio web?</p>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q5" value="a"> a) Incluir tu dirección y teléfono completos.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q5" value="b"> b) Evitar compartir información personal sensible y citar fuentes.
+                    </label>
+                    <label class="quiz-option block">
+                        <input type="radio" name="q5" value="c"> c) Usar únicamente el color azul para los enlaces.
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" id="checkAnswersBtnWeb3ESO" class="btn-primary">Comprobar Respuestas</button>
+                    <p class="text-sm text-gray-500 mt-2">
+                        Nota: Este cuestionario no guarda tus respuestas.
+                    </p>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white p-6 text-center rounded-t-xl mt-12">
+        <p>&copy; 2025 Computación y Robótica - 3º ESO. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Material didáctico creado para la unidad "Somos desarrolladores web".</p>
+    </footer>
+
+    <script>
+        // Definición de las respuestas correctas para cada pregunta
+        const CORRECT_ANSWERS_WEB_3ESO = {
+            q1: 'b', // 1. Dar un significado claro al contenido para navegadores y buscadores.
+            q2: 'c', // 2. Servidor en la Nube (Cloud Hosting).
+            q3: 'b', // 3. SVG.
+            q4: 'a', // 4. Three.js. (Actualizado)
+            q5: 'b'  // 5. Evitar compartir información personal sensible y citar fuentes.
+        };
+
+        function checkQuizWeb3ESO() {
+            const form = document.getElementById('quizFormWeb3ESO');
+            // Selector para encontrar los contenedores de preguntas
+            const questions = form.querySelectorAll('.mb-8.p-6.bg-gray-50.rounded-lg.shadow-sm');
+            
+            // Recorrer todas las preguntas
+            questions.forEach((questionDiv, index) => {
+                const questionName = `q${index + 1}`;
+                const correctAnswer = CORRECT_ANSWERS_WEB_3ESO[questionName];
+                const selectedOption = form.querySelector(`input[name="${questionName}"]:checked`);
+                
+                // Limpiar clases de feedback anteriores
+                const options = questionDiv.querySelectorAll('.quiz-option');
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                    opt.style.border = 'none'; 
+                });
+                
+                // Si hay una opción seleccionada
+                if (selectedOption) {
+                    const selectedValue = selectedOption.value;
+                    const selectedLabel = selectedOption.closest('label');
+                    
+                    if (selectedValue === correctAnswer) {
+                        // Respuesta correcta seleccionada
+                        selectedLabel.classList.add('correct');
+                    } else {
+                        // Respuesta incorrecta seleccionada: Marcar incorrecta y mostrar la correcta
+                        selectedLabel.classList.add('incorrect');
+                        
+                        // Buscar y marcar la respuesta correcta
+                        const correctInput = questionDiv.querySelector(`input[value="${correctAnswer}"]`);
+                        if (correctInput) {
+                            correctInput.closest('label').classList.add('correct');
+                        }
+                    }
+                } else {
+                    // Si no se selecciona ninguna opción, solo mostrar la correcta para estudio
+                    const correctInput = questionDiv.querySelector(`input[value="${correctAnswer}"]`);
+                    if (correctInput) {
+                        correctInput.closest('label').classList.add('correct');
+                    }
+                }
+            });
+        }
+
+        // Configurar el botón para que ejecute la función
+        document.getElementById('checkAnswersBtnWeb3ESO').type = 'button';
+        document.getElementById('checkAnswersBtnWeb3ESO').onclick = checkQuizWeb3ESO;
+        
+    </script>
+</body>
+</html>
+
