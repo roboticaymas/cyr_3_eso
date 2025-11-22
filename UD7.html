@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UD7: Sistemas de Computación | Engineering Lab 🛠️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILO "BLUEPRINT ENGINEERING" --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1917; /* Stone 900 */
+            color: #e7e5e4; /* Stone 200 */
+            /* Patrón de cuadrícula técnica */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .font-mono { font-family: 'Roboto Mono', monospace; }
+        .container { max-width: 1200px; }
+
+        /* ENCABEZADOS INDUSTRIALES */
+        .section-title {
+            border-left: 8px solid #f97316; /* Orange 500 */
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* TARJETAS TÉCNICAS */
+        .card {
+            background-color: #292524; /* Stone 800 */
+            border: 1px solid #44403c;
+            border-radius: 0.25rem; /* Bordes más rectos para look industrial */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Decoración técnica en esquinas */
+        .card::after {
+            content: "";
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 20px; height: 20px;
+            background: linear-gradient(135deg, transparent 50%, #f97316 50%);
+        }
+
+        /* ELEMENTOS DE TEORÍA */
+        .tech-spec {
+            background-color: #0c0a09;
+            border: 1px dashed #f97316;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #fdba74;
+        }
+
+        /* TABLAS TÉCNICAS */
+        .blueprint-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .blueprint-table th { 
+            background: #f97316; 
+            color: #000; 
+            padding: 10px; 
+            text-align: left; 
+            text-transform: uppercase; 
+            font-weight: 800;
+        }
+        .blueprint-table td { 
+            border-bottom: 1px solid #44403c; 
+            padding: 10px; 
+            background: #1c1917;
+        }
+        .blueprint-table tr:hover td { background: #292524; }
+
+        /* DIAGRAMA CICLO DE VIDA (CSS PURO) */
+        .lifecycle-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            background: #0c0a09;
+            padding: 10px;
+            border-left: 4px solid #f97316;
+        }
+        .step-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f97316;
+            margin-right: 1rem;
+            min-width: 30px;
+        }
+
+        /* BOTONES */
+        .btn-engineer {
+            background-color: #f97316;
+            color: #000;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: 0.2s;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+        }
+        .btn-engineer:hover { background-color: #ea580c; transform: translateY(-2px); }
+
+        /* BADGES */
+        .badge { 
+            display: inline-block; padding: 0.2rem 0.5rem; 
+            font-size: 0.65rem; font-weight: bold; 
+            background: #44403c; color: #a8a29e; 
+            border: 1px solid #78716c;
+            margin-bottom: 8px;
+        }
+        .badge-orange { border-color: #f97316; color: #fdba74; background: rgba(249, 115, 22, 0.1); }
+
+        /* QUIZ */
+        .quiz-option {
+            background-color: #44403c; padding: 1rem; margin-bottom: 0.5rem;
+            cursor: pointer; transition: 0.2s; border: 1px solid transparent;
+        }
+        .quiz-option:hover { border-color: #f97316; background-color: #57534e; }
+        .correct { border-color: #22c55e !important; background-color: #14532d !important; color: #fff; }
+        .incorrect { border-color: #ef4444 !important; background-color: #7f1d1d !important; color: #fff; }
+        
+        /* IMÁGENES */
+        .img-blueprint {
+            filter: grayscale(100%) contrast(1.2);
+            border: 2px solid #44403c;
+            mix-blend-mode: luminosity;
+            transition: 0.3s;
+        }
+        .img-blueprint:hover { filter: grayscale(0%); mix-blend-mode: normal; border-color: #f97316;}
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-stone-900 border-b border-orange-600/50 sticky top-0 z-50 shadow-2xl">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="text-3xl text-orange-500"><i class="fa-solid fa-compass-drafting"></i></div>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight font-mono uppercase">UD7: Sistemas de Computación</h1>
+                    <p class="text-xs text-orange-400 font-mono">PRE-ROBOTICS MODULE | ENGINEERING LAB</p>
+                </div>
+            </div>
+            <nav class="mt-4 md:mt-0">
+                <ul class="flex flex-wrap gap-6 text-sm font-bold text-stone-400 uppercase tracking-wide">
+                    <li><a href="#sistemas" class="hover:text-orange-500 transition-colors">Sistemas</a></li>
+                    <li><a href="#micro" class="hover:text-orange-500 transition-colors">El Cerebro (Micros)</a></li>
+                    <li><a href="#anatomia" class="hover:text-orange-500 transition-colors">Hardware & Soft</a></li>
+                    <li><a href="#seguridad" class="hover:text-orange-500 transition-colors">Hard-Sec (HSM)</a></li>
+                    <li><a href="#actividades" class="text-orange-500 border border-orange-500 px-3 py-1 hover:bg-orange-500 hover:text-black transition-colors">Taller (Actividades)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 mt-4 space-y-16">
+
+        <section id="sistemas" class="card p-8">
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-2/3">
+                    <!-- <span class="badge badge-orange">CYR.3.F.1 Aplicaciones</span> -->
+                    <h2 class="section-title"><i class="fa-solid fa-microchip"></i> 1. Más allá del PC</h2>
+                    <p class="mb-4 leading-relaxed text-stone-300">
+                        Hasta ahora hemos programado pantallas. Pero la ingeniería de verdad empieza cuando el código <strong>toca el mundo físico</strong>.
+                    </p>
+                    <p class="mb-6 text-stone-300">
+                        Un <strong>Sistema de Computación Física</strong> es aquel que puede sentir el entorno (Sensores) y reaccionar ante él (Actuadores), controlado por un "cerebro" digital. No es un ordenador de escritorio; es tecnología embebida en la realidad.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="tech-spec">
+                            <strong class="text-white block mb-2">> EJEMPLO: Airbag del Coche</strong>
+                            1. Sensor: Detecta desaceleración brusca.<br>
+                            2. Microcontrolador: Calcula en milisegundos.<br>
+                            3. Actuador: Explota la bolsa de aire.
+                        </div>
+                        <div class="tech-spec">
+                            <strong class="text-white block mb-2">> EJEMPLO: Invernadero Smart</strong>
+                            1. Sensor: Humedad del suelo baja.<br>
+                            2. Microcontrolador: Decide regar.<br>
+                            3. Actuador: Abre electroválvula de agua.
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex items-center justify-center">
+                    <img src="entrada_proceso_salida.png" alt="Esquema Entrada Proceso Salida" class="img-blueprint w-full">
+                </div>
+            </div>
+        </section>
+
+        <section id="micro" class="card p-8">
+            <!-- <span class="badge badge-orange">CYR.3.F.2 Microcontroladores</span> -->
+            <h2 class="section-title"><i class="fa-solid fa-brain"></i> 2. Eligiendo el Cerebro</h2>
+            
+            <div class="mb-6">
+                <p class="text-stone-300 mb-4">
+                    En robótica y sistemas físicos no solemos usar CPUs potentes (como un i7), sino <strong>Microcontroladores</strong>. Son ordenadores diminutos "todo en uno" diseñados para controlar tareas específicas.
+                </p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="blueprint-table">
+                    <thead>
+                        <tr>
+                            <th>Modelo</th>
+                            <th>Tipo</th>
+                            <th>Puntos Fuertes</th>
+                            <th>Uso Ideal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-orange-400">Arduino UNO</td>
+                            <td>Microcontrolador</td>
+                            <td>Robusto, fácil de aprender, 5V.</td>
+                            <td>Aprender electrónica básica, robots simples.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-400">ESP32</td>
+                            <td>Microcontrolador IoT</td>
+                            <td>Tiene <strong>Wi-Fi y Bluetooth</strong> integrados. Potente.</td>
+                            <td>Domótica, IoT, proyectos conectados.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-purple-400">Raspberry Pi 4</td>
+                            <td>Microprocesador (Mini PC)</td>
+                            <td>Corre Linux, tiene HDMI, mucha RAM.</td>
+                            <td>Visión artificial, servidores, IA.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-pink-400">Micro:bit</td>
+                            <td>Microcontrolador Educativo</td>
+                            <td>Sensores integrados (brújula, luz, botones).</td>
+                            <td>Iniciación rápida y wearables.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="anatomia" class="card p-8">
+            <!-- <span class="badge badge-orange">CYR.3.F.3 Hardware y Software</span> -->
+            <h2 class="section-title"><i class="fa-solid fa-cogs"></i> 3. Anatomía del Sistema</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl font-bold text-orange-500 mb-4 border-b border-stone-600 pb-2">A. Clasificación Hardware</h3>
+                    <p class="text-sm text-stone-400 mb-4">Un robot se compone de tres bloques funcionales:</p>
+                    
+                    <ul class="space-y-3">
+                        <li class="bg-stone-900 p-3 border-l-4 border-blue-500">
+                            <strong class="block text-white">1. Sensores (Entradas)</strong>
+                            <span class="text-xs text-stone-400">Los sentidos. Convierten magnitudes físicas en señales eléctricas. (Ej. LDR, Ultrasonidos, Final de carrera).</span>
+                        </li>
+                        <li class="bg-stone-900 p-3 border-l-4 border-orange-500">
+                            <strong class="block text-white">2. Controladora (Proceso)</strong>
+                            <span class="text-xs text-stone-400">El cerebro. Procesa los datos y decide (Arduino, ESP32).</span>
+                        </li>
+                        <li class="bg-stone-900 p-3 border-l-4 border-red-500">
+                            <strong class="block text-white">3. Actuadores (Salidas)</strong>
+                            <span class="text-xs text-stone-400">Los músculos. Realizan la acción física. (Ej. Motores DC, Servomotores, Zumbadores, LEDs).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-orange-500 mb-4 border-b border-stone-600 pb-2">B. Ciclo de Vida del Software</h3>
+                    <p class="text-sm text-stone-400 mb-4">Antes de escribir código (programar), un ingeniero sigue un proceso riguroso:</p>
+
+                    <div class="lifecycle-step">
+                        <span class="step-number">01</span>
+                        <div>
+                            <strong class="text-white text-sm">Análisis</strong>
+                            <p class="text-xs text-stone-400">¿Qué problema resolvemos? ¿Qué debe hacer el robot?</p>
+                        </div>
+                    </div>
+                    <div class="lifecycle-step">
+                        <span class="step-number">02</span>
+                        <div>
+                            <strong class="text-white text-sm">Diseño (Algoritmo)</strong>
+                            <p class="text-xs text-stone-400">Dibujar el Diagrama de Flujo. Planificar la lógica.</p>
+                        </div>
+                    </div>
+                    <div class="lifecycle-step">
+                        <span class="step-number">03</span>
+                        <div>
+                            <strong class="text-white text-sm">Implementación (Codificación)</strong>
+                            <p class="text-xs text-stone-400">Escribir el programa (C++, Python, Bloques).</p>
+                        </div>
+                    </div>
+                    <div class="lifecycle-step">
+                        <span class="step-number">04</span>
+                        <div>
+                            <strong class="text-white text-sm">Pruebas (Testing) y Mantenimiento</strong>
+                            <p class="text-xs text-stone-400">Buscar "bugs" (errores) y actualizar el sistema.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="seguridad" class="card p-8 border-t-4 border-red-600">
+            <!-- <span class="badge badge-orange">CYR.3.F.4 Seguridad Hardware</span> -->
+            <h2 class="section-title text-red-500"><i class="fa-solid fa-shield-dog"></i> 4. Seguridad de Hardware</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <h3 class="font-bold text-white mb-2">Cortafuegos de Hardware (Hardware Firewall)</h3>
+                    <p class="text-sm text-stone-300 mb-4">
+                        A diferencia del firewall de Windows (que es software), este es un <strong>dispositivo físico</strong> que se coloca entre la conexión a internet y tu red local.
+                    </p>
+                    <ul class="text-xs list-disc list-inside text-stone-400 mb-4">
+                        <li>Inspecciona físicamente cada paquete de datos.</li>
+                        <li>Es mucho más rápido y seguro que el software.</li>
+                        <li>Se usa en empresas e industria crítica.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="font-bold text-white mb-2">Módulos de Seguridad de Hardware (HSM)</h3>
+                    <p class="text-sm text-stone-300 mb-4">
+                        ¿Dónde se guardan las claves criptográficas de un banco o de tu DNI electrónico? En un HSM.
+                    </p>
+                    <div class="tech-spec border-red-500 text-red-300">
+                        <i class="fa-solid fa-lock"></i> <strong>DEFINICIÓN:</strong>
+                        Un procesador criptográfico dedicado y blindado físicamente. Si alguien intenta abrirlo o manipularlo físicamente, el HSM <strong>autodestruye</strong> las claves almacenadas.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="actividades" class="card p-8 mt-8">
+            <h2 class="section-title text-orange-500"><i class="fa-solid fa-wrench"></i> Taller de Ingeniería (Evaluación)</h2>
+            <p class="mb-8 text-stone-400">Demuestra que estás listo para construir robots reales en la próxima unidad.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-stone-900 p-5 border border-stone-700 hover:border-orange-500 transition-all group">
+                    <h3 class="font-bold text-white group-hover:text-orange-500 mb-2">Misión 1: Anatomía Robótica</h3>
+                    <span class="badge">Criterio 1.1</span>
+                    <p class="text-sm text-stone-400 mb-3">Observa el sistema de una puerta automática de garaje.</p>
+                    <div class="bg-black p-3 rounded font-mono text-xs text-green-400 mb-3">
+                        > Componentes: Motor eléctrico, Sensor infrarrojo, Arduino, Luz de aviso, Mando a distancia.
+                    </div>
+                    <p class="text-sm text-stone-300">Clasifica estos 5 componentes en una tabla: <strong>Entrada, Proceso o Salida</strong>.</p>
+                </div>
+
+                <div class="bg-stone-900 p-5 border border-stone-700 hover:border-orange-500 transition-all group">
+                    <h3 class="font-bold text-white group-hover:text-orange-500 mb-2">Misión 2: Selección de Componentes</h3>
+                    <span class="badge">CYR.3.F.2</span>
+                    <p class="text-sm text-stone-400 mb-3">Te han contratado para 2 proyectos. Elige el microcontrolador adecuado (Arduino, ESP32 o Raspberry Pi) y justifica por qué.</p>
+                    <ul class="list-disc list-inside text-xs text-stone-300">
+                        <li><strong>Proyecto A:</strong> Un sistema que riegue una planta y envíe un Tweet cuando lo haga.</li>
+                        <li><strong>Proyecto B:</strong> Un semáforo de juguete para aprender a programar en clase.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-stone-900 p-5 border border-stone-700 hover:border-orange-500 transition-all group">
+                    <h3 class="font-bold text-white group-hover:text-orange-500 mb-2">Misión 3: El Bug del Ciclo de Vida</h3>
+                    <span class="badge">CYR.3.F.3</span>
+                    <p class="text-sm text-stone-400 mb-3">Un ingeniero novato ha empezado a escribir código sin saber qué tiene que hacer el robot.</p>
+                    <p class="text-sm text-stone-300">
+                        Escribe un breve informe explicando qué riesgos corre por saltarse las fases de <strong>Análisis y Diseño</strong>, y cómo afectará eso a la fase de <strong>Mantenimiento</strong>.
+                    </p>
+                </div>
+
+                <div class="bg-stone-900 p-5 border border-stone-700 hover:border-orange-500 transition-all group">
+                    <h3 class="font-bold text-white group-hover:text-orange-500 mb-2">Misión 4: Investigación HSM</h3>
+                    <span class="badge">CYR.3.F.4</span>
+                    <p class="text-sm text-stone-400 mb-3">Seguridad de alto nivel.</p>
+                    <p class="text-sm text-stone-300">
+                        Busca en internet qué es el <strong>chip TPM</strong> (Trusted Platform Module) que tienen los ordenadores modernos para instalar Windows 11. Explica en 3 líneas qué relación tiene con un HSM (Módulo de Seguridad de Hardware).
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="mt-8 bg-orange-900/20 p-6 border border-orange-600 rounded relative">
+                 <div class="absolute top-0 right-0 bg-orange-600 text-black text-xs font-bold px-3 py-1 uppercase">Pre-Proyecto</div>
+                <h3 class="text-xl font-bold text-orange-500 mb-2">Proyecto Final: "El Blueprint"</h3>
+                <p class="text-stone-300 text-sm mb-4">
+                    Vas a diseñar sobre papel (o digitalmente) el sistema que te gustaría construir en la próxima unidad de Robótica.
+                </p>
+                <ul class="list-disc list-inside text-sm text-stone-400 space-y-2">
+                    <li>Dibuja un esquema del sistema.</li>
+                    <li>Identifica qué sensores necesitarías (Luz, distancia, temperatura...).</li>
+                    <li>Identifica qué actuadores harían la acción.</li>
+                    <li>Define qué microcontrolador usarías como cerebro.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cuestionario" class="card p-8 mt-8">
+            <h2 class="text-2xl font-bold text-white mb-6 font-mono uppercase">> Test de Certificación</h2>
+            
+            <form id="quizFormSys" onsubmit="event.preventDefault(); checkQuizSys();">
+                
+                <div class="mb-6" data-answer="b">
+                    <p class="font-bold text-white mb-2">1. ¿Qué componente realiza la acción física en un sistema (el músculo)?</p>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="a" class="accent-orange-500 mr-2"> a) El Sensor.</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="b" class="accent-orange-500 mr-2"> b) El Actuador.</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="c" class="accent-orange-500 mr-2"> c) El Microcontrolador.</label>
+                </div>
+
+                <div class="mb-6" data-answer="c">
+                    <p class="font-bold text-white mb-2">2. Si necesito conectar mi proyecto a Internet para enviar datos (IoT), ¿cuál es la mejor opción?</p>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="a" class="accent-orange-500 mr-2"> a) Arduino UNO.</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="b" class="accent-orange-500 mr-2"> b) Un servomotor.</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="c" class="accent-orange-500 mr-2"> c) ESP32.</label>
+                </div>
+
+                <div class="mb-6" data-answer="a">
+                    <p class="font-bold text-white mb-2">3. ¿Qué es un HSM (Hardware Security Module)?</p>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="a" class="accent-orange-500 mr-2"> a) Un procesador físico dedicado a guardar claves criptográficas de forma segura.</label>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="b" class="accent-orange-500 mr-2"> b) Un antivirus que se instala en Windows.</label>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="c" class="accent-orange-500 mr-2"> c) Un tipo de sensor de temperatura.</label>
+                </div>
+
+                <div class="mb-6" data-answer="b">
+                    <p class="font-bold text-white mb-2">4. En el ciclo de vida del software, ¿qué va ANTES de la implementación (escribir código)?</p>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="a" class="accent-orange-500 mr-2"> a) Las pruebas (testing).</label>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="b" class="accent-orange-500 mr-2"> b) El Análisis y el Diseño.</label>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="c" class="accent-orange-500 mr-2"> c) El Mantenimiento.</label>
+                </div>
+
+                <button type="submit" class="btn-engineer w-full md:w-auto">Validar Ingeniería</button>
+                <p id="sysResult" class="mt-4 font-mono text-center text-lg font-bold"></p>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-500 p-8 text-center mt-12 border-t border-stone-800">
+        <p class="font-mono text-xs uppercase">System Shutdown Sequence Initiated...</p>
+        <p class="text-xs mt-2">&copy; 2025 Ingeniería de Sistemas 3º ESO</p>
+    </footer>
+
+    <script>
+        const ANSWERS_SYS = { q1: 'b', q2: 'c', q3: 'a', q4: 'b' };
+
+        function checkQuizSys() {
+            const form = document.getElementById('quizFormSys');
+            let score = 0;
+            let total = 4;
+
+            for (let i = 1; i <= total; i++) {
+                const qKey = 'q' + i;
+                const selected = form.querySelector(`input[name="${qKey}"]:checked`);
+                const container = form.querySelector(`input[name="${qKey}"]`).closest('.mb-6');
+                
+                container.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                    opt.style.border = '1px solid transparent';
+                });
+
+                if (selected) {
+                    if (selected.value === ANSWERS_SYS[qKey]) {
+                        score++;
+                        selected.closest('label').classList.add('correct');
+                    } else {
+                        selected.closest('label').classList.add('incorrect');
+                        const correctInput = container.querySelector(`input[value="${ANSWERS_SYS[qKey]}"]`);
+                        correctInput.closest('label').classList.add('correct');
+                    }
+                }
+            }
+            
+            const resultText = document.getElementById('sysResult');
+            resultText.textContent = `SCORE: ${score}/${total}`;
+            
+            if(score === total) {
+                resultText.style.color = "#22c55e";
+                resultText.innerHTML += " <br> [READY FOR ROBOTICS]";
+            } else {
+                resultText.style.color = "#f97316";
+                resultText.innerHTML += " <br> [REVIEW BLUEPRINTS]";
+            }
+        }
+    </script>
+</body>
+</html>

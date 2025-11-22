@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UD9: Mobile Studio | App Design 📱</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILO "MOBILE APP / UX DESIGN" --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5; /* Light Gray Social Media style */
+            color: #1f2937;
+            background-image: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 100%);
+        }
+
+        .container { max-width: 1000px; } /* Más estrecho para simular mobile focus */
+
+        /* HEADER GRADIENTE */
+        header {
+            background: linear-gradient(to right, #ec4899, #8b5cf6); /* Pink to Purple */
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.4);
+        }
+
+        /* TÍTULOS */
+        .section-title {
+            font-weight: 800;
+            background: -webkit-linear-gradient(#ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* TARJETAS ESTILO "WIDGET" */
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #fff;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.15);
+        }
+
+        /* SIMULADOR DE MÓVIL CSS */
+        .smartphone {
+            position: relative;
+            width: 280px;
+            height: 500px;
+            margin: auto;
+            border: 12px solid #1f2937;
+            border-radius: 30px;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .smartphone-notch {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 120px; height: 20px;
+            background: #1f2937;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 10;
+        }
+        .smartphone-screen {
+            height: 100%;
+            width: 100%;
+            background: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* BADGES */
+        .badge { 
+            display: inline-block; padding: 0.3rem 0.8rem; 
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; 
+            border-radius: 99px; margin-bottom: 10px;
+        }
+        .badge-app { background: #fbcfe8; color: #be185d; }
+
+        /* BOTONES */
+        .btn-app {
+            background: linear-gradient(to right, #ec4899, #8b5cf6);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            transition: 0.3s;
+            border: none;
+        }
+        .btn-app:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.5); }
+
+        /* DIAGRAMA EVENTOS */
+        .event-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .arrow-flow { color: #9ca3af; font-size: 1.2rem; }
+
+        /* QUIZ */
+        .quiz-option {
+            background-color: #f3f4f6; padding: 1rem; margin-bottom: 0.5rem;
+            border-radius: 1rem; cursor: pointer; transition: 0.2s; border: 2px solid transparent;
+        }
+        .quiz-option:hover { border-color: #d8b4fe; background-color: #fff; }
+        .correct { background-color: #dcfce7 !important; border-color: #4ade80 !important; color: #166534; }
+        .incorrect { background-color: #fee2e2 !important; border-color: #f87171 !important; color: #991b1b; }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="text-white py-8 mb-10">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center">
+            <div class="bg-white/20 p-3 rounded-2xl mb-4 backdrop-blur-sm">
+                <i class="fa-solid fa-mobile-screen-button text-4xl"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">UD9: MOBILE STUDIO</h1>
+            <p class="text-pink-100 font-medium">Creación de Apps en Tiempo Récord | 3º ESO</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 space-y-12">
+
+        <section id="intro" class="card">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-2/3">
+                    <!-- <span class="badge badge-app">Criterio 2.2 Funcionamiento Interno</span> -->
+                    <h2 class="section-title"><i class="fa-solid fa-rocket"></i> De Usuario a Creador</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Usas apps todos los días: Instagram, TikTok, WhatsApp... Pero, ¿sabes cómo funcionan por dentro?
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        En esta unidad rápida (Flash Unit) no vamos a aprender código complejo. Vamos a entender la lógica que mueve a todas las apps del mundo: <strong>Los Eventos</strong>.
+                    </p>
+                    <div class="bg-purple-50 p-4 rounded-xl border-l-4 border-purple-500">
+                        <strong class="text-purple-700">La Herramienta: Thunkable</strong>
+                        <p class="text-sm text-gray-600 mt-1">
+                            En el pasado usaste App Inventor. Ahora subimos de nivel con <strong>Thunkable</strong>. Es similar (bloques), pero permite crear apps profesionales que funcionan tanto en iPhone (iOS) como en Android.
+                        </p>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="text-9xl text-pink-400/20 animate-bounce">📱</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="eventos" class="card">
+            <!-- <span class="badge badge-app">CYR.3.D.2 / D.3 / D.5 Eventos</span> -->
+            <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Programación Orientada a Eventos</h2>
+            
+            <p class="text-gray-600 mb-6">
+                A diferencia de un programa de matemáticas que va de arriba a abajo (paso 1, paso 2, fin), una App Móvil <strong>no hace nada hasta que pasa algo</strong>. Está "dormida" esperando.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">El Ciclo del Evento:</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="event-flow shadow-sm">
+                            <div class="text-center">
+                                <i class="fa-solid fa-fingerprint text-2xl text-pink-500"></i>
+                                <div class="font-bold text-xs mt-1">1. EVENTO</div>
+                            </div>
+                            <div class="arrow-flow">➜</div>
+                            <div class="text-sm text-gray-500">El usuario toca un botón o agita el móvil.</div>
+                        </div>
+
+                        <div class="event-flow shadow-sm">
+                            <div class="text-center">
+                                <i class="fa-solid fa-ear-listen text-2xl text-purple-500"></i>
+                                <div class="font-bold text-xs mt-1">2. LISTENER</div>
+                            </div>
+                            <div class="arrow-flow">➜</div>
+                            <div class="text-sm text-gray-500">La app "escucha" y detecta que ha ocurrido algo.</div>
+                        </div>
+
+                        <div class="event-flow shadow-sm">
+                            <div class="text-center">
+                                <i class="fa-solid fa-code text-2xl text-blue-500"></i>
+                                <div class="font-bold text-xs mt-1">3. HANDLER</div>
+                            </div>
+                            <div class="arrow-flow">➜</div>
+                            <div class="text-sm text-gray-500">Se ejecuta el código de respuesta (ej. reproducir sonido).</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="smartphone">
+                        <div class="smartphone-notch"></div>
+                        <div class="smartphone-screen">
+                            <i class="fa-solid fa-music text-4xl text-gray-300 mb-4" id="demoIcon"></i>
+                            <h3 class="font-bold text-gray-800 mb-4">Soundboard App</h3>
+                            <button onclick="demoApp()" class="bg-pink-500 text-white px-6 py-3 rounded-full shadow-lg active:scale-95 transition">
+                                <i class="fa-solid fa-play"></i> Tocar Botón
+                            </button>
+                            <p class="text-xs text-gray-400 mt-4" id="demoText">Esperando evento...</p>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-400 mt-2">Prueba el simulador interactivo</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sensores" class="card bg-gradient-to-br from-white to-purple-50">
+            <!-- <span class="badge badge-app">CYR.3.D.4 Sensores</span> -->
+            <h2 class="section-title"><i class="fa-solid fa-satellite-dish"></i> Sensores: Los Sentidos del Móvil</h2>
+            <p class="text-gray-600 mb-6">
+                Los eventos no son solo "clics". Tu móvil está lleno de sensores que generan eventos invisibles.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                    <i class="fa-solid fa-up-down-left-right text-3xl text-purple-500 mb-2"></i>
+                    <h4 class="font-bold text-gray-800">Acelerómetro</h4>
+                    <p class="text-xs text-gray-500 mt-1">Evento: "Cuando se agita" (Shaking).</p>
+                    <p class="text-xs text-pink-500 font-bold mt-1">Uso: Podómetro, Juegos.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                    <i class="fa-solid fa-location-dot text-3xl text-red-500 mb-2"></i>
+                    <h4 class="font-bold text-gray-800">GPS</h4>
+                    <p class="text-xs text-gray-500 mt-1">Evento: "Cuando cambia ubicación".</p>
+                    <p class="text-xs text-pink-500 font-bold mt-1">Uso: Mapas, Pokémon GO.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                    <i class="fa-solid fa-microphone-lines text-3xl text-blue-500 mb-2"></i>
+                    <h4 class="font-bold text-gray-800">Micrófono</h4>
+                    <p class="text-xs text-gray-500 mt-1">Evento: "Cuando detecta sonido".</p>
+                    <p class="text-xs text-pink-500 font-bold mt-1">Uso: Asistentes de voz.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="actividades" class="card border-t-4 border-pink-500">
+            <h2 class="section-title text-pink-600"><i class="fa-solid fa-laptop-code"></i> Zona de Creación (2 Sesiones)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Actividad 1: Mapa de Eventos</h3>
+                        <span class="bg-gray-200 text-gray-600 text-xs font-bold px-2 py-1 rounded">Criterio 2.2</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Antes de programar, hay que diseñar. Imagina una App para gente que hace "Running". Completa la tabla de lógica:
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700 bg-white p-4 rounded-lg shadow-inner">
+                        <li><strong>Evento:</strong> El GPS detecta movimiento > 5km/h. <br><span class="text-purple-600">➡ Acción: ____________________</span></li>
+                        <li><strong>Evento:</strong> El usuario pulsa "Finalizar". <br><span class="text-purple-600">➡ Acción: ____________________</span></li>
+                        <li><strong>Evento:</strong> Batería baja (< 10%). <br><span class="text-purple-600">➡ Acción: ____________________</span></li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-6 rounded-2xl text-white shadow-xl transform rotate-1 hover:rotate-0 transition duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Actividad 2: Magic 8 Ball</h3>
+                        <span class="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded">Criterio 2.3</span>
+                    </div>
+                    <p class="text-sm text-purple-100 mb-4">
+                        Vamos a crear tu primera App en Thunkable.
+                    </p>
+                    <ol class="list-decimal list-inside text-sm space-y-2 mb-4 font-medium">
+                        <li>Entra en Thunkable y crea un proyecto nuevo.</li>
+                        <li>Diseño: Añade una Imagen (Bola 8) y una Etiqueta (Texto) vacía.</li>
+                        <li><strong>Lógica (Bloques):</strong> Usa el componente <strong>"Accelerometer"</strong>.</li>
+                        <li><code>Cuando Acelerómetro.Shaking (Agitar)</code> ➡ <code>Poner Texto = "Sí/No" (Random)</code>.</li>
+                        <li>¡Pruébala en tu móvil con la App de Thunkable Live!</li>
+                    </ol>
+                    <a href="https://thunkable.com/" target="_blank" class="inline-block bg-white text-purple-600 px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 transition">
+                        Ir a Thunkable <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="cuestionario" class="card">
+            <h2 class="section-title text-gray-800">⚡ Speed Quiz</h2>
+            
+            <form id="quizFormMobile" onsubmit="event.preventDefault(); checkQuizMobile();">
+                
+                <div class="mb-4" data-answer="b">
+                    <p class="font-bold text-gray-800 mb-2">1. ¿Cuál es la diferencia principal de una App Móvil frente a un programa clásico?</p>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="a" class="mr-2 accent-pink-500"> a) Las apps tienen mejores colores.</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="b" class="mr-2 accent-pink-500"> b) Las apps están orientadas a eventos (esperan a que pase algo).</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="c" class="mr-2 accent-pink-500"> c) Las apps no usan código.</label>
+                </div>
+
+                <div class="mb-4" data-answer="a">
+                    <p class="font-bold text-gray-800 mb-2">2. ¿Qué sensor usarías para detectar que el usuario ha girado el móvil para ver un vídeo en horizontal?</p>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="a" class="mr-2 accent-pink-500"> a) Giroscopio / Acelerómetro.</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="b" class="mr-2 accent-pink-500"> b) GPS.</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="c" class="mr-2 accent-pink-500"> c) Sensor de huella.</label>
+                </div>
+
+                <button type="submit" id="checkBtnMobile" class="btn-app w-full">Comprobar</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="bg-white py-8 mt-12 text-center text-gray-400 text-sm border-t border-gray-100">
+        <p>&copy; 2025 Dept. Tecnología | Mobile Studio</p>
+    </footer>
+
+    <script>
+        // Lógica del Simulador de App
+        function demoApp() {
+            const text = document.getElementById('demoText');
+            const icon = document.getElementById('demoIcon');
+            
+            text.innerHTML = "⚡ EVENTO DETECTADO: <br> <span class='text-pink-500 font-bold'>Button.Click</span>";
+            icon.className = "fa-solid fa-volume-high text-4xl text-pink-500 mb-4 animate-pulse";
+            
+            // Reproducir sonido simulado (visual)
+            setTimeout(() => {
+                text.innerHTML = "✅ ACCIÓN EJECUTADA: <br> <span class='text-purple-500 font-bold'>Play Sound</span>";
+            }, 500);
+
+            setTimeout(() => {
+                text.innerHTML = "Esperando evento...";
+                icon.className = "fa-solid fa-music text-4xl text-gray-300 mb-4";
+            }, 2000);
+        }
+
+        // Lógica del Quiz
+        const ANSWERS_MOBILE = { q1: 'b', q2: 'a' };
+
+        function checkQuizMobile() {
+            const form = document.getElementById('quizFormMobile');
+            let score = 0;
+            
+            for (let i = 1; i <= 2; i++) {
+                const qKey = 'q' + i;
+                const selected = form.querySelector(`input[name="${qKey}"]:checked`);
+                const container = form.querySelector(`input[name="${qKey}"]`).closest('.mb-4');
+                
+                container.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+
+                if (selected) {
+                    if (selected.value === ANSWERS_MOBILE[qKey]) {
+                        score++;
+                        selected.closest('label').classList.add('correct');
+                    } else {
+                        selected.closest('label').classList.add('incorrect');
+                    }
+                }
+            }
+            const btn = document.getElementById('checkBtnMobile');
+            if(score === 2) {
+                btn.textContent = "¡Genial! 2/2 Aciertos";
+                btn.style.background = "#4ade80";
+            } else {
+                btn.textContent = `Has acertado ${score}/2`;
+            }
+        }
+    </script>
+</body>
+</html>

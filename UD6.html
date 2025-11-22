@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UD6: Ciberseguridad | Defense Mode 🛡️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILO "CYBER DEFENSE" --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)), url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+        }
+
+        .font-mono { font-family: 'Share Tech Mono', monospace; }
+        .container { max-width: 1200px; }
+
+        /* ENCABEZADOS */
+        .section-title {
+            border-left: 6px solid #ef4444; /* Red 500 */
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* TARJETAS */
+        .card {
+            background-color: #1e293b; /* Slate 800 */
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b);
+        }
+
+        /* ELEMENTOS INTERACTIVOS Y TEORÍA */
+        .theory-block {
+            border-left: 3px solid #60a5fa;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .concept-title { color: #60a5fa; font-weight: bold; font-size: 1.1rem; }
+
+        .warning-box {
+            background-color: #450a0a; /* Dark Red */
+            border: 1px solid #ef4444;
+            color: #fecaca;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        /* TABLAS */
+        .cyber-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .cyber-table th { background: #334155; color: #fff; padding: 12px; text-align: left; text-transform: uppercase; font-size: 0.8rem; }
+        .cyber-table td { border-bottom: 1px solid #334155; padding: 12px; }
+        .cyber-table tr:hover { background: #263346; }
+
+        /* IMÁGENES */
+        .img-cyber {
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            filter: brightness(0.9) contrast(1.1);
+            transition: filter 0.3s;
+        }
+        .img-cyber:hover { filter: brightness(1); }
+
+        /* BOTONES */
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white; padding: 0.75rem 1.5rem; border-radius: 0.3rem;
+            font-weight: bold; transition: 0.3s; letter-spacing: 1px;
+        }
+        .btn-danger:hover { box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); transform: scale(1.02); }
+
+        /* QUIZ */
+        .quiz-option {
+            background-color: #334155; padding: 1rem; margin-bottom: 0.5rem;
+            border-radius: 0.5rem; cursor: pointer; transition: 0.2s;
+        }
+        .quiz-option:hover { background-color: #475569; border-left: 4px solid #ef4444; }
+        .correct { background-color: #064e3b !important; border-color: #34d399 !important; }
+        .incorrect { background-color: #7f1d1d !important; border-color: #f87171 !important; }
+        
+        /* BADGES */
+        .badge { display: inline-block; padding: 0.2rem 0.5rem; font-size: 0.7rem; font-weight: bold; border-radius: 4px; margin-right: 5px; margin-bottom: 5px;}
+        .badge-std { background: #334155; color: #cbd5e1; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-slate-900 border-b border-slate-700 sticky top-0 z-50 shadow-2xl">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="text-3xl text-red-500 animate-pulse"><i class="fa-solid fa-shield-cat"></i></div>
+                <div>
+                    <h1 class="text-2xl font-bold text-white tracking-tight font-mono">UD6: CIBERSEGURIDAD</h1>
+                    <p class="text-xs text-red-400 font-mono">STATUS: DEFCON 3 | NIVEL: AVANZADO</p>
+                </div>
+            </div>
+            <nav class="mt-4 md:mt-0">
+                <ul class="flex flex-wrap gap-6 text-sm font-medium text-slate-400">
+                    <li><a href="#triada" class="hover:text-white transition-colors">Triada CIA</a></li>
+                    <li><a href="#ingenieria" class="hover:text-white transition-colors">Ingeniería Social</a></li>
+                    <li><a href="#malware" class="hover:text-white transition-colors">Malware</a></li>
+                    <li><a href="#defensa" class="hover:text-white transition-colors">Defensa (VPN/Firewall)</a></li>
+                    <li><a href="#legal" class="hover:text-white transition-colors">Legalidad</a></li>
+                    <li><a href="#actividades" class="text-red-400 font-bold hover:text-red-300 border border-red-500/50 px-3 py-1 rounded bg-red-900/10">6 Misiones</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 mt-4">
+
+        <section id="triada" class="card p-8">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-2/3">
+                    <!-- <span class="badge badge-std">CYR.3.I.1 Tipologías</span> -->
+                    <h2 class="section-title text-2xl"><i class="fa-solid fa-lock"></i> 1. Los Pilares de la Seguridad</h2>
+                    <p class="mb-4 text-slate-300">
+                        La seguridad absoluta no existe. El objetivo es reducir el riesgo a un nivel aceptable. Para ello, los profesionales se basan en la <strong>Triada CIA</strong> (Confidencialidad, Integridad, Disponibilidad).
+                    </p>
+                    
+                    <div class="space-y-4 mt-6">
+                        <div class="theory-block border-blue-500">
+                            <h3 class="concept-title text-blue-400">C - Confidencialidad</h3>
+                            <p class="text-sm text-slate-400">Garantizar que la información solo es accesible por personas autorizadas. Se consigue mediante <strong>encriptación</strong> y contraseñas.</p>
+                        </div>
+                        <div class="theory-block border-green-500">
+                            <h3 class="concept-title text-green-400">I - Integridad</h3>
+                            <p class="text-sm text-slate-400">Asegurar que los datos no han sido alterados o modificados. Si envías un mensaje que dice "Hola", debe llegar "Hola", no "Adiós".</p>
+                        </div>
+                        <div class="theory-block border-yellow-500">
+                            <h3 class="concept-title text-yellow-400">A - Disponibilidad</h3>
+                            <p class="text-sm text-slate-400">Que los sistemas funcionen cuando se necesitan. Un ataque DDoS busca romper este pilar saturando el servidor.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex flex-col justify-center">
+                     
+                    <p class="text-xs text-center text-slate-500 mt-2">La base de cualquier estrategia de defensa.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ingenieria" class="card p-8 border-l-4 border-purple-500">
+             <!-- <span class="badge badge-std">CYR.3.I.1 Amenazas</span> -->
+            <h2 class="section-title text-2xl text-purple-400" style="border-color: #a855f7"><i class="fa-solid fa-user-secret"></i> 2. El Factor Humano: Ingeniería Social</h2>
+            <p class="mb-6 text-slate-300">
+                El eslabón más débil no es el ordenador, eres tú. La ingeniería social consiste en manipular psicológicamente a las víctimas para que revelen información confidencial.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                    <div class="text-3xl text-purple-500 mb-2"><i class="fa-solid fa-envelope"></i></div>
+                    <h3 class="font-bold text-white">Phishing</h3>
+                    <p class="text-xs text-slate-400 mt-2">Correos electrónicos fraudulentos que suplantan la identidad de bancos o servicios (Netflix, Correos) para que hagas clic en un enlace falso.</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                    <div class="text-3xl text-purple-500 mb-2"><i class="fa-solid fa-comment-sms"></i></div>
+                    <h3 class="font-bold text-white">Smishing</h3>
+                    <p class="text-xs text-slate-400 mt-2">Variante del Phishing a través de <strong>SMS</strong>. "Su paquete está retenido, pague tasas aquí...". Muy peligroso en móviles.</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                    <div class="text-3xl text-purple-500 mb-2"><i class="fa-solid fa-phone-volume"></i></div>
+                    <h3 class="font-bold text-white">Vishing</h3>
+                    <p class="text-xs text-slate-400 mt-2">Estafas por <strong>llamada de voz</strong>. "Le llamamos de soporte técnico de Microsoft, su PC tiene un virus...".</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="malware" class="card p-8">
+            <!-- <span class="badge badge-std">CYR.3.I.3 Tipos de Malware</span> -->
+            <h2 class="section-title text-2xl"><i class="fa-solid fa-biohazard"></i> 3. Clasificación de Amenazas</h2>
+            <p class="mb-6 text-slate-300">
+                Malware (Malicious Software) es cualquier programa diseñado para causar daño.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="cyber-table">
+                    <thead>
+                        <tr>
+                            <th>Amenaza</th>
+                            <th>Comportamiento</th>
+                            <th>Daño Potencial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-red-400 font-bold">Virus</td>
+                            <td>Infecta archivos ejecutables (.exe). Necesita que tú lo abras.</td>
+                            <td>Borrado de datos.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-yellow-400 font-bold">Gusano (Worm)</td>
+                            <td>Se replica solo por la red (Wi-Fi/Email) sin intervención humana.</td>
+                            <td>Colapso de redes.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-purple-400 font-bold">Troyano</td>
+                            <td>Se disfraza de software legítimo (juegos crackeados) para abrir una "puerta trasera".</td>
+                            <td>Robo total de control.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-red-500 font-bold bg-red-900/20">Ransomware</td>
+                            <td class="bg-red-900/20"><strong>Cifra</strong> tus archivos y pide un rescate (€) para darte la clave.</td>
+                            <td class="bg-red-900/20">Crítico / Pérdida total.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-400 font-bold">Spyware</td>
+                            <td>Recopila información en segundo plano (Keyloggers guardan tus teclas).</td>
+                            <td>Robo de contraseñas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="defensa" class="card p-8">
+            <!-- <span class="badge badge-std">CYR.3.I.4 Soluciones</span> --> <!-- <span class="badge badge-std">Criterio 6.4</span> -->
+            <h2 class="section-title text-2xl"><i class="fa-solid fa-shield-halved"></i> 4. Defensa Activa y Herramientas</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-400 mb-4">A. Hábitos del Usuario</h3>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li class="flex gap-3">
+                            <i class="fa-solid fa-key text-yellow-500 mt-1"></i>
+                            <div>
+                                <strong>Gestión de Contraseñas:</strong> No uses la misma para todo. Usa frases largas ("MiPerroComePizzaEn2025!") o gestores de contraseñas.
+                            </div>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fa-solid fa-mobile-screen text-green-500 mt-1"></i>
+                            <div>
+                                <strong>2FA (Doble Factor):</strong> <span class="text-green-400 font-bold">IMPRESCINDIBLE.</span> Aunque roben tu clave, necesitan el código temporal de tu móvil.
+                            </div>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fa-solid fa-wifi text-red-400 mt-1"></i>
+                            <div>
+                                <strong>Wi-Fi Públicas:</strong> Evítalas para entrar al banco. Cualquiera en la cafetería puede "escuchar" tu tráfico.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-blue-400 mb-4">B. Herramientas Técnicas</h3>
+                    
+                    <div class="bg-slate-900 p-4 rounded mb-3 border-l-4 border-indigo-500">
+                        <strong class="text-white">Firewall (Cortafuegos)</strong>
+                        <p class="text-xs text-slate-400 mt-1">Software o Hardware que vigila el tráfico de red. Bloquea conexiones no autorizadas que intentan entrar (o salir) de tu PC.</p>
+                         
+                    </div>
+
+                    <div class="bg-slate-900 p-4 rounded border-l-4 border-orange-500">
+                        <strong class="text-white">VPN (Red Privada Virtual)</strong>
+                        <p class="text-xs text-slate-400 mt-1">Crea un "túnel" cifrado entre tu dispositivo e Internet. Oculta tu IP real y cifra tus datos, protegiéndote en redes Wi-Fi públicas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="legal" class="card p-8 border-l-4 border-yellow-500">
+            <!-- <span class="badge badge-std">CYR.3.I.5 Propiedad Intelectual</span> --> <!-- <span class="badge badge-std">RGPD</span> -->
+            <h2 class="section-title text-2xl text-yellow-500" style="border-color: #f59e0b"><i class="fa-solid fa-scale-balanced"></i> 5. Ley y Derechos Digitales</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <h3 class="font-bold text-white mb-2">Propiedad Intelectual</h3>
+                    <p class="text-sm text-slate-300 mb-4">En Internet, todo contenido tiene dueño. Descargar no siempre es legal.</p>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><i class="fa-regular fa-copyright"></i> <strong>Copyright:</strong> Todos los derechos reservados. Necesitas permiso.</li>
+                        <li><i class="fa-brands fa-creative-commons"></i> <strong>Creative Commons:</strong> Permisos flexibles (ej. citar al autor).</li>
+                        <li><i class="fa-solid fa-infinity"></i> <strong>Dominio Público:</strong> Uso libre.</li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="font-bold text-white mb-2">Tus Datos: El RGPD</h3>
+                    <p class="text-sm text-slate-300 mb-2">El <strong>Reglamento General de Protección de Datos</strong> te da poder sobre tu información.</p>
+                    <div class="bg-slate-900 p-3 rounded text-xs text-slate-400">
+                        <strong>Tus Derechos ARCO:</strong>
+                        <ul class="list-disc list-inside mt-1">
+                            <li><strong>Acceso:</strong> Saber qué datos tienen de ti.</li>
+                            <li><strong>Rectificación:</strong> Corregir datos erróneos.</li>
+                            <li><strong>Olvido:</strong> Pedir que borren tus datos de Google/Redes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="actividades" class="card p-8 mt-8 border-t-4 border-red-600">
+            <h2 class="section-title text-3xl text-red-500"><i class="fa-solid fa-list-check"></i> CENTRO DE MISIONES (6 ACTIVIDADES)</h2>
+            <p class="mb-8 text-slate-300">Completa estas 6 misiones para certificar tus competencias.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-slate-800 p-5 rounded border border-slate-600 hover:border-blue-500 transition-colors">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-blue-400">Misión 1: Password Fortification</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Criterio 6.1</span>
+                    </div>
+                    <p class="text-sm mb-3 text-slate-300">Analiza la seguridad de "miclase3eso".</p>
+                    <ul class="text-xs list-disc list-inside text-slate-400 mb-3">
+                        <li>Usa <em>howsecureismypassword.net</em> (usa una contraseña similar, no la real).</li>
+                        <li>Crea una versión robusta usando frases (ej: "MiClaseDe3EsoEsGenial!25").</li>
+                        <li>Compara el tiempo de hackeo.</li>
+                    </ul>
+                    <strong class="text-xs text-blue-300">Entrega: Captura comparativa.</strong>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded border border-slate-600 hover:border-red-500 transition-colors">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-red-400">Misión 2: The Ransomware Dilemma</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Criterio 6.4</span>
+                    </div>
+                    <p class="text-sm mb-3 text-slate-300">Caso: Un hospital infectado. Piden 10.000€.</p>
+                    <ul class="text-xs list-disc list-inside text-slate-400 mb-3">
+                        <li>Investiga qué recomienda INCIBE o la Policía.</li>
+                        <li>Escribe por qué <strong>NO</strong> se debe pagar (fomenta el crimen, no garantizan devolver datos).</li>
+                        <li>¿Qué medida (Copia de seguridad) habría salvado al hospital?</li>
+                    </ul>
+                    <strong class="text-xs text-red-300">Entrega: Texto argumentativo.</strong>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded border border-slate-600 hover:border-yellow-500 transition-colors">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-yellow-400">Misión 3: Phishing Detective</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Criterio 6.2</span>
+                    </div>
+                    <p class="text-sm mb-3 text-slate-300">Correo: "Su cuenta Netflix caduca. Click aquí".</p>
+                    <ul class="text-xs list-disc list-inside text-slate-400 mb-3">
+                        <li>Enlace real: <code>http://netflix-login-support.xy</code>. Analiza por qué es falsa.</li>
+                        <li>Identifica 3 señales de alerta (urgencia, remitente extraño, faltas).</li>
+                    </ul>
+                    <strong class="text-xs text-yellow-300">Entrega: Análisis forense.</strong>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded border border-slate-600 hover:border-purple-500 transition-colors">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-purple-400">Misión 4: Copyright Lawyer</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Criterio 6.3</span>
+                    </div>
+                    <p class="text-sm mb-3 text-slate-300">Quieres monetizar un vídeo en YouTube.</p>
+                    <ul class="text-xs list-disc list-inside text-slate-400 mb-3">
+                        <li>Busca una imagen CC BY-NC (No comercial).</li>
+                        <li>Busca una imagen de Dominio Público (Pixabay).</li>
+                        <li>¿Cuál puedes usar para ganar dinero? Justifica.</li>
+                    </ul>
+                    <strong class="text-xs text-purple-300">Entrega: Informe legal.</strong>
+                </div>
+
+                 <div class="bg-slate-800 p-5 rounded border border-slate-600 hover:border-green-500 transition-colors">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-green-400">Misión 5: OSINT sobre Celebridad</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Criterio 6.1</span>
+                    </div>
+                    <p class="text-sm mb-3 text-slate-300"><strong>Objetivo:</strong> Entender la huella digital pública sin exponer tus datos.</p>
+                    <ul class="text-xs list-disc list-inside text-slate-400 mb-3">
+                        <li>Elige un personaje famoso (Elon Musk, Taylor Swift, Ibai Llanos).</li>
+                        <li>Realiza una búsqueda OSINT básica (Google News, Redes Sociales Públicas).</li>
+                        <li>Encuentra un dato que ellos mismos hayan hecho público (ej. su comida favorita, su primer coche).</li>
+                        <li>Reflexiona: Si fuera una persona anónima, ¿podría un hacker usar ese dato para adivinar su pregunta de seguridad?</li>
+                    </ul>
+                    <strong class="text-xs text-green-300">Entrega: Informe de Reputación Online.</strong>
+                </div>
+
+                 <div class="bg-slate-800 p-5 rounded border border-slate-600 hover:border-cyan-500 transition-colors">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="font-bold text-cyan-400">Misión 6: Campaña Escolar</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded">Global</span>
+                    </div>
+                    <p class="text-sm mb-3 text-slate-300">Crea un producto para alumnos de 1º ESO.</p>
+                    <ul class="text-xs list-disc list-inside text-slate-400 mb-3">
+                        <li>Diseña un cartel (Canva) con "5 Mandamientos de Seguridad".</li>
+                        <li>Enfocado en evitar robo de cuentas o Cyberbullying.</li>
+                    </ul>
+                    <strong class="text-xs text-cyan-300">Entrega: Cartel JPG/PDF.</strong>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="cuestionario" class="card p-8">
+            <h2 class="text-2xl font-bold text-white mb-6 font-mono">>> EXAMEN DE CERTIFICACIÓN SOC</h2>
+            
+            <form id="quizFormCyber" onsubmit="event.preventDefault(); checkQuizCyber();">
+                
+                <div class="mb-6" data-answer="b">
+                    <p class="font-bold text-white mb-2">1. Si recibes un SMS diciendo que tu paquete está retenido y pide datos bancarios, es...</p>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="a" class="accent-red-500 mr-2"> a) Vishing.</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="b" class="accent-red-500 mr-2"> b) Smishing (Ingeniería Social).</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="c" class="accent-red-500 mr-2"> c) Un Ransomware.</label>
+                </div>
+
+                <div class="mb-6" data-answer="b">
+                    <p class="font-bold text-white mb-2">2. ¿Qué herramienta técnica cifra tu conexión y oculta tu IP en redes públicas?</p>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="a" class="accent-red-500 mr-2"> a) El Antivirus.</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="b" class="accent-red-500 mr-2"> b) La VPN.</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="c" class="accent-red-500 mr-2"> c) El Firewall.</label>
+                </div>
+
+                <div class="mb-6" data-answer="c">
+                    <p class="font-bold text-white mb-2">3. Según el RGPD, el "Derecho al Olvido" permite...</p>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="a" class="accent-red-500 mr-2"> a) Olvidar tu contraseña sin consecuencias.</label>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="b" class="accent-red-500 mr-2"> b) Que Google te pague por tus datos.</label>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="c" class="accent-red-500 mr-2"> c) Solicitar que se eliminen tus datos personales de internet.</label>
+                </div>
+
+                <div class="mb-6" data-answer="a">
+                    <p class="font-bold text-white mb-2">4. Un Troyano se diferencia de un Gusano en que...</p>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="a" class="accent-red-500 mr-2"> a) El Troyano se disfraza de algo útil y el Gusano se replica solo.</label>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="b" class="accent-red-500 mr-2"> b) El Troyano es hardware y el Gusano software.</label>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="c" class="accent-red-500 mr-2"> c) El Gusano pide dinero (Ransomware).</label>
+                </div>
+
+                <button type="submit" class="btn-danger w-full md:w-auto">VALIDAR CREDENCIALES</button>
+                <p id="cyberResult" class="mt-4 font-mono text-center text-lg"></p>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 p-8 text-center mt-12 border-t border-slate-800">
+        <p class="font-mono text-sm">SECURE CONNECTION TERMINATED.</p>
+        <p class="text-xs mt-2">&copy; 2025 Ciberseguridad 3º ESO | White Hat Academy</p>
+    </footer>
+
+    <script>
+        const ANSWERS_CYBER = { q1: 'b', q2: 'b', q3: 'c', q4: 'a' };
+
+        function checkQuizCyber() {
+            const form = document.getElementById('quizFormCyber');
+            let score = 0;
+            let total = 4;
+
+            for (let i = 1; i <= total; i++) {
+                const qKey = 'q' + i;
+                const selected = form.querySelector(`input[name="${qKey}"]:checked`);
+                const container = form.querySelector(`input[name="${qKey}"]`).closest('.mb-6');
+                
+                container.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                    opt.style.borderColor = 'transparent';
+                });
+
+                if (selected) {
+                    if (selected.value === ANSWERS_CYBER[qKey]) {
+                        score++;
+                        selected.closest('label').classList.add('correct');
+                    } else {
+                        selected.closest('label').classList.add('incorrect');
+                        const correctInput = container.querySelector(`input[value="${ANSWERS_CYBER[qKey]}"]`);
+                        correctInput.closest('label').classList.add('correct');
+                    }
+                }
+            }
+            
+            const resultText = document.getElementById('cyberResult');
+            resultText.textContent = `ACCESS LEVEL: ${score}/${total}`;
+            
+            if(score === total) {
+                resultText.style.color = "#34d399";
+                resultText.innerHTML += " <br> [ACCESS GRANTED - SYSTEM SECURE]";
+            } else {
+                resultText.style.color = "#ef4444";
+                resultText.innerHTML += " <br> [ACCESS DENIED - STUDY MORE]";
+            }
+        }
+    </script>
+</body>
+</html>

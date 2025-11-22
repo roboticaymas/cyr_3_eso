@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UD8: Robótica Aplicada | Engineering Lab 🦾</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILO "INDUSTRIAL ROBOTICS" --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #f3f4f6;
+            background-image: radial-gradient(#374151 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .container { max-width: 1200px; }
+
+        /* HEADER IMPACTANTE */
+        header {
+            background: linear-gradient(to right, #0f172a, #1e293b);
+            border-bottom: 4px solid #eab308; /* Yellow Warning */
+        }
+
+        /* TÍTULOS */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            color: #eab308; /* Industrial Yellow */
+        }
+        .section-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 2px;
+            background: #374151;
+            margin-left: 10px;
+        }
+
+        /* TARJETAS DE CONTENIDO */
+        .card {
+            background-color: #1f2937; /* Gray 800 */
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { border-color: #eab308; box-shadow: 0 0 15px rgba(234, 179, 8, 0.1); }
+
+        /* CAJAS DE CÓDIGO ARDUINO */
+        .arduino-ide {
+            background-color: #1e1e1e; /* VS Code Dark */
+            color: #d4d4d4;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .ide-header {
+            background-color: #252526;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            color: #9cdcfe;
+            border-bottom: 1px solid #333;
+        }
+        .ide-body { padding: 15px; line-height: 1.6; font-size: 0.9rem; }
+        
+        /* Colores de sintaxis */
+        .kwd { color: #569cd6; font-weight: bold; } /* Keywords */
+        .func { color: #dcdcaa; } /* Functions */
+        .var { color: #9cdcfe; } /* Variables */
+        .com { color: #6a9955; font-style: italic; } /* Comments */
+        .num { color: #b5cea8; } /* Numbers */
+
+        /* BADGES Y ETIQUETAS */
+        .badge { 
+            display: inline-block; padding: 0.25rem 0.5rem; 
+            font-size: 0.7rem; font-weight: 800; text-transform: uppercase; 
+            background: #374151; color: #9ca3af; border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .badge-core { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+
+        /* ZONA DE PROYECTOS (CLASSROOM LINK) */
+        .project-slot {
+            background: repeating-linear-gradient(
+                45deg,
+                #1f2937,
+                #1f2937 10px,
+                #111827 10px,
+                #111827 20px
+            );
+            border: 2px dashed #4b5563;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        .project-slot:hover { border-color: #eab308; background: #1f2937; }
+
+        /* ESTILO PARA SLOT LOCKED */
+        .locked-slot {
+            background-color: #0f1011;
+            border: 2px solid #ef4444;
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+        .locked-overlay {
+            background: rgba(0,0,0,0.7);
+        }
+
+        /* BOTONES */
+        .btn-action {
+            background-color: #eab308; color: #000;
+            padding: 0.5rem 1.5rem; font-weight: bold; border-radius: 4px;
+            transition: 0.2s; display: inline-flex; items-center; gap: 8px;
+        }
+        .btn-action:hover { background-color: #fbbf24; transform: translateY(-2px); }
+
+        /* GIMNASIO DE CÓDIGO (EJERCICIOS) */
+        .gym-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .gym-card {
+            background: #111827; border: 1px solid #374151; padding: 1.5rem;
+            border-radius: 8px; position: relative;
+        }
+        .gym-card:hover { border-color: #4ade80; }
+        .hidden-answer { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #374151; color: #34d399; font-family: monospace; font-size: 0.85rem;}
+        
+        .img-robo {
+            border-radius: 0.5rem;
+            border: 2px solid #4b5563;
+            filter: brightness(0.9);
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="sticky top-0 z-50 shadow-2xl">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="bg-yellow-500 text-black w-10 h-10 flex items-center justify-center rounded font-bold text-xl">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white tracking-tighter">UD8: ROBÓTICA APLICADA</h1>
+                    <p class="text-xs text-yellow-500 font-mono uppercase">LABORATORIO DE INGENIERÍA | 3º ESO</p>
+                </div>
+            </div>
+            <nav class="mt-4 md:mt-0">
+                <ul class="flex flex-wrap justify-center gap-6 text-sm font-bold text-gray-400">
+                    <li><a href="#morfologia" class="hover:text-yellow-400 transition-colors">Morfología</a></li>
+                    <li><a href="#agv" class="hover:text-yellow-400 transition-colors">AGVs</a></li>
+                    <li><a href="#codigo" class="hover:text-yellow-400 transition-colors">C++</a></li>
+                    <li><a href="#gym" class="text-green-400 hover:text-green-300 border border-green-500/50 px-2 rounded"><i class="fa-solid fa-dumbbell"></i> Code Gym</a></li>
+                    <li><a href="#proyectos" class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded hover:bg-yellow-500 hover:text-black transition-all">ZONA PROYECTOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 mt-8 space-y-16">
+
+        <section id="morfologia" class="card">
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="lg:w-2/3">
+                    <!-- <span class="badge badge-core">CYR.3.C.1 / C.2 / C.3</span> -->
+                    <h2 class="section-title"><i class="fa-solid fa-draw-polygon"></i> Anatomía de un Robot</h2>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-white mb-2">1. Grados de Libertad (GDL / DoF)</h3>
+                        <p class="text-gray-400 mb-4">
+                            Los GDL son el número de movimientos independientes que puede realizar un robot.
+                        </p>
+                        <div class="bg-gray-900 p-4 rounded border-l-4 border-blue-500 text-sm text-gray-300">
+                            <strong>Analogía: Tu Brazo (7 GDL)</strong><br>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Hombro: 3 GDL.</li>
+                                <li>Codo: 1 GDL (Flexión).</li>
+                                <li>Muñeca: 3 GDL.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-yellow-500 mb-2">2. Articulaciones</h3>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li><i class="fa-solid fa-arrows-rotate text-gray-500"></i> <strong>Rotacional:</strong> Gira sobre un eje.</li>
+                                <li><i class="fa-solid fa-arrows-left-right text-gray-500"></i> <strong>Prismática:</strong> Se desliza linealmente.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-yellow-500 mb-2">3. Morfologías</h3>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li><strong>Cartesiano:</strong> Ejes X, Y, Z (Impresora 3D).</li>
+                                <li><strong>SCARA:</strong> Rápido en horizontal.</li>
+                                <li><strong>Antropomórfico:</strong> Brazo articulado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/3 flex flex-col gap-4">
+                    <img src="brazo_robotico_industrial.png" alt="Brazo Robótico Industrial" class="img-robo w-full">
+                </div>
+            </div>
+        </section>
+
+        <section id="agv" class="card">
+            <!-- <span class="badge badge-core">CYR.3.C.4 AGVs</span> -->
+            <h2 class="section-title"><i class="fa-solid fa-truck-fast"></i> AGV: Automated Guided Vehicles</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <p class="text-gray-300 mb-4">
+                        Vehículos autónomos que transportan materiales sin conductor.
+                    </p>
+                    <div class="bg-gray-900 p-4 rounded border border-gray-700">
+                        <h4 class="font-bold text-yellow-500 mb-2">Sistemas de Guiado:</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-400 space-y-2">
+                            <li><strong>Filoguiados:</strong> Siguen un cable/línea en el suelo.</li>
+                            <li><strong>Láser / LiDAR:</strong> Mapean el entorno.</li>
+                            <li><strong>Visión Artificial:</strong> Leen códigos QR en el suelo.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="robot_agv_almacen.png" alt="Robot AGV transportando carga" class="img-robo w-full shadow-lg">
+                </div>
+            </div>
+        </section>
+
+        <section id="codigo" class="card border-l-4 border-blue-500">
+            <!-- <span class="badge badge-core">CYR.3.C.5 Programación Texto</span> -->
+            <h2 class="section-title text-blue-400" style="color: #60a5fa"><i class="fa-solid fa-code"></i> Arduino C++</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Estructura Básica</h3>
+                        <p class="text-sm text-gray-400">Todo programa tiene dos partes:</p>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="bg-gray-900 p-3 rounded">
+                            <code class="text-yellow-400 font-bold">void setup() { ... }</code>
+                            <p class="text-xs text-gray-500 mt-1">Configuración. Se ejecuta <strong>una vez</strong> al inicio.</p>
+                        </li>
+                        <li class="bg-gray-900 p-3 rounded">
+                            <code class="text-yellow-400 font-bold">void loop() { ... }</code>
+                            <p class="text-xs text-gray-500 mt-1">Bucle. Se repite <strong>infinitamente</strong>.</p>
+                        </li>
+                    </ul>
+                    <div class="mt-4 p-3 bg-red-900/10 border border-red-500/30 rounded text-xs text-red-300">
+                        <i class="fa-solid fa-triangle-exclamation"></i> <strong>IMPORTANTE:</strong> ¡No olvides el punto y coma <code>;</code> al final de cada línea!
+                    </div>
+                </div>
+
+                <div>
+                    <div class="arduino-ide shadow-2xl">
+                        <div class="ide-header">sketch_robot.ino</div>
+                        <div class="ide-body">
+<span class="kwd">int</span> <span class="var">ledPin</span> = <span class="num">13</span>;<br>
+<br>
+<span class="kwd">void</span> <span class="func">setup</span>() {<br>
+&nbsp;&nbsp;<span class="func">pinMode</span>(<span class="var">ledPin</span>, <span class="kwd">OUTPUT</span>);<br>
+}<br>
+<br>
+<span class="kwd">void</span> <span class="func">loop</span>() {<br>
+&nbsp;&nbsp;<span class="func">digitalWrite</span>(<span class="var">ledPin</span>, <span class="kwd">HIGH</span>);<br>
+&nbsp;&nbsp;<span class="func">delay</span>(<span class="num">1000</span>);<br>
+&nbsp;&nbsp;<span class="func">digitalWrite</span>(<span class="var">ledPin</span>, <span class="kwd">LOW</span>);<br>
+&nbsp;&nbsp;<span class="func">delay</span>(<span class="num">1000</span>);<br>
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gym" class="card border-t-4 border-green-500">
+            <h2 class="section-title text-green-400" style="color: #4ade80"><i class="fa-solid fa-dumbbell"></i> Code Gym (5 Retos)</h2>
+            <p class="text-gray-400 mb-6">
+                Entrena tu ojo de ingeniero. Encuentra los errores antes de cargar el código al robot.
+            </p>
+
+            <div class="gym-grid">
+                <div class="gym-card">
+                    <h3 class="font-bold text-white mb-2">Reto 1: El Olvidadizo</h3>
+                    <code class="block bg-black p-2 rounded text-xs text-gray-300 mb-3 font-mono">
+                        pinMode(13, OUTPUT)<br>
+                        digitalWrite(13, HIGH);
+                    </code>
+                    <button onclick="document.getElementById('ans1').style.display='block'" class="text-xs text-green-400 hover:underline">>> Ver Solución</button>
+                    <div id="ans1" class="hidden-answer">Falta el punto y coma <code>;</code> en la primera línea.</div>
+                </div>
+
+                <div class="gym-card">
+                    <h3 class="font-bold text-white mb-2">Reto 2: Lógica Inversa</h3>
+                    <p class="text-xs text-gray-400 mb-2">Queremos parar si el sensor mide MENOS de 10cm.</p>
+                    <code class="block bg-black p-2 rounded text-xs text-gray-300 mb-3 font-mono">
+                        if (distancia > 10) { parar(); }
+                    </code>
+                    <button onclick="document.getElementById('ans2').style.display='block'" class="text-xs text-green-400 hover:underline">>> Ver Solución</button>
+                    <div id="ans2" class="hidden-answer">Error lógico: El símbolo debe ser <code>&lt;</code> (menor que), no <code>&gt;</code>.</div>
+                </div>
+
+                <div class="gym-card">
+                    <h3 class="font-bold text-white mb-2">Reto 3: El Pin Fantasma</h3>
+                    <p class="text-xs text-gray-400 mb-2">El LED no se enciende con fuerza, apenas brilla.</p>
+                    <code class="block bg-black p-2 rounded text-xs text-gray-300 mb-3 font-mono">
+                        void setup() { <span class="text-gray-600">// Vacío</span> }<br>
+                        void loop() { digitalWrite(13, HIGH); }
+                    </code>
+                    <button onclick="document.getElementById('ans3').style.display='block'" class="text-xs text-green-400 hover:underline">>> Ver Solución</button>
+                    <div id="ans3" class="hidden-answer">Falta configurar el pin en el setup: <code>pinMode(13, OUTPUT);</code></div>
+                </div>
+
+                <div class="gym-card">
+                    <h3 class="font-bold text-white mb-2">Reto 4: Pesadilla de Llaves</h3>
+                    <code class="block bg-black p-2 rounded text-xs text-gray-300 mb-3 font-mono">
+                        void loop() {<br>
+                        &nbsp;&nbsp;if(boton == 1) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;encender();<br>
+                        }<br>
+                        // Fin del código
+                    </code>
+                    <button onclick="document.getElementById('ans4').style.display='block'" class="text-xs text-green-400 hover:underline">>> Ver Solución</button>
+                    <div id="ans4" class="hidden-answer">Falta cerrar una llave <code>}</code>. Una cierra el IF, pero falta la que cierra el LOOP.</div>
+                </div>
+
+                <div class="gym-card">
+                    <h3 class="font-bold text-white mb-2">Reto 5: La Trampa del Delay</h3>
+                    <p class="text-xs text-gray-400 mb-2">El robot choca porque no lee el sensor a tiempo.</p>
+                    <code class="block bg-black p-2 rounded text-xs text-gray-300 mb-3 font-mono">
+                        void loop() {<br>
+                        &nbsp;&nbsp;avanzar();<br>
+                        &nbsp;&nbsp;delay(5000); <span class="text-gray-500">// Esperar 5 seg</span><br>
+                        &nbsp;&nbsp;leerSensor();<br>
+                        }
+                    </code>
+                    <button onclick="document.getElementById('ans5').style.display='block'" class="text-xs text-green-400 hover:underline">>> Ver Solución</button>
+                    <div id="ans5" class="hidden-answer"><code>delay(5000)</code> "congela" al cerebro 5 segundos. En ese tiempo está ciego. Usa temporizadores sin delay (millis).</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="mb-20">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-black text-white uppercase italic tracking-wider">
+                    <span class="text-yellow-500">///</span> MISSION CONTROL
+                </h2>
+                <span class="badge bg-yellow-500/20 text-yellow-400 border-yellow-500 border">EVALUACIÓN PRÁCTICA</span>
+            </div>
+            
+            <p class="text-gray-400 mb-8 max-w-2xl">
+                Acceso a las misiones prácticas. Consulta Google Classroom o las fichas entregadas en clase.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="project-slot group">
+                    <div class="text-4xl text-gray-600 group-hover:text-yellow-500 mb-4 transition-colors">
+                        <i class="fa-solid fa-traffic-light"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Misión 1</h3>
+                    <p class="text-sm text-gray-400 mb-4">Semáforo Inteligente & Lógica Digital</p>
+                    <a href="#" class="btn-action text-xs"><i class="fa-brands fa-google"></i> Classroom</a>
+                </div>
+
+                <div class="project-slot group">
+                    <div class="text-4xl text-gray-600 group-hover:text-yellow-500 mb-4 transition-colors">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Misión 2</h3>
+                    <p class="text-sm text-gray-400 mb-4">Sensor de Ultrasonidos (Parking Assistant)</p>
+                    <a href="#" class="btn-action text-xs"><i class="fa-brands fa-google"></i> Classroom</a>
+                </div>
+
+                <div class="project-slot group">
+                    <div class="text-4xl text-gray-600 group-hover:text-blue-500 mb-4 transition-colors">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Proyecto Final</h3>
+                    <p class="text-sm text-gray-400 mb-4">Robot AGV Autónomo (Esquiva-obstáculos)</p>
+                    <a href="#" class="btn-action text-xs"><i class="fa-brands fa-google"></i> Classroom</a>
+                </div>
+
+                <div class="project-slot locked-slot relative overflow-hidden group">
+                    <div class="absolute inset-0 locked-overlay flex flex-col items-center justify-center z-10">
+                        <i class="fa-solid fa-lock text-4xl text-red-500 mb-2"></i>
+                        <span class="text-red-500 font-bold tracking-widest text-xs uppercase border border-red-500 px-2 py-1">Classified</span>
+                    </div>
+                    <div class="opacity-30 blur-sm">
+                        <div class="text-4xl text-gray-600 mb-4"><i class="fa-solid fa-user-astronaut"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Prácticas Guiadas</h3>
+                        <p class="text-sm text-gray-400">Material suplementario del docente.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-600 p-10 text-center border-t border-gray-800">
+        <p class="font-mono text-xs uppercase tracking-widest">Dept. Tecnología | Robótica Aplicada 3º ESO</p>
+    </footer>
+
+</body>
+</html>

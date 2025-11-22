@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UD4: Big Data & Metadatos (Avanzado) 📊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CONFIGURACIÓN GENERAL ESTILO DARK MODE */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #cbd5e1; /* Slate 300 */
+            scroll-behavior: smooth;
+        }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .container { max-width: 1200px; }
+        
+        /* UTILIDADES VISUALES */
+        .section-title {
+            border-left: 6px solid #06b6d4; /* Cyan */
+            padding-left: 1rem;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card {
+            background-color: #1e293b; /* Slate 800 */
+            border-radius: 0.75rem;
+            border: 1px solid #334155; /* Slate 700 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        /* EFECTOS HOVER Y ANIMACIONES */
+        .animated-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .animated-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(6, 182, 212, 0.1);
+            border-color: #06b6d4;
+        }
+
+        /* CAJAS DE TEORÍA DESTACADA */
+        .theory-box {
+            background-color: #0f172a;
+            border-left: 4px solid #6366f1; /* Indigo */
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-top: 1rem;
+        }
+
+        /* CÓDIGO */
+        .code-block {
+            background-color: #020617;
+            color: #22d3ee;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            border: 1px solid #1e293b;
+            overflow-x: auto;
+        }
+
+        /* BOTONES */
+        .btn-primary {
+            background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+
+        /* BADGES (ETIQUETAS) */
+        .badge {
+            display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+            font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .badge-theory { background-color: #312e81; color: #818cf8; border: 1px solid #4f46e5; }
+        .badge-practice { background-color: #164e63; color: #22d3ee; border: 1px solid #0891b2; }
+
+        /* CUESTIONARIO */
+        .quiz-option {
+            background-color: #334155; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem;
+            cursor: pointer; transition: all 0.2s; border: 2px solid transparent;
+        }
+        .quiz-option:hover { background-color: #475569; border-color: #94a3b8; }
+        .correct { background-color: #064e3b !important; border-color: #34d399 !important; color: #d1fae5; }
+        .incorrect { background-color: #7f1d1d !important; border-color: #f87171 !important; color: #fecaca; }
+        
+        /* FONDO TECNOLÓGICO */
+        .bg-grid {
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="antialiased bg-grid">
+
+    <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-700 sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center text-xl shadow-lg shadow-cyan-500/20">📊</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-white tracking-tight">UD4: Big Data <span class="text-cyan-400 text-sm font-normal ml-2">| Teoría Avanzada</span></h1>
+                </div>
+            </div>
+            <nav class="mt-4 md:mt-0">
+                <ul class="flex gap-6 text-sm font-medium text-slate-400">
+                    <li><a href="#intro" class="hover:text-white transition-colors">Big Data</a></li>
+                    <li><a href="#metadatos-teoria" class="hover:text-white transition-colors">Metadatos</a></li>
+                    <li><a href="#ciclo-vida" class="hover:text-white transition-colors">Ciclo & Almacenamiento</a></li>
+                    <li><a href="#scraping-teoria" class="hover:text-white transition-colors">Scraping</a></li>
+                    <li><a href="#actividades" class="text-cyan-400 hover:text-cyan-300 transition-colors">Actividades</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 space-y-16 mt-8">
+
+        <section id="intro" class="card p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+            
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">1. Introducción al Ecosistema de Datos</h2>
+            <p class="text-lg leading-relaxed mb-6">
+                El término <strong>Big Data</strong> no se refiere solo a tener "muchos datos". Se refiere a conjuntos de datos tan grandes y complejos que el software de procesamiento tradicional no puede gestionarlos. Para que lo consideremos Big Data, debe cumplir (principalmente) con las <strong>5 V</strong>:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-center hover:border-cyan-500 transition-colors">
+                    <div class="text-3xl mb-2">📦</div>
+                    <h3 class="font-bold text-white mb-1">Volumen</h3>
+                    <p class="text-xs text-slate-400">Cantidad masiva de datos (Terabytes, Petabytes).</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-center hover:border-cyan-500 transition-colors">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h3 class="font-bold text-white mb-1">Velocidad</h3>
+                    <p class="text-xs text-slate-400">Datos generados y procesados en tiempo real.</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-center hover:border-cyan-500 transition-colors">
+                    <div class="text-3xl mb-2">🎨</div>
+                    <h3 class="font-bold text-white mb-1">Variedad</h3>
+                    <p class="text-xs text-slate-400">Texto, vídeo, audio, logs, GPS...</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-center hover:border-cyan-500 transition-colors">
+                    <div class="text-3xl mb-2">✅</div>
+                    <h3 class="font-bold text-white mb-1">Veracidad</h3>
+                    <p class="text-xs text-slate-400">Fiabilidad y calidad del dato.</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-center hover:border-cyan-500 transition-colors">
+                    <div class="text-3xl mb-2">💎</div>
+                    <h3 class="font-bold text-white mb-1">Valor</h3>
+                    <p class="text-xs text-slate-400">La utilidad que se extrae de ellos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="metadatos-teoria" class="card p-8 animated-card">
+            <!--<span class="badge badge-theory">CYR.3.G.1 Clasificación</span>--> <!--<span class="badge badge-theory">CYR.3.G.2 Uso</span>-->
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">2. Metadatos: El ADN de la Información</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="lg:w-1/2">
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-4">Definición Técnica</h3>
+                    <p class="leading-relaxed mb-4">
+                        Los metadatos son <strong>"datos sobre los datos"</strong>. Es información estructurada que describe, explica, localiza o facilita la recuperación, uso o gestión de un recurso de información. Sin ellos, un archivo digital sería una secuencia de bits sin sentido para el ordenador.
+                    </p>
+                    
+                    <div class="theory-box">
+                        <h4 class="font-bold text-white mb-2">Clasificación NISO (Estándar)</h4>
+                        <p class="text-sm mb-3">Los metadatos se dividen en tres categorías fundamentales:</p>
+                        <ul class="list-disc list-inside space-y-2 text-sm">
+                            <li><strong>1. Metadatos Descriptivos:</strong> Sirven para descubrir e identificar. <br><em class="text-slate-500">Ej: Título, Autor, Resumen, Palabras clave (Tags).</em></li>
+                            <li><strong>2. Metadatos Estructurales:</strong> Indican cómo se organizan las partes de un objeto compuesto. <br><em class="text-slate-500">Ej: Orden de las páginas en un PDF, capítulos de un vídeo.</em></li>
+                            <li><strong>3. Metadatos Administrativos:</strong> Ayudan a gestionar el recurso.
+                                <ul class="list-circle ml-6 mt-1 text-xs text-slate-400">
+                                    <li><strong>Técnicos:</strong> Formato (.jpg), tamaño, compresión.</li>
+                                    <li><strong>Preservación:</strong> Checksum (integridad), copias de seguridad.</li>
+                                    <li><strong>Derechos:</strong> Copyright, licencias de uso.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 bg-slate-900 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-xl font-semibold text-white mb-4 text-center">Ejemplo Práctico: Un Tweet (X)</h3>
+                    <p class="text-sm text-center text-slate-400 mb-4">Lo que tú ves es el texto. Lo que la máquina ve es esto:</p>
+                    
+                    <div class="code-block h-64 overflow-y-scroll">
+{
+  "created_at": "Fri Nov 24 12:30:00 +0000 2025",
+  "id": 146000000000000,
+  "text": "¡Aprendiendo Big Data en clase! 🚀",
+  "user": {
+    "id": 892384,
+    "name": "Estudiante_3ESO",
+    "location": "Madrid, España",  // METADATO DESCRIPTIVO
+    "followers_count": 150
+  },
+  "geo": {
+    "type": "Point",
+    "coordinates": [40.4167, -3.7037] // METADATO ADMINISTRATIVO (Ubicación)
+  },
+  "entities": {
+    "hashtags": ["BigData", "Colegio"],
+    "media": [
+       { "type": "photo", "size": "1024x768" } // METADATO TÉCNICO
+    ]
+  }
+}
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-center">Formato JSON (JavaScript Object Notation), el estándar actual.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ciclo-vida" class="card p-8 animated-card">
+             <!-- <span class="badge badge-theory">CYR.3.G.3 Almacenamiento</span> <span class="badge badge-theory">Ciclo de Vida</span> -->
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">3. Almacenamiento y Ciclo de Vida</h2>
+
+            <div class="mb-10">
+                <h3 class="text-xl font-semibold text-white mb-4">El Ciclo de Vida de los Metadatos</h3>
+                <p class="mb-6">Los metadatos no son estáticos, tienen un ciclo desde que nacen hasta que mueren:</p>
+                
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                    <div class="bg-slate-800 p-4 rounded border-l-4 border-green-500 flex-1 w-full">
+                        <strong class="text-white block mb-1">1. Creación</strong>
+                        Manual (escribir un título) o Automática (la cámara guarda el GPS).
+                    </div>
+                    <div class="text-2xl text-slate-600">➜</div>
+                    <div class="bg-slate-800 p-4 rounded border-l-4 border-blue-500 flex-1 w-full">
+                        <strong class="text-white block mb-1">2. Almacenamiento</strong>
+                        Se guardan incrustados en el archivo o en bases de datos externas.
+                    </div>
+                    <div class="text-2xl text-slate-600">➜</div>
+                    <div class="bg-slate-800 p-4 rounded border-l-4 border-yellow-500 flex-1 w-full">
+                        <strong class="text-white block mb-1">3. Manipulación</strong>
+                        Se editan, se leen por algoritmos o se enriquecen.
+                    </div>
+                    <div class="text-2xl text-slate-600">➜</div>
+                    <div class="bg-slate-800 p-4 rounded border-l-4 border-red-500 flex-1 w-full">
+                        <strong class="text-white block mb-1">4. Eliminación</strong>
+                        Se borran por privacidad o porque el archivo se destruye.
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-slate-700 pt-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-indigo-400 mb-3">A. Almacenamiento Incrustado (Embedded)</h3>
+                    <p class="text-sm mb-3">Los metadatos viajan <strong>dentro</strong> del propio archivo.</p>
+                    <ul class="list-disc list-inside text-sm text-slate-400 space-y-2">
+                        <li><strong>EXIF:</strong> Estándar para fotografías (Cámara, flash, ISO, GPS).</li>
+                        <li><strong>ID3:</strong> Estándar para MP3 (Artista, Álbum, Carátula).</li>
+                        <li><strong>Ventaja:</strong> Si copias el archivo, te llevas los datos.</li>
+                        <li><strong>Riesgo:</strong> Fugas de privacidad involuntarias.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-indigo-400 mb-3">B. Almacenamiento Desacoplado (External)</h3>
+                    <p class="text-sm mb-3">Los metadatos están en una <strong>base de datos</strong> separada del archivo.</p>
+                    <ul class="list-disc list-inside text-sm text-slate-400 space-y-2">
+                        <li><strong>Ejemplo Spotify:</strong> La canción está en un servidor, pero tus listas de reproducción están en una base de datos SQL.</li>
+                        <li><strong>Ventaja:</strong> Búsquedas rapidísimas (Big Data) y seguridad.</li>
+                        <li><strong>Uso:</strong> Motores de búsqueda, bibliotecas digitales, sistemas en la nube.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="scraping-teoria" class="card p-8 animated-card border-l-4 border-indigo-500">
+            <!--<span class="badge badge-theory">CYR.3.G.4 Data Scraping</span>--> <!--<span class="badge badge-theory">Criterio 4.3</span>-->
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">4. Data Scraping: Arquitectura y Ética</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">¿Cómo funciona realmente?</h3>
+                    <p class="mb-4">
+                        El Scraping no es magia, es una simulación de un usuario humano a ultra-velocidad. El proceso técnico consta de 3 fases:
+                    </p>
+                    <ol class="list-decimal list-inside space-y-3 mb-6 font-medium">
+                        <li class="bg-slate-800 p-3 rounded"><span class="text-cyan-400">Request (Petición):</span> El bot envía una petición HTTP a la web (como si tu navegador escribiera la URL).</li>
+                        <li class="bg-slate-800 p-3 rounded"><span class="text-cyan-400">Parsing (Análisis):</span> El bot descarga el código HTML y busca patrones específicos (ej: todos los elementos `div` con clase `precio`).</li>
+                        <li class="bg-slate-800 p-3 rounded"><span class="text-cyan-400">Extraction & Storage:</span> Copia el texto encontrado y lo guarda en una hoja de cálculo (CSV) o base de datos.</li>
+                    </ol>
+
+                    <div class="bg-red-900/20 border border-red-500/50 p-4 rounded-lg">
+                        <h4 class="text-red-400 font-bold mb-2">⚠️ La Línea Ética y Legal</h4>
+                        <p class="text-sm text-slate-300">
+                            No todo el scraping es legal. Antes de "scrapear", un programador ético debe revisar el archivo <code>robots.txt</code> de la web (ej: <em>google.com/robots.txt</em>). Este archivo le dice a los bots dónde tienen prohibido entrar. Ignorarlo puede llevar a bloqueos de IP o problemas legales (DDOS, Copyright).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <div class="code-block shadow-2xl relative">
+                        <div class="absolute top-2 right-2 text-xs text-slate-500">PYTHON SNIPPET</div>
+<pre>
+<span class="text-purple-400">import</span> requests
+<span class="text-purple-400">from</span> bs4 <span class="text-purple-400">import</span> BeautifulSoup
+
+<span class="text-slate-500"># 1. Hacer la petición</span>
+url = <span class="text-green-400">"https://tienda-ejemplo.com"</span>
+respuesta = requests.get(url)
+
+<span class="text-slate-500"># 2. Convertir HTML a objeto analizable</span>
+soup = BeautifulSoup(respuesta.text, <span class="text-green-400">'html.parser'</span>)
+
+<span class="text-slate-500"># 3. Extraer datos (Bucle)</span>
+<span class="text-purple-400">for</span> item <span class="text-purple-400">in</span> soup.find_all(<span class="text-green-400">'div'</span>, class_=<span class="text-green-400">'producto'</span>):
+    nombre = item.find(<span class="text-green-400">'h2'</span>).text
+    precio = item.find(<span class="text-green-400">'span'</span>, class_=<span class="text-green-400">'precio'</span>).text
+    
+    <span class="text-yellow-400">print</span>(f"Producto: {nombre} | Valor: {precio}")
+</pre>
+                    </div>
+                    <p class="text-xs text-center mt-3 text-slate-500">Librerías comunes: BeautifulSoup, Selenium, Scrapy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="actividades" class="card p-8 border-t-4 border-cyan-500">
+            <h2 class="text-3xl font-bold text-white mb-6 section-title">5. Actividades Prácticas (Evaluación)</h2>
+            <p class="text-lg mb-8 text-slate-300">Aplica la teoría aprendida para superar los criterios 4.1 y 4.3.</p>
+
+            <div class="space-y-8">
+                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500 transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-cyan-300">Actividad 1: Auditoría Forense de Metadatos</h3>
+                        <span class="bg-cyan-900 text-cyan-200 text-xs px-2 py-1 rounded">Criterio 4.1</span>
+                    </div>
+                    <p class="mb-4 text-sm"><strong>Objetivo:</strong> Entender la naturaleza y el ciclo de vida de los metadatos ocultos.</p>
+                    <ul class="list-disc list-inside text-sm space-y-2 text-slate-300">
+                        <li>Descarga una imagen de muestra que te proporcione el profesor (o usa una foto original de tu móvil).</li>
+                        <li>Utiliza una herramienta online como <em>Jeffrey's Image Metadata Viewer</em> o <em>jimpl.com</em>.</li>
+                        <li><strong>Entrega un informe PDF</strong> que responda:
+                            <ol class="list-decimal list-inside ml-6 mt-2 text-slate-400">
+                                <li>Identifica 3 metadatos técnicos y 3 metadatos descriptivos.</li>
+                                <li>Localiza las coordenadas GPS y búscalas en Maps. ¿Qué precisión tienen?</li>
+                                <li>Explica cómo se creó el metadato (¿manual o automático?) y qué pasaría si editas la foto en Photoshop (¿se mantienen o cambian?).</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-cyan-500 transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-indigo-300">Actividad 2: Diagrama de Flujo de Scraping</h3>
+                        <span class="bg-indigo-900 text-indigo-200 text-xs px-2 py-1 rounded">Criterio 4.3</span>
+                    </div>
+                    <p class="mb-4 text-sm"><strong>Objetivo:</strong> Comprender la lógica algorítmica detrás de la recolección de datos.</p>
+                    <ul class="list-disc list-inside text-sm space-y-2 text-slate-300">
+                        <li>Elige un escenario: "Un bot que busca noticias sobre 'Inteligencia Artificial' en 3 periódicos diferentes cada mañana".</li>
+                        <li>Dibuja un diagrama de flujo (puedes usar <em>draw.io</em> o papel) que muestre los pasos:
+                            <ul class="list-square ml-6 mt-2 text-slate-400">
+                                <li>Inicio -> Leer URLs -> Comprobar <code>robots.txt</code> (Decisión Ética).</li>
+                                <li>Si permitido -> Descargar HTML -> Buscar palabras clave.</li>
+                                <li>¿Encontrado? -> Guardar en Base de Datos JSON.</li>
+                            </ul>
+                        </li>
+                        <li>Justifica por qué este proceso es "Big Data" (pista: piensa en las 5 V si lo hiciéramos con 1 millón de webs).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="cuestionario" class="card p-8">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <span>📝</span> Comprobación de Teoría
+            </h2>
+
+            <form id="quizForm" onsubmit="event.preventDefault(); checkQuiz();">
+                <div class="mb-6" data-answer="c">
+                    <p class="font-semibold text-white mb-2">1. ¿Cuál de las siguientes NO es una de las 5 V del Big Data?</p>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="a" class="accent-cyan-500 mr-2"> a) Volumen</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="b" class="accent-cyan-500 mr-2"> b) Velocidad</label>
+                    <label class="quiz-option block"><input type="radio" name="q1" value="c" class="accent-cyan-500 mr-2"> c) Visualización</label> </div>
+
+                <div class="mb-6" data-answer="b">
+                    <p class="font-semibold text-white mb-2">2. Las coordenadas GPS incrustadas en una foto son un ejemplo de metadatos:</p>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="a" class="accent-cyan-500 mr-2"> a) Estructurales</label>
+                    <label class="quiz-option block"><input type="radio" name="q2" value="b" class="accent-cyan-500 mr-2"> b) Administrativos (Técnicos)</label> <label class="quiz-option block"><input type="radio" name="q2" value="c" class="accent-cyan-500 mr-2"> c) Descriptivos puros</label>
+                </div>
+
+                <div class="mb-6" data-answer="a">
+                    <p class="font-semibold text-white mb-2">3. ¿Qué archivo debe consultar un bot ético antes de hacer scraping?</p>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="a" class="accent-cyan-500 mr-2"> a) robots.txt</label> <label class="quiz-option block"><input type="radio" name="q3" value="b" class="accent-cyan-500 mr-2"> b) index.html</label>
+                    <label class="quiz-option block"><input type="radio" name="q3" value="c" class="accent-cyan-500 mr-2"> c) style.css</label>
+                </div>
+
+                <div class="mb-6" data-answer="b">
+                    <p class="font-semibold text-white mb-2">4. ¿Qué formato es el estándar currente para almacenar metadatos estructurados?</p>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="a" class="accent-cyan-500 mr-2"> a) .TXT plano</label>
+                    <label class="quiz-option block"><input type="radio" name="q4" value="b" class="accent-cyan-500 mr-2"> b) JSON (JavaScript Object Notation)</label> <label class="quiz-option block"><input type="radio" name="q4" value="c" class="accent-cyan-500 mr-2"> c) Microsoft Word</label>
+                </div>
+
+                <button type="submit" id="checkBtn" class="btn-primary w-full md:w-auto">Corregir Test</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 p-8 text-center mt-12 border-t border-slate-800">
+        <p class="text-sm">Departamento de Tecnología e Informática &copy; 2025</p>
+        <p class="text-xs mt-1">Unidad Didáctica 4: Big Data (Nivel Avanzado 3º ESO)</p>
+    </footer>
+
+    <script>
+        const ANSWERS = { q1: 'c', q2: 'b', q3: 'a', q4: 'b' };
+
+        function checkQuiz() {
+            const form = document.getElementById('quizForm');
+            let score = 0;
+            let total = 4;
+
+            for (let i = 1; i <= total; i++) {
+                const qKey = 'q' + i;
+                const selected = form.querySelector(`input[name="${qKey}"]:checked`);
+                const container = form.querySelector(`input[name="${qKey}"]`).closest('.mb-6');
+                
+                // Limpiar estilos previos
+                container.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+
+                if (selected) {
+                    if (selected.value === ANSWERS[qKey]) {
+                        score++;
+                        selected.closest('label').classList.add('correct');
+                    } else {
+                        selected.closest('label').classList.add('incorrect');
+                        // Marcar la correcta
+                        const correctInput = container.querySelector(`input[value="${ANSWERS[qKey]}"]`);
+                        correctInput.closest('label').classList.add('correct');
+                    }
+                }
+            }
+
+            const btn = document.getElementById('checkBtn');
+            btn.textContent = `Has acertado ${score} de ${total}`;
+            if (score === total) btn.style.background = "#059669";
+        }
+        
+        document.getElementById('checkBtn').onclick = checkQuiz;
+    </script>
+</body>
+</html>
