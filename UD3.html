@@ -3,500 +3,588 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UD3: El Poder de la IA 🤖</title>
+    <title>UD 3: El Poder de la Inteligencia Artificial - Aula de Jaque | CyR 3º ESO</title>
+    <!-- Enlace a Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Fuente Inter para una mejor legibilidad -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Fondo suave */
-            color: #1e293b; /* Texto oscuro para contraste */
+            background-color: #f8fafc;
+            color: #1e293b;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
         }
-        /* Estilo "Cyberpunk/AI" para los títulos */
         .section-title {
-            border-left: 8px solid #8b5cf6; /* Violeta IA */
+            border-left: 6px solid #8b5cf6; /* Violeta Inteligencia Artificial */
             padding-left: 1rem;
-            background: linear-gradient(90deg, rgba(139, 92, 246, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
         }
         .card {
             background-color: #ffffff;
             border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
             border: 1px solid #e2e8f0;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); /* Gradiente Indigo-Violeta */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3);
-        }
-        .quiz-option {
-            background-color: #f1f5f9;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
+        .nav-link {
             transition: all 0.2s ease;
-            border: 2px solid transparent;
         }
-        .quiz-option:hover {
-            background-color: #e2e8f0;
-            transform: translateX(5px);
-        }
-        .correct {
-            background-color: #dcfce7;
-            border-color: #22c55e;
-            color: #166534;
-            font-weight: 600;
-        }
-        .incorrect {
-            background-color: #fee2e2;
-            border-color: #ef4444;
-            color: #991b1b;
-        }
-        .evaluation-criteria {
-            background-color: #f5f3ff; /* Fondo violeta muy claro */
-            border-left: 4px solid #8b5cf6;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-style: italic;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-        .animated-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .animated-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .nav-link:hover {
+            background-color: #8b5cf6;
+            color: #ffffff;
         }
         .code-block {
             background-color: #0f172a;
-            color: #38bdf8; /* Texto azul claro tipo terminal */
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            position: relative;
+            color: #c084fc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            border: 1px solid #334155;
         }
-        .code-block::before {
-            content: "PROMPT / INPUT";
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #334155;
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            border-bottom-left-radius: 0.5rem;
-            border-top-right-radius: 0.75rem;
-        }
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .badge-ai { background-color: #ede9fe; color: #6d28d9; }
-        .badge-ethics { background-color: #fee2e2; color: #b91c1c; }
-        .badge-tech { background-color: #dbeafe; color: #1e40af; }
-
     </style>
 </head>
 <body class="antialiased">
-    <header class="bg-gradient-to-r from-indigo-900 via-purple-800 to-violet-600 text-white p-6 shadow-xl rounded-b-2xl mb-8">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-            <div class="flex items-center gap-3 mb-4 md:mb-0">
-                <span class="text-4xl">🤖</span>
-                <div>
-                    <h1 class="text-3xl font-extrabold tracking-tight">UD3: El Poder de la IA</h1>
-                    <p class="text-indigo-200 text-sm">Computación y Robótica 3º ESO</p>
-                </div>
+
+    <!-- Header de la Unidad 3 -->
+    <header class="bg-gradient-to-r from-purple-900 via-indigo-800 to-violet-700 text-white p-6 md:p-10 text-center shadow-md">
+        <div class="container mx-auto">
+            <div class="inline-block bg-white/20 text-white font-semibold text-xs px-3.5 py-1 rounded-full mb-3 backdrop-blur-sm border border-white/30">
+                🤖 Aula de Jaque - Puesta a Punto de la Inteligencia Artificial
             </div>
-            <nav>
-                <ul class="flex flex-wrap justify-center gap-4 text-sm md:text-base font-medium">
-                    <li><a href="#intro" class="hover:text-purple-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">Intro & Modelos</a></li>
-                    <li><a href="#agentes" class="hover:text-purple-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">Agentes</a></li>
-                    <li><a href="#aprendizaje" class="hover:text-purple-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">Aprendizaje (ML/RL)</a></li>
-                    <li><a href="#etica" class="hover:text-purple-200 transition-colors px-3 py-2 rounded-lg hover:bg-white/10">Ética</a></li>
-                    <li><a href="#actividades" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">Actividades</a></li>
-                </ul>
-            </nav>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">El Poder de la Inteligencia Artificial</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 max-w-2xl mx-auto">
+                Unidad 3 - 3º ESO: Descubre cómo piensan las máquinas, domina los algoritmos Minimax y lanza el juego oficial del instituto.
+            </p>
         </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8 space-y-12">
+    <!-- Menú de navegación ajustado sin barras de scroll -->
+    <nav class="sticky top-0 z-50 bg-slate-900 text-slate-200 shadow-xl border-b border-slate-800">
+        <div class="container mx-auto px-4 py-2.5">
+            <ul class="flex flex-wrap justify-center items-center gap-1.5 md:gap-3 text-xs md:text-sm font-semibold">
+                <li><a href="#planificacion" class="nav-link px-2.5 py-1.5 rounded-lg text-purple-300">📌 Fases</a></li>
+                <li><a href="#introduccion" class="nav-link px-2.5 py-1.5 rounded-lg">Introducción</a></li>
+                <li><a href="#agentes-ia" class="nav-link px-2.5 py-1.5 rounded-lg">1. Agentes IA</a></li>
+                <li><a href="#machine-learning" class="nav-link px-2.5 py-1.5 rounded-lg">2. Machine Learning</a></li>
+                <li><a href="#algoritmo-minimax" class="nav-link px-2.5 py-1.5 rounded-lg text-amber-300">♟️ Minimax</a></li>
+                <li><a href="#etica-ia" class="nav-link px-2.5 py-1.5 rounded-lg text-red-300">⚖️ Ética & IA</a></li>
+                <li><a href="#zona-practica" class="nav-link px-2.5 py-1.5 rounded-lg text-violet-300">⚡ Zona Práctica</a></li>
+                <li><a href="#actividades-evaluables" class="nav-link px-2.5 py-1.5 rounded-lg">Actividades</a></li>
+                <li><a href="#rubrica" class="nav-link px-2.5 py-1.5 rounded-lg text-emerald-400">📊 Rúbrica</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        <section id="intro" class="card p-8 animated-card relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-purple-500 rounded-full opacity-10 blur-2xl"></div>
-            
-            <div class="flex flex-col md:flex-row items-center gap-8">
-                <div class="md:w-2/3">
-                   <!-- <span class="badge badge-ai mb-3">CYR.3.H.1 Situación Actual</span> -->
-                    <h2 class="text-3xl font-bold mb-4 section-title text-gray-800">La Revolución de la IA Generativa</h2>
-                    <p class="text-lg mb-4 text-gray-600 leading-relaxed">
-                        Ya no es ciencia ficción. La Inteligencia Artificial ha pasado de ser algo de laboratorios a estar en tu bolsillo. Hoy en día, vivimos la era de la <strong>IA Generativa Multimodal</strong>.
-                    </p>
-                    <p class="text-lg mb-4 text-gray-600">
-                        ¿Qué significa <strong>Multimodal</strong>? Que estas IAs no solo leen texto. Pueden "ver" imágenes, "escuchar" audio y generar respuestas mezclando todo ello. Imagina enseñarle una foto de tu nevera a una IA y que te dé una receta de cocina. ¡Eso es multimodalidad!
-                    </p>
-                    
-                    <h3 class="text-xl font-bold mt-6 mb-3 text-indigo-600">Los 3 Gigantes del momento:</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                            <strong class="text-green-600 text-lg block mb-1">ChatGPT (OpenAI)</strong>
-                            <p class="text-sm text-gray-500">El pionero que lo cambió todo. Famoso por su modelo GPT-4o, increíblemente rápido y versátil.</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                            <strong class="text-blue-600 text-lg block mb-1">Gemini (Google)</strong>
-                            <p class="text-sm text-gray-500">Integrado profundamente con Google. Destaca por procesar ventanas de contexto enormes (¡lee libros enteros!).</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                            <strong class="text-orange-600 text-lg block mb-1">Claude (Anthropic)</strong>
-                            <p class="text-sm text-gray-500">Conocido por ser más "humano", seguro y excelente para escribir código y textos creativos.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:w-1/3">
-                    <img src="multimodal.png" alt="Esquema IA Multimodal" class="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300">
-                </div>
-            </div>
-        </section>
+    <main class="container mx-auto p-4 md:p-8 space-y-8">
 
-        <section id="agentes" class="card p-8 animated-card">
-            <!-- <span class="badge badge-tech mb-3">CYR.3.H.3 Agentes Inteligentes</span> -->
-            <h2 class="text-3xl font-bold mb-6 section-title text-gray-800">¿Qué es un Agente Inteligente?</h2>
-            <p class="text-lg mb-4 text-gray-600 leading-relaxed">
-                No toda la IA es ChatGPT. En robótica y videojuegos, usamos el concepto de <strong>Agente Inteligente</strong>. Es cualquier sistema que percibe su entorno y toma acciones para lograr un objetivo.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 items-center">
+        <!-- Planificación Didáctica Flexible y Orientativa -->
+        <section id="planificacion" class="card p-6 bg-gradient-to-r from-purple-50 to-indigo-50 border-l-8 border-purple-500 shadow-md">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-3xl">📌</span>
                 <div>
-                    <h3 class="text-2xl font-semibold text-indigo-700 mb-4">El Ciclo de Vida del Agente:</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <div class="bg-indigo-100 p-2 rounded-lg mr-3 text-2xl">👀</div>
-                            <div>
-                                <strong class="block text-gray-800">1. Sensores (Percepción)</strong>
-                                <span class="text-gray-600 text-sm">Cámaras, micrófonos, sensores de distancia, teclado... Recogen datos del mundo.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="bg-purple-100 p-2 rounded-lg mr-3 text-2xl">🧠</div>
-                            <div>
-                                <strong class="block text-gray-800">2. Procesamiento (La "Caja Negra")</strong>
-                                <span class="text-gray-600 text-sm">El agente decide qué hacer basándose en reglas o aprendizaje.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="bg-pink-100 p-2 rounded-lg mr-3 text-2xl">🦾</div>
-                            <div>
-                                <strong class="block text-gray-800">3. Actuadores (Acción)</strong>
-                                <span class="text-gray-600 text-sm">Motores, pantallas, altavoces... Modifican el entorno.</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-xl text-white font-mono text-sm shadow-inner">
-                    <p class="text-green-400 mb-2">// Ejemplo: Un Aspirador Robot (Roomba)</p>
-                    <p class="mb-4">
-                        <span class="text-purple-400">while</span> (encendido) {<br>
-                        &nbsp;&nbsp;<span class="text-blue-300">datos</span> = sensor_choque.leer();<br>
-                        <br>
-                        &nbsp;&nbsp;<span class="text-purple-400">if</span> (datos == "CHOQUE") {<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;girar(90); <span class="text-gray-500">// Actuador</span><br>
-                        &nbsp;&nbsp;} <span class="text-purple-400">else</span> {<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;avanzar(); <span class="text-gray-500">// Actuador</span><br>
-                        &nbsp;&nbsp;}<br>
-                        }
+                    <h3 class="text-xl font-bold text-purple-950">Planificación y Fases Didácticas de la Unidad 3</h3>
+                    <p class="text-xs font-semibold text-purple-900 bg-purple-200/60 inline-block px-2.5 py-1 rounded-md mt-1">
+                        ⏱️ Planificación flexible y orientativa: Adaptable según el ritmo de trabajo del alumnado (~5-6 sesiones estimadas).
                     </p>
-                    <p class="text-xs text-gray-400 mt-4 text-center">Un agente simple basado en reglas (Reflejo).</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+                <div class="bg-white p-4 rounded-xl border border-purple-200 shadow-sm">
+                    <p class="font-bold text-purple-900 mb-1">Fase 1: Agentes y Aprendizaje Automático (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Comprensión del ciclo Sensores-Cerebro-Actuadores y comparativa entre Aprendizaje Supervisado, No Supervisado y por Refuerzo.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-purple-200 shadow-sm">
+                    <p class="font-bold text-purple-900 mb-1">Fase 2: Algoritmo Minimax y Toma de Decisiones (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Exploración de árboles de juego, función evaluadora, poda Alfa-Beta y niveles de dificultad de la IA de ajedrez.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-purple-200 shadow-sm">
+                    <p class="font-bold text-purple-900 mb-1">Fase 3: Ética, Cierre del Trimestre y Evaluación (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Análisis de sesgos, alucinaciones y Deepfakes. Puesta a punto final del juego del <em>Aula de Jaque</em> y rúbrica automatizada.</p>
                 </div>
             </div>
         </section>
 
-        <section id="aprendizaje" class="card p-8 animated-card">
-             <!-- <span class="badge badge-tech mb-3">CYR.3.H.4 y CYR.3.H.5 Aprendizaje Automático</span> -->
-            <h2 class="text-3xl font-bold mb-6 section-title text-gray-800">¿Cómo aprenden las máquinas?</h2>
-            <p class="text-lg mb-6 text-gray-600">
-                A diferencia de la programación tradicional (donde tú escribes las reglas), en el <strong>Machine Learning (ML)</strong> la máquina descubre las reglas por sí misma analizando datos.
-            </p>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="border-2 border-blue-100 rounded-xl p-6 hover:border-blue-300 transition-colors">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-3">1. Aprendizaje Supervisado (Casos Prácticos)</h3>
-                    <p class="text-gray-600 mb-4">Es como aprender con un profesor. Le damos a la IA miles de ejemplos con la respuesta correcta ("Etiquetas").</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><strong>Filtro de SPAM:</strong> Le enseñamos 10.000 correos basura y 10.000 buenos. Aprende a diferenciarlos.</li>
-                        <li><strong>Reconocimiento Facial:</strong> Le enseñamos fotos etiquetadas como "Gato" o "Perro".</li>
-                        <li><strong>Predicción del tiempo:</strong> Basado en datos históricos de temperatura y presión.</li>
-                    </ul>
-                    <div class="mt-4 bg-blue-50 p-3 rounded text-sm text-blue-800">
-                        <strong>Clave:</strong> Necesita muchos DATOS etiquetados.
-                    </div>
-                </div>
-
-                <div class="border-2 border-purple-100 rounded-xl p-6 hover:border-purple-300 transition-colors">
-                    <h3 class="text-2xl font-bold text-purple-600 mb-3">2. Aprendizaje por Refuerzo (RL)</h3>
-                    <p class="text-gray-600 mb-4">Es como entrenar a un perro con galletas. La IA prueba cosas al azar; si lo hace bien, recibe un "premio" (puntos positivos). Si falla, recibe un castigo.</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><strong>Videojuegos:</strong> Una IA aprende a jugar a Mario Bros probando botones hasta que avanza (premio) o muere (castigo).</li>
-                        <li><strong>Robótica:</strong> Un robot aprende a caminar cayéndose miles de veces en una simulación.</li>
-                        <li><strong>AlphaGo:</strong> La IA que venció al campeón mundial de Go jugando contra sí misma.</li>
-                    </ul>
-                    <div class="mt-4 bg-purple-50 p-3 rounded text-sm text-purple-800">
-                        <strong>Clave:</strong> Aprende por PRUEBA y ERROR.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="etica" class="card p-8 animated-card bg-gradient-to-br from-white to-red-50">
-            <!-- <span class="badge badge-ethics mb-3">CYR.3.H.2 Ética y Responsabilidad</span> -->
-            <h2 class="text-3xl font-bold mb-6 section-title text-gray-800">El Lado Oscuro: Un gran poder conlleva...</h2>
-            <p class="text-lg mb-4 text-gray-600">
-                La IA es una herramienta poderosa, pero su mal uso puede tener consecuencias graves en la sociedad. Como desarrolladores y usuarios, debemos ser críticos.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-red-500">
-                    <h4 class="font-bold text-xl mb-2 text-red-600">Deepfakes</h4>
-                    <p class="text-sm text-gray-600">
-                        Vídeos o audios falsos hiperrealistas que suplantan la identidad de alguien. Se usan para fraudes, bullying o desinformación política.
-                        <br><br><strong>Consecuencia:</strong> Pérdida de confianza en lo que vemos.
-                    </p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-yellow-500">
-                    <h4 class="font-bold text-xl mb-2 text-yellow-600">Sesgo Algorítmico</h4>
-                    <p class="text-sm text-gray-600">
-                        Si entrenamos una IA con datos racistas o machistas, la IA será racista o machista.
-                        <br><br><strong>Consecuencia:</strong> Discriminación automática en contratación de empleos o préstamos.
-                    </p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
-                    <h4 class="font-bold text-xl mb-2 text-blue-600">Alucinaciones</h4>
-                    <p class="text-sm text-gray-600">
-                        Las IAs generativas a veces inventan datos con total seguridad. No "saben" la verdad, solo predicen palabras.
-                        <br><br><strong>Consecuencia:</strong> Desinformación y errores en trabajos escolares.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="actividades" class="card p-8 animated-card ring-2 ring-indigo-100">
-            <h2 class="text-3xl font-bold mb-6 section-title text-indigo-900">🚀 Actividades Evaluables</h2>
-            <p class="text-lg mb-6 text-gray-600">
-                Para superar el criterio de evaluación <strong>4.2</strong>, deberás demostrar que comprendes cómo funcionan estos agentes y aplicarlos para resolver problemas.
-            </p>
-
-            <div class="mb-10 border-b border-gray-200 pb-10">
-                <h3 class="text-2xl font-bold text-indigo-700 mb-2">Actividad 1: "Prompt Engineer" Junior</h3>
-                <p class="mb-4 text-gray-700">
-                    Imagina que eres un agente inteligente de ayuda al estudio. Tienes que diseñar una solución usando una IA (Gemini, ChatGPT o Claude) para explicar un concepto complejo a un niño de 5 años.
-                </p>
-                <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-indigo-500">
-                    <h4 class="font-semibold mb-2">Instrucciones:</h4>
-                    <ol class="list-decimal list-inside space-y-2 text-gray-700 text-sm">
-                        <li>Elige un tema complejo (ej. Agujeros Negros, Fotosíntesis, Cómo funciona Internet).</li>
-                        <li>Diseña un <strong>Prompt</strong> (instrucción) estructurado que incluya: 
-                            <ul class="list-disc list-inside ml-6 text-gray-500">
-                                <li>Rol: ("Actúa como un profesor experto...")</li>
-                                <li>Contexto: ("Explícalo para un niño de 5 años...")</li>
-                                <li>Formato: ("Usa una analogía con comida y emojis...")</li>
-                            </ul>
-                        </li>
-                        <li>Ejecuta el prompt en una IA y captura la salida.</li>
-                        <li><strong>Análisis (Lo más importante):</strong> Explica qué tipo de aprendizaje crees que usó el modelo para generar esa respuesta (Supervisado con texto de internet) y si detectas alguna "alucinación" o error.</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div>
-                <h3 class="text-2xl font-bold text-indigo-700 mb-2">Actividad 2: Diseña tu Agente Inteligente</h3>
-                <p class="mb-4 text-gray-700">
-                    Vas a diseñar (en papel o documento digital) el funcionamiento lógico de un NPC (personaje no jugador) para un videojuego de sigilo.
-                </p>
-                <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-purple-500">
-                    <h4 class="font-semibold mb-2">Debes definir:</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm">
-                        <li><strong>Objetivo:</strong> (Ej. Patrullar el pasillo y atrapar al intruso).</li>
-                        <li><strong>Sensores:</strong> ¿Qué "ve" o "escucha"? (Ej. Cono de visión, sensor de ruido de pasos).</li>
-                        <li><strong>Actuadores:</strong> ¿Qué puede hacer? (Ej. Correr, disparar, activar alarma).</li>
-                        <li><strong>Aprendizaje:</strong> ¿Cómo mejoraría? Plantea cómo usarías el <strong>Aprendizaje por Refuerzo</strong> para que el guardia aprenda a no caer en las trampas del jugador. (Pista: Sistema de recompensas).</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="evaluation-criteria mt-6">
-                <p class="font-bold text-indigo-800">Criterio de Evaluación 4.2:</p>
-                <p class="text-indigo-700 text-sm">"Comprender los principios básicos de funcionamiento de los agentes inteligentes y de las técnicas de aprendizaje automático, con objeto de aplicarlos para la resolución de situaciones mediante la Inteligencia Artificial."</p>
-            </div>
-        </section>
-
-        <section id="cuestionario" class="card p-8 border-t-8 border-indigo-500">
-            <h2 class="text-3xl font-bold mb-6 text-gray-800 flex items-center">
-                <span class="text-4xl mr-3">🧠</span> Test de Conocimientos
+        <!-- Sección de Introducción -->
+        <section id="introduccion" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-brain text-purple-600"></i> Culminación del Proyecto: Lanzando la IA del Instituto
             </h2>
-            <p class="text-lg mb-6 text-gray-600">
-                ¿Estás listo para demostrar lo que sabes sobre Inteligencia Artificial?
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                ¡Llegamos al momento cumbre del primer trimestre! En la <strong>UD1</strong> programamos la lógica de variables e <code>if/else</code> en JavaScript. En la <strong>UD2</strong> diseñamos la interfaz visual con HTML y CSS. Ahora, en esta <strong>Unidad 3</strong>, vamos a conectar ambas piezas para entender en profundidad cómo piensa la Inteligencia Artificial y dejar el juego 100% listo.
+            </p>
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg mb-4">
+                <h3 class="font-bold text-purple-950 text-sm md:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-trophy"></i> El Gran Hito del Primer Trimestre:
+                </h3>
+                <p class="text-sm text-purple-900 mt-1">
+                    Conectar la interfaz gráfica con el algoritmo <strong>Minimax (AlphaZero Mini)</strong> en <code>ia.js</code> para que cualquier alumno o alumna del IES Cañada Rosal pueda desafiar a la máquina en tres niveles de dificultad durante los recreos.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1: Agentes Inteligentes y el Ciclo Percepción-Acción -->
+        <section id="agentes-ia" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-robot text-purple-600"></i> 1. Agentes Inteligentes: ¿Cómo Funciona la IA?
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                En informática y robótica, un <strong>Agente Inteligente</strong> es cualquier entidad capaz de percibir su entorno mediante <strong>sensores</strong>, procesar esa información en su <strong>cerebro algorítmico</strong> y ejecutar acciones mediante <strong>actuadores</strong>.
             </p>
 
-            <form id="quizFormAI" onsubmit="event.preventDefault(); checkQuizAI();">
-                
-                <div class="mb-6 p-5 bg-white rounded-lg shadow-sm border border-gray-200" data-answer="b">
-                    <p class="font-semibold text-lg mb-3">1. ¿Qué característica define a una IA "Multimodal" actual (como GPT-4o o Gemini)?</p>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q1" value="a" class="mr-3 h-5 w-5 text-indigo-600"> a) Solo puede procesar texto muy rápido.
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q1" value="b" class="mr-3 h-5 w-5 text-indigo-600"> b) Puede entender y generar diferentes tipos de datos: texto, imágenes y audio a la vez.
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q1" value="c" class="mr-3 h-5 w-5 text-indigo-600"> c) Funciona sin conexión a internet.
-                    </label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6 text-center">
+                <div class="p-5 bg-purple-50 rounded-xl border border-purple-200">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-purple-600 text-white rounded-full flex items-center justify-center text-xl font-bold">👀</div>
+                    <h3 class="font-bold text-purple-950 text-base mb-1">1. Sensores (Percepción)</h3>
+                    <p class="text-xs text-slate-600">Cámaras, sensores ultrasónicos o la matriz del tablero en código. Recogen datos del entorno.</p>
+                </div>
+                <div class="p-5 bg-indigo-50 rounded-xl border border-indigo-200">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">🧠</div>
+                    <h3 class="font-bold text-indigo-950 text-base mb-1">2. Procesamiento (Cerebro)</h3>
+                    <p class="text-xs text-slate-600">Algoritmos de decisión que valoran opciones y eligen la mejor jugada (nuestro script <code>ia.js</code>).</p>
+                </div>
+                <div class="p-5 bg-violet-50 rounded-xl border border-violet-200">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-violet-600 text-white rounded-full flex items-center justify-center text-xl font-bold">🦾</div>
+                    <h3 class="font-bold text-violet-950 text-base mb-1">3. Actuadores (Acción)</h3>
+                    <p class="text-xs text-slate-600">Motores de un robot o la función de renderizado que mueve la ficha en la pantalla HTML.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: Machine Learning y Aprendizaje Automático -->
+        <section id="machine-learning" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-graduation-cap text-indigo-600"></i> 2. ¿Cómo Aprenden las Máquinas? Machine Learning
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                A diferencia de la programación tradicional donde escribimos todas las reglas a mano, el <strong>Aprendizaje Automático</strong> (<em>Machine Learning</em>) permite que las máquinas descubran patrones y reglas analizando grandes volúmenes de datos.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-indigo-950 text-base mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard-user text-indigo-600"></i> Aprendizaje Supervisado
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-2">
+                        Se entrena a la IA dándole miles de ejemplos con la respuesta correcta ("etiquetados").
+                    </p>
+                    <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">Ejemplo: Filtros de SPAM o detección de enfermedades en radiografías.</span>
+                </div>
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-purple-950 text-base mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-purple-600"></i> Aprendizaje por Refuerzo (RL)
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-2">
+                        La IA aprende mediante <strong>prueba y error</strong> recibiendo premios (+puntos) cuando acierta y castigos (-puntos) cuando falla.
+                    </p>
+                    <span class="text-[11px] font-semibold text-purple-700 bg-purple-100 px-2 py-0.5 rounded">Ejemplo: AlphaZero aprendiendo ajedrez jugando millones de partidas contra sí misma.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: Algoritmos de Juego: Minimax y Heurísticas -->
+        <section id="algoritmo-minimax" class="card p-6 md:p-8 border-2 border-amber-500/30">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-chess text-amber-600"></i> 3. Algoritmo Minimax: La Mente de la IA de Ajedrez
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                En juegos de dos jugadores como el ajedrez, la IA utiliza el algoritmo <strong>Minimax</strong> para explorar árboles de decisión. La IA supone que ella busca <strong>maximizar</strong> su puntuación mientras que el rival busca <strong>minimizarla</strong>.
+            </p>
+
+            <div class="code-block mb-6">
+// Estructura simplificada del Algoritmo Minimax en ia.js<br>
+function minimax(juego, profundidad, esMaximizador) {<br>
+&nbsp;&nbsp;if (profundidad === 0 || juego.game_over()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return evaluarTablero(juego); <span class="text-slate-500">// Evalúa material y posición</span><br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;if (esMaximizador) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let mejorEval = -9999;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for (let mov of juego.moves()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;juego.move(mov);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let evaluacion = minimax(juego, profundidad - 1, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;juego.undo();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mejorEval = Math.max(mejorEval, evaluacion);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return mejorEval;<br>
+&nbsp;&nbsp;}<br>
+}
+            </div>
+
+            <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs md:text-sm text-amber-950">
+                <strong>⚡ Poda Alfa-Beta:</strong> Para evitar calcular millones de jugadas imposibles, la Poda Alfa-Beta permite a la IA "descartar" ramas enteras del árbol de decisiones cuando detecta que el rival ya tiene una respuesta mejor, acelerando el cálculo 10 veces.
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: Ética, Sesgos y Responsabilidad -->
+        <section id="etica-ia" class="card p-6 md:p-8 border-2 border-red-500/30 bg-gradient-to-r from-white via-red-50/30 to-orange-50/30">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-scale-balanced text-red-600"></i> 4. Ética, Sesgos y Uso Responsable de la IA
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                Como creadores de tecnología, debemos conocer los riesgos éticos asociados a la Inteligencia Artificial:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+                <div class="p-4 bg-white rounded-xl border border-red-200 shadow-sm">
+                    <h3 class="font-bold text-red-700 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-user-slash"></i> Deepfakes</h3>
+                    <p class="text-slate-600">Imágenes, audios o vídeos sintéticos falsos que suplantan a personas reales con fines de manipulación o estafa.</p>
+                </div>
+                <div class="p-4 bg-white rounded-xl border border-amber-200 shadow-sm">
+                    <h3 class="font-bold text-amber-700 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-filter-circle-xmark"></i> Sesgos Algorítmicos</h3>
+                    <p class="text-slate-600">Si los datos de entrenamiento contienen prejuicios humanos, la IA repetirá y amplificará la discriminación.</p>
+                </div>
+                <div class="p-4 bg-white rounded-xl border border-purple-200 shadow-sm">
+                    <h3 class="font-bold text-purple-700 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-ghost"></i> Alucinaciones</h3>
+                    <p class="text-slate-600">Cuando los modelos generativos inventan respuestas falsas afirmándolas con total seguridad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: Zona Práctica Interactiva (6 Preguntas) -->
+        <section id="zona-practica" class="card p-6 md:p-8 bg-slate-900 text-white">
+            <h2 class="text-2xl md:text-3xl font-bold mb-3 text-purple-400 flex items-center gap-3">
+                <i class="fa-solid fa-bolt text-amber-400"></i> ⚡ Zona Práctica: Retos de Inteligencia Artificial
+            </h2>
+            <p class="text-xs md:text-sm text-slate-300 mb-6 leading-relaxed">
+                Selecciona la opción correcta en cada uno de los 6 huecos para verificar tus conocimientos sobre algoritmos e IA:
+            </p>
+
+            <div id="quiz-container-ud3" class="space-y-4 text-xs md:text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Pregunta 1 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">1. Elemento que permite al agente percibir el entorno:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="ud3-q1" class="bg-slate-800 text-purple-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="Sensores">Sensores</option>
+                                <option value="Actuadores">Actuadores</option>
+                                <option value="Batería">Batería</option>
+                            </select>
+                        </div>
+                        <p id="feedback-ud3-q1" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">2. Aprendizaje basado en recompensas (+puntos) y castigos:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="ud3-q2" class="bg-slate-800 text-purple-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="Aprendizaje por Refuerzo">Aprendizaje por Refuerzo</option>
+                                <option value="Supervisado">Supervisado</option>
+                                <option value="Manual">Manual</option>
+                            </select>
+                        </div>
+                        <p id="feedback-ud3-q2" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">3. Algoritmo para explorar jugadas en ajedrez:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <select id="ud3-q3" class="bg-slate-800 text-purple-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="Minimax">Minimax</option>
+                                <option value="QuickSort">QuickSort</option>
+                                <option value="BinarySearch">BinarySearch</option>
+                            </select>
+                        </div>
+                        <p id="feedback-ud3-q3" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 4 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">4. Técnica para descartar ramas inútiles del árbol:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <select id="ud3-q4" class="bg-slate-800 text-purple-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="Poda Alfa-Beta">Poda Alfa-Beta</option>
+                                <option value="Bucle While">Bucle While</option>
+                                <option value="Filtro SPAM">Filtro SPAM</option>
+                            </select>
+                        </div>
+                        <p id="feedback-ud3-q4" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 5 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">5. Fenómeno donde la IA generativa inventa datos falsos:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="ud3-q5" class="bg-slate-800 text-purple-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="Alucinaciones">Alucinaciones</option>
+                                <option value="Poda">Poda</option>
+                                <option value="Refuerzo">Refuerzo</option>
+                            </select>
+                        </div>
+                        <p id="feedback-ud3-q5" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 6 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">6. Elemento del agente que ejecuta la acción física o visual:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <select id="ud3-q6" class="bg-slate-800 text-purple-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="Actuadores">Actuadores</option>
+                                <option value="Sensores">Sensores</option>
+                                <option value="Memoria">Memoria</option>
+                            </select>
+                        </div>
+                        <p id="feedback-ud3-q6" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
                 </div>
 
-                <div class="mb-6 p-5 bg-white rounded-lg shadow-sm border border-gray-200" data-answer="a">
-                    <p class="font-semibold text-lg mb-3">2. En un agente inteligente (como un robot), ¿cuál es la función de los "Sensores"?</p>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q2" value="a" class="mr-3 h-5 w-5 text-indigo-600"> a) Percibir información del entorno (ver, oír, sentir).
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q2" value="b" class="mr-3 h-5 w-5 text-indigo-600"> b) Realizar la acción física (mover un brazo).
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q2" value="c" class="mr-3 h-5 w-5 text-indigo-600"> c) Decidir si la acción fue buena o mala.
-                    </label>
+                <button onclick="comprobarHuecosUD3()" class="mt-4 px-5 py-2.5 bg-purple-500 hover:bg-purple-400 text-slate-950 font-bold rounded-lg text-xs cursor-pointer shadow-md transition-all">
+                    Comprobar Mis 6 Respuestas sobre IA
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE ACTIVIDADES Y EVALUACIÓN -->
+        <section id="actividades-evaluables" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-clipboard-check text-purple-600"></i> Actividades Evaluables & Puesta a Punto UD3
+            </h2>
+            <p class="text-base text-slate-700 mb-6 leading-relaxed">
+                Realizaremos un análisis de dilemas éticos y, como entregable estrella del trimestre, el ajuste del cerebro de la IA para lanzar el juego del centro.
+            </p>
+
+            <!-- Criterios de Evaluación Oficiales -->
+            <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Criterios de Evaluación Oficiales:</h3>
+                <ul class="list-disc list-inside text-xs md:text-sm text-slate-700 space-y-1 font-medium">
+                    <li><strong class="text-slate-900">Criterio 4.1:</strong> Conocer los fundamentos de la Inteligencia Artificial y de los agentes inteligentes, identificando sus implicaciones éticas y sociales.</li>
+                    <li><strong class="text-slate-900">Criterio 4.2:</strong> Comprender los principios básicos de funcionamiento de los agentes inteligentes y de las técnicas de aprendizaje automático para resolver problemas.</li>
+                </ul>
+            </div>
+
+            <!-- ACTIVIDAD 1: Análisis Teórico y Ética de la IA -->
+            <div class="bg-purple-50 border border-purple-200 p-5 rounded-xl mb-6">
+                <h3 class="text-base font-bold text-purple-950 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-purple-600"></i> Actividad 1 (Individual): Agentes Inteligentes y Dilemas Éticos
+                </h3>
+                <p class="text-xs text-purple-900 leading-relaxed mb-3">
+                    Responde en tu cuaderno o documento digital a las siguientes dos cuestiones:
+                </p>
+                <ol class="list-decimal list-inside text-xs md:text-sm text-purple-950 space-y-2 font-medium pl-1">
+                    <li>Identifica los <strong>Sensores</strong>, el <strong>Procesamiento</strong> y los <strong>Actuadores</strong> en un coche autónomo que conduce solo.</li>
+                    <li>Analiza los riesgos de los <strong>Deepfakes</strong> y redacta 2 medidas que propondrías para detectar o evitar la difusión de contenido falso en redes sociales.</li>
+                </ol>
+            </div>
+
+            <!-- ACTIVIDAD 2: Entregable Práctico - Ajuste Final del Juego del Aula de Jaque -->
+            <div class="bg-slate-950 text-white p-6 rounded-xl border border-slate-800">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="p-2.5 bg-purple-500 text-slate-950 rounded-lg font-bold text-xl"><i class="fa-solid fa-chess-king"></i></div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-extrabold text-purple-400">Reto Práctico UD3: Puesta a Punto Final de la IA del Instituto</h3>
+                        <p class="text-xs text-slate-400">Ajuste definitivo de los niveles de Minimax en <code>ia.js</code></p>
+                    </div>
                 </div>
 
-                <div class="mb-6 p-5 bg-white rounded-lg shadow-sm border border-gray-200" data-answer="c">
-                    <p class="font-semibold text-lg mb-3">3. ¿Qué técnica de aprendizaje usarías para enseñar a una IA a jugar al Mario Bros mediante "prueba y error"?</p>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q3" value="a" class="mr-3 h-5 w-5 text-indigo-600"> a) Programación clásica (If/Else).
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q3" value="b" class="mr-3 h-5 w-5 text-indigo-600"> b) Aprendizaje Supervisado (etiquetado).
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q3" value="c" class="mr-3 h-5 w-5 text-indigo-600"> c) Aprendizaje por Refuerzo (recompensas/castigos).
-                    </label>
+                <!-- Explicación de Entrega -->
+                <div class="bg-emerald-950/80 border border-emerald-500/40 p-4 rounded-xl mb-5 text-xs md:text-sm text-emerald-100">
+                    <h4 class="font-bold text-emerald-400 text-sm mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-base"></i> 📤 ¿Qué debes subir para que la tarea sea evaluada?
+                    </h4>
+                    <p class="leading-relaxed">
+                        Una vez verificado el juego, debes subir a la tarea de <strong>Google Classroom / Moodle</strong> tu archivo modificado definitivo: <code class="bg-slate-900 text-purple-300 px-1.5 py-0.5 rounded font-mono">ia.js</code> (o el proyecto comprimido en <code>.zip</code>).
+                    </p>
                 </div>
 
-                <div class="mb-6 p-5 bg-white rounded-lg shadow-sm border border-gray-200" data-answer="b">
-                    <p class="font-semibold text-lg mb-3">4. ¿Qué es un "Deepfake"?</p>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q4" value="a" class="mr-3 h-5 w-5 text-indigo-600"> a) Un error en el código de la IA.
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q4" value="b" class="mr-3 h-5 w-5 text-indigo-600"> b) Contenido multimedia sintético (falso) creado por IA que suplanta la identidad de personas.
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q4" value="c" class="mr-3 h-5 w-5 text-indigo-600"> c) Un tipo de servidor web seguro.
-                    </label>
+                <div class="space-y-4 text-xs md:text-sm text-slate-200">
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-purple-400 text-base mb-2 flex items-center gap-2">
+                            <span>🎯 Tarea A: Ajustar la Profundidad del Algoritmo Minimax</span>
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Abre <code>ia.js</code>. Modifica la llamada a la función Minimax en el Nivel 3 para probar la diferencia de juego entre explorar 2 pasos de profundidad frente a 3 pasos de profundidad.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-purple-400 text-base mb-2 flex items-center gap-2">
+                            <span>🎯 Tarea B: Prueba de Jugabilidad Completa del Aula de Jaque</span>
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Ejecuta <code>index.html</code> en el navegador, juega 1 partida completa probando los 3 niveles de dificultad e indica en tu entregable cuál responde mejor a las partidas rápidas de recreo.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="mb-6 p-5 bg-white rounded-lg shadow-sm border border-gray-200" data-answer="a">
-                    <p class="font-semibold text-lg mb-3">5. Si usas una IA para hacer tu tarea sin revisarla y la IA inventa datos, estás sufriendo:</p>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q5" value="a" class="mr-3 h-5 w-5 text-indigo-600"> a) Alucinaciones de la IA.
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q5" value="b" class="mr-3 h-5 w-5 text-indigo-600"> b) Aprendizaje por refuerzo.
-                    </label>
-                    <label class="quiz-option block flex items-center">
-                        <input type="radio" name="q5" value="c" class="mr-3 h-5 w-5 text-indigo-600"> c) Sesgo algorítmico.
-                    </label>
+                <div class="mt-5 p-3.5 bg-purple-500/20 border border-purple-500/40 rounded-lg text-xs text-purple-100 flex flex-col md:flex-row items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-purple-400 text-lg"></i>
+                        <span><strong>Archivos del Proyecto:</strong> Descarga la carpeta de trabajo o prueba la demo online.</span>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <a href="proyecto_ajedrez_ia/index.html" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-purple-300 font-bold px-3 py-1.5 rounded text-[11px] transition-all">
+                            <i class="fa-solid fa-gamepad"></i> Probar Juego Completo
+                        </a>
+                        <a href="proyecto_ajedrez_ia.zip" download="proyecto_ajedrez_ia.zip" class="inline-flex items-center gap-1.5 bg-purple-500 hover:bg-purple-400 text-slate-950 font-bold px-3 py-1.5 rounded text-[11px] transition-all">
+                            <i class="fa-solid fa-download"></i> Descargar Proyecto (.zip)
+                        </a>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="text-center mt-8">
-                    <button type="submit" id="checkBtn" class="btn-primary text-lg px-8 py-3 shadow-lg hover:shadow-xl">
-                        Comprobar Resultados
-                    </button>
+        <!-- SECCIÓN RÚBRICA INTERACTIVA DE EVALUACIÓN UD3 -->
+        <section id="rubrica" class="card p-6 md:p-8 border-2 border-emerald-500/40 bg-gradient-to-r from-emerald-50/50 to-teal-50/50 shadow-lg">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-emerald-950 flex items-center gap-3 section-title border-emerald-500">
+                        <i class="fa-solid fa-square-poll-vertical text-emerald-600"></i> 📊 Rúbrica Interactiva de Evaluación (UD3)
+                    </h2>
+                    <p class="text-xs md:text-sm text-emerald-800 mt-1 leading-relaxed">
+                        Selecciona la casilla correspondiente para cada uno de los 5 aspectos para calcular la nota automatizada sobre 10 puntos:
+                    </p>
                 </div>
-            </form>
+                <div id="rubricScoreBadgeUD3" class="bg-emerald-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-emerald-500">
+                    <span>Nota Final:</span> <span id="totalScoreUD3">0.0</span> / 10
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs text-left bg-white rounded-xl shadow-sm border border-emerald-200">
+                    <thead class="bg-slate-900 text-white uppercase text-[11px] tracking-wider font-bold">
+                        <tr>
+                            <th class="p-3 border-b border-slate-800">Aspecto Evaluado</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-emerald-900/60">Excelente (2.0 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-blue-900/60">Notable (1.5 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-amber-900/60">Bien (1.0 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-orange-900/60">Insuficiente (0.5 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-red-900/60">No Presentado (0 pts)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-emerald-100 font-medium text-slate-700">
+                        <!-- Fila 1 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">🤖 1. Comprensión de Agentes Inteligentes</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD3(0, 2.0, this)"><input type="radio" name="r_ud3_0" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Diferencia con precisión Sensores, Procesamiento y Actuadores.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD3(0, 1.5, this)"><input type="radio" name="r_ud3_0" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Identifica los componentes principales del agente correctamente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD3(0, 1.0, this)"><input type="radio" name="r_ud3_0" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Confunde sensores con actuadores ocasionalmente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD3(0, 0.5, this)"><input type="radio" name="r_ud3_0" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Comprensión incompleta del agente inteligente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD3(0, 0, this)"><input type="radio" name="r_ud3_0" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sin evidencia.</span></td>
+                        </tr>
+                        <!-- Fila 2 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">🧠 2. Dominio de Conceptos de Machine Learning</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD3(1, 2.0, this)"><input type="radio" name="r_ud3_1" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Diferencia con soltura Aprendizaje Supervisado y Aprendizaje por Refuerzo.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD3(1, 1.5, this)"><input type="radio" name="r_ud3_1" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Comprende la diferencia entre etiquetas y recompensas.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD3(1, 1.0, this)"><input type="radio" name="r_ud3_1" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Entiende la idea básica del aprendizaje automático.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD3(1, 0.5, this)"><input type="radio" name="r_ud3_1" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Dificultad para explicar cómo aprende la máquina.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD3(1, 0, this)"><input type="radio" name="r_ud3_1" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">No responde.</span></td>
+                        </tr>
+                        <!-- Fila 3 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">♟️ 3. Algoritmo Minimax y Toma de Decisiones</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD3(2, 2.0, this)"><input type="radio" name="r_ud3_2" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Ajusta la profundidad de Minimax y entiende la ventaja heurística.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD3(2, 1.5, this)"><input type="radio" name="r_ud3_2" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Aplica el algoritmo Minimax correctamente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD3(2, 1.0, this)"><input type="radio" name="r_ud3_2" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Comprende el árbol de decisión pero con dudas de sintaxis.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD3(2, 0.5, this)"><input type="radio" name="r_ud3_2" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Intento incompleto de ajuste del código.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD3(2, 0, this)"><input type="radio" name="r_ud3_2" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sin evidencia de Minimax.</span></td>
+                        </tr>
+                        <!-- Fila 4 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">⚖️ 4. Análisis Ético, Sesgos y Responsabilidad</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD3(3, 2.0, this)"><input type="radio" name="r_ud3_3" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Analiza con pensamiento crítico Deepfakes, sesgos y propone soluciones firmes.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD3(3, 1.5, this)"><input type="radio" name="r_ud3_3" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Identifica los riesgos éticos de la IA adecuadamente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD3(3, 1.0, this)"><input type="radio" name="r_ud3_3" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Comentarios sencillos sin profundidad crítica.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD3(3, 0.5, this)"><input type="radio" name="r_ud3_3" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Confunde términos de ética y sesgos.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD3(3, 0, this)"><input type="radio" name="r_ud3_3" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">No realiza la reflexión ética.</span></td>
+                        </tr>
+                        <!-- Fila 5 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">📤 5. Entrega del Entregable y Trabajo en el Aula</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD3(4, 2.0, this)"><input type="radio" name="r_ud3_4" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sube ia.js definitivo en plazo con el juego listo para el centro.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD3(4, 1.5, this)"><input type="radio" name="r_ud3_4" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Entrega el archivo correcto dentro del plazo.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD3(4, 1.0, this)"><input type="radio" name="r_ud3_4" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Entrega con pequeño retraso o dudas menores.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD3(4, 0.5, this)"><input type="radio" name="r_ud3_4" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Entrega incompleta.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD3(4, 0, this)"><input type="radio" name="r_ud3_4" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">No entrega en la plataforma.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
     </main>
 
-    <footer class="bg-gray-800 text-white p-8 text-center mt-12 border-t-4 border-indigo-500">
-        <p class="font-bold text-lg">&copy; 2025 Computación y Robótica - 3º ESO</p>
-        <p class="text-sm mt-2 text-gray-400">Unidad Didáctica: El Poder de la Inteligencia Artificial</p>
-        <div class="mt-4 flex justify-center gap-4 text-2xl">
-            <span>🤖</span><span>🧠</span><span>🚀</span>
-        </div>
+    <footer class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800 mt-12">
+        <p>&copy; 2026 Computación y Robótica - 3º ESO | IES Cañada Rosal</p>
+        <p class="mt-1 text-slate-500">Unidad 3: El Poder de la Inteligencia Artificial - Proyecto Aula de Jaque.</p>
     </footer>
 
+    <!-- Scripts Interactivos para UD3 -->
     <script>
-        // Lógica del Cuestionario
-        const ANSWERS = {
-            q1: 'b', 
-            q2: 'a', 
-            q3: 'c', 
-            q4: 'b', 
-            q5: 'a'  
-        };
+        // Lógica de validación del Quiz interactivo de la UD3
+        function comprobarHuecosUD3() {
+            const soluciones = {
+                'ud3-q1': 'Sensores',
+                'ud3-q2': 'Aprendizaje por Refuerzo',
+                'ud3-q3': 'Minimax',
+                'ud3-q4': 'Poda Alfa-Beta',
+                'ud3-q5': 'Alucinaciones',
+                'ud3-q6': 'Actuadores'
+            };
 
-        function checkQuizAI() {
-            const form = document.getElementById('quizFormAI');
-            const questions = form.querySelectorAll('.mb-6'); // Seleccionar contenedores de preguntas
-            let score = 0;
-            
-            questions.forEach((qDiv, index) => {
-                const qNum = `q${index + 1}`;
-                const correct = ANSWERS[qNum];
-                const selected = form.querySelector(`input[name="${qNum}"]:checked`);
-                
-                // Resetear estilos
-                qDiv.querySelectorAll('.quiz-option').forEach(opt => {
-                    opt.classList.remove('correct', 'incorrect');
-                    opt.style.opacity = '1';
-                });
+            let aciertos = 0;
 
-                if (selected) {
-                    const val = selected.value;
-                    const label = selected.closest('label');
-                    
-                    if (val === correct) {
-                        label.classList.add('correct');
-                        score++;
-                    } else {
-                        label.classList.add('incorrect');
-                        // Mostrar la correcta
-                        const correctInput = qDiv.querySelector(`input[value="${correct}"]`);
-                        if(correctInput) correctInput.closest('label').classList.add('correct');
-                    }
+            for (let q in soluciones) {
+                const select = document.getElementById(q);
+                const feedback = document.getElementById('feedback-' + q);
+                const val = select.value;
+
+                if (val === soluciones[q]) {
+                    aciertos++;
+                    select.className = "bg-purple-900/80 text-purple-200 p-1.5 rounded border border-purple-500 font-bold";
+                    feedback.textContent = "✓ ¡Correcto!";
+                    feedback.className = "mt-1 text-xs font-sans text-emerald-400 font-bold";
                 } else {
-                    // Si no contesta, marcar la correcta
-                    const correctInput = qDiv.querySelector(`input[value="${correct}"]`);
-                    if(correctInput) correctInput.closest('label').classList.add('correct');
+                    select.className = "bg-red-900/80 text-red-200 p-1.5 rounded border border-red-500 font-bold";
+                    feedback.textContent = "✗ Respuesta recomendada: " + soluciones[q];
+                    feedback.className = "mt-1 text-xs font-sans text-red-400 font-bold";
+                }
+            }
+
+            alert("¡Has obtenido " + aciertos + " de 6 aciertos en los retos de Inteligencia Artificial!");
+        }
+
+        // Lógica de Rúbrica Automatizada para UD3
+        let rubricScoresUD3 = [0, 0, 0, 0, 0];
+
+        function selectRubricUD3(rowIndex, score, cell) {
+            rubricScoresUD3[rowIndex] = score;
+            
+            const row = cell.parentElement;
+            const inputs = row.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                if (parseFloat(input.value) === score) {
+                    input.checked = true;
                 }
             });
 
-            // Feedback final simple
-            const btn = document.getElementById('checkBtn');
-            btn.textContent = `Resultado: ${score} / 5 Aciertos`;
-            if(score === 5) {
-                btn.style.background = "#22c55e"; // Green
-                alert("¡Perfecto! Eres un experto en IA 🤖");
+            const total = rubricScoresUD3.reduce((a, b) => a + b, 0);
+            document.getElementById('totalScoreUD3').textContent = total.toFixed(1);
+
+            const badge = document.getElementById('rubricScoreBadgeUD3');
+            if (total >= 9.0) {
+                badge.className = "bg-emerald-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-emerald-500 animate-bounce";
+            } else if (total >= 5.0) {
+                badge.className = "bg-purple-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-purple-500";
+            } else {
+                badge.className = "bg-amber-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-amber-500";
             }
         }
-
-        document.getElementById('checkBtn').onclick = checkQuizAI;
     </script>
+
 </body>
 </html>

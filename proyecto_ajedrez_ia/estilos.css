@@ -1,0 +1,40 @@
+/* estilos.css - Ajustes estéticos y scrollbar para la interfaz del Ajedrez */
+
+/* Custom Scrollbar para el Registro de Jugadas */
+.custom-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+    background: #090d16;
+    border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Personalización de los bordes del tablero Chessboard.js */
+.board-b72b1 {
+    border: 2px solid #334155 !important;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+/* Sombras suaves para las piezas */
+.piece-417cd {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.4));
+    transition: transform 0.15s ease-out;
+}
+
+/* Animaciones suaves */
+@keyframes highlight {
+    0% { background-color: rgba(245, 158, 11, 0.4); }
+    100% { background-color: transparent; }
+}
+
+.highlight-move {
+    animation: highlight 1.2s ease-out;
+}

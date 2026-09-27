@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula de Jaque - IA Ajedrez 3º ESO</title>
+    
+    <!-- Estilos de Tailwind CSS para maquetación rápida -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos visuales del Tablero -->
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <!-- Hojas de estilo personalizadas -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans flex flex-col justify-between">
+
+    <!-- ENCABEZADO: Aula de Jaque -->
+    <header class="bg-slate-950 border-b border-slate-800 py-4 px-6 shadow-lg">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-amber-500/20 border border-amber-500/40 rounded-xl text-amber-400 text-2xl">
+                    <i class="fa-solid fa-chess-king"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-extrabold tracking-tight text-white">
+                        Aula de Jaque <span class="text-amber-400 font-mono text-sm md:text-base">| IA 3º ESO</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Desafío de Ajedrez contra la Inteligencia Artificial del Instituto</p>
+                </div>
+            </div>
+
+            <!-- Selector de Dificultad -->
+            <div class="flex items-center space-x-3 bg-slate-900 p-2 rounded-lg border border-slate-800">
+                <label for="dificultad" class="text-xs font-semibold text-slate-300">Nivel IA:</label>
+                <select id="dificultad" class="bg-slate-800 text-amber-400 text-xs font-bold py-1.5 px-3 rounded border border-slate-700 focus:outline-none focus:border-amber-500">
+                    <option value="1">🌱 Nivel 1: Principiante (Aleatorio)</option>
+                    <option value="2" selected>🧠 Nivel 2: Evaluador Material (Capturas)</option>
+                    <option value="3">🚀 Nivel 3: AlphaZero Mini (Minimax 3 pasos)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto p-4 md:p-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- PANEL IZQUIERDO: Tablero de Ajedrez -->
+        <section class="lg:col-span-7 flex flex-col items-center">
+            <!-- Indicador de Turno / Estado -->
+            <div id="estado-partida" class="w-full max-w-[440px] mb-3 px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between text-xs font-semibold">
+                <span id="turno-texto" class="flex items-center gap-2 text-emerald-400">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Tu turno (Blancas)
+                </span>
+                <span id="evaluacion-score" class="font-mono text-amber-400 bg-slate-900 px-2 py-1 rounded border border-slate-800">
+                    Ventaja: 0.0
+                </span>
+            </div>
+
+            <!-- Contenedor del Tablero visual -->
+            <div class="relative p-3 bg-slate-950 border-2 border-amber-500/30 rounded-2xl shadow-2xl">
+                <div id="board" class="w-[340px] sm:w-[420px] md:w-[440px]"></div>
+            </div>
+
+            <!-- Controles inferiores -->
+            <div class="w-full max-w-[440px] mt-4 flex items-center justify-between gap-3">
+                <button id="btn-reiniciar" class="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center gap-2 shadow">
+                    <i class="fa-solid fa-rotate-right text-amber-400"></i> Reiniciar Partida
+                </button>
+                <button id="btn-cambiar-bando" class="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center gap-2 shadow">
+                    <i class="fa-solid fa-arrows-rotate text-emerald-400"></i> Voltear Tablero
+                </button>
+            </div>
+        </section>
+
+        <!-- PANEL DERECHO: Explicación Didáctica e Historial -->
+        <section class="lg:col-span-5 space-y-6">
+            
+            <!-- Tarjeta Didáctica para el Alumnado -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                <h2 class="text-sm font-bold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-brain"></i> ¿Cómo piensa esta IA?
+                </h2>
+                <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                    <p>En este proyecto de <strong>3º ESO</strong>, los alumnos aprenden la diferencia entre reglas y aprendizaje:</p>
+                    <ul class="list-disc list-inside space-y-1 text-slate-400 pl-1">
+                        <li><strong class="text-white">Reglas (HTML + JS):</strong> Control de movimientos permitidos (`chess.js`).</li>
+                        <li><strong class="text-white">Matriz de piezas:</strong> Peón (10 pts), Caballo (30), Alfil (30), Torre (50), Dama (90).</li>
+                        <li><strong class="text-white">Estrategia Minimax:</strong> Evalúa los mejores movimientos futuros anticipando la respuesta del jugador.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Historial de Movimientos -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col h-[280px]">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+                    <span><i class="fa-solid fa-list-ol mr-1.5 text-emerald-400"></i> Registro de Jugadas</span>
+                    <span id="contador-movimientos" class="font-mono text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-500">0 jugadas</span>
+                </h3>
+                <div id="historial-jugadas" class="flex-grow overflow-y-auto font-mono text-xs space-y-1 text-slate-300 pr-2 custom-scroll">
+                    <p class="text-slate-600 text-center py-8 italic text-xs">La partida aún no ha comenzado.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-3 text-center text-xs text-slate-500 font-mono">
+        CyR 3º ESO &copy; 2026 - Proyecto Aula de Jaque | IES Cañada Rosal
+    </footer>
+
+    <!-- LIBRERÍAS JS REQUERIDAS (100% CDN sin instalación) -->
+    <!-- 1. jQuery (Requerido por Chessboard.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 2. Chessboard.js (Interfaz gráfica del tablero) -->
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <!-- 3. Chess.js (Lógica oficial de reglas de ajedrez) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <!-- 4. Lógica e Inteligencia Artificial del Alumno -->
+    <script src="ia.js"></script>
+
+</body>
+</html>

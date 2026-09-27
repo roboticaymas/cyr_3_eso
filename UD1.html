@@ -3,233 +3,863 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recordemos cómo se programa</title>
+    <title>UD 1: Del Bloque al Código - La Mente de la IA | CyR 3º ESO</title>
     <!-- Enlace a Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Fuente Inter para una mejor legibilidad -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Color de fondo gris suave */
-            color: #1f2937;
+            background-color: #f8fafc;
+            color: #1e293b;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
         }
         .section-title {
-            border-left: 8px solid #f97316; /* Borde naranja para títulos de sección */
+            border-left: 6px solid #f59e0b; /* Borde ámbar/naranja para ajedrez */
             padding-left: 1rem;
         }
         .card {
             background-color: #ffffff;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            transition: all 0.2s ease;
         }
         .nav-link:hover {
-            transform: scale(1.05);
+            background-color: #f59e0b;
+            color: #0f172a;
         }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header de la Unidad -->
-    <header class="bg-gradient-to-r from-orange-500 to-red-600 text-white p-6 md:p-12 text-center rounded-b-xl">
+    <header class="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white p-6 md:p-10 text-center shadow-md">
         <div class="container mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Recordemos cómo se programa</h1>
-            <p class="text-xl font-light opacity-90">Unidad 1 - 3º ESO: Del lenguaje de bloques a la programación con código.</p>
+            <div class="inline-block bg-white/20 text-white font-semibold text-xs px-3.5 py-1 rounded-full mb-3 backdrop-blur-sm border border-white/30">
+                ♟️ Aula de Jaque - Proyecto 1er Trimestre
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">Del Bloque al Código: La Mente de la IA</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 max-w-2xl mx-auto">
+                Unidad 1 - 3º ESO: Transición de la programación visual a la sintaxis textual para crear la IA del Aula de Jaque.
+            </p>
         </div>
     </header>
 
-    <!-- Menú de navegación -->
-    <nav class="sticky top-0 z-50 bg-gray-800 text-white shadow-lg">
-        <div class="container mx-auto p-4">
-            <ul class="flex justify-around items-center space-x-4 overflow-x-auto">
-                <li><a href="#introduccion" class="nav-link transition-transform duration-200 block text-center text-sm md:text-base p-2 rounded-md hover:bg-orange-500">Introducción</a></li>
-                <li><a href="#lenguajes" class="nav-link transition-transform duration-200 block text-center text-sm md:text-base p-2 rounded-md hover:bg-orange-500">Lenguajes</a></li>
-                <li><a href="#elementos" class="nav-link transition-transform duration-200 block text-center text-sm md:text-base p-2 rounded-md hover:bg-orange-500">Elementos</a></li>
-                <li><a href="#algoritmos-logica" class="nav-link transition-transform duration-200 block text-center text-sm md:text-base p-2 rounded-md hover:bg-orange-500">Algoritmos y Lógica</a></li>
-                <li><a href="#interaccion" class="nav-link transition-transform duration-200 block text-center text-sm md:text-base p-2 rounded-md hover:bg-orange-500">Interacción</a></li>
-                <li><a href="#actividades-evaluacion" class="nav-link transition-transform duration-200 block text-center text-sm md:text-base p-2 rounded-md hover:bg-orange-500">Actividades</a></li>
+    <!-- Menú de navegación ajustado sin barras de scroll -->
+    <nav class="sticky top-0 z-50 bg-slate-900 text-slate-200 shadow-xl border-b border-slate-800">
+        <div class="container mx-auto px-4 py-2.5">
+            <ul class="flex flex-wrap justify-center items-center gap-1.5 md:gap-3 text-xs md:text-sm font-semibold">
+                <li><a href="#planificacion" class="nav-link px-2.5 py-1.5 rounded-lg text-amber-300">📌 Fases</a></li>
+                <li><a href="#introduccion" class="nav-link px-2.5 py-1.5 rounded-lg">Introducción</a></li>
+                <li><a href="#crear-js" class="nav-link px-2.5 py-1.5 rounded-lg text-emerald-300">🛠️ Práctica Guiada JS</a></li>
+                <li><a href="#lenguajes" class="nav-link px-2.5 py-1.5 rounded-lg">1. Lenguajes</a></li>
+                <li><a href="#estructuras" class="nav-link px-2.5 py-1.5 rounded-lg">2. Estructuras JS & Scratch</a></li>
+                <li><a href="#interactivo" class="nav-link px-2.5 py-1.5 rounded-lg text-amber-400">⚡ Zona Práctica</a></li>
+                <li><a href="#actividades-evaluacion" class="nav-link px-2.5 py-1.5 rounded-lg">Actividades</a></li>
+                <li><a href="#rubrica" class="nav-link px-2.5 py-1.5 rounded-lg text-emerald-400">📊 Rúbrica</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="container mx-auto p-4 md:p-8 space-y-10">
+    <main class="container mx-auto p-4 md:p-8 space-y-8">
+
+        <!-- Planificación Didáctica Flexible y Orientativa -->
+        <section id="planificacion" class="card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-l-8 border-amber-500 shadow-md">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-3xl">📌</span>
+                <div>
+                    <h3 class="text-xl font-bold text-amber-900">Planificación y Fases Didácticas de la Unidad 1</h3>
+                    <p class="text-xs font-semibold text-amber-800 bg-amber-200/60 inline-block px-2.5 py-1 rounded-md mt-1">
+                        ⏱️ Planificación flexible y orientativa: Adaptable según el ritmo de trabajo del alumnado (~5-6 sesiones estimadas).
+                    </p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm">
+                    <p class="font-bold text-amber-800 mb-1">Fase 1: Exploración y Lógica (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Presentación del reto <em>Aula de Jaque</em>, comparativa Bloques vs Código y creación del primer archivo JavaScript en la práctica guiada.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm">
+                    <p class="font-bold text-amber-800 mb-1">Fase 2: Sintaxis y Estructuras (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Variables de puntuación de piezas, estructuras condicionales (<code>if/else</code>), bucles y resolución de retos interactivos en clase.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm">
+                    <p class="font-bold text-amber-800 mb-1">Fase 3: Proyecto y Evaluación (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Modificación del código del prototipo <code>ia.js</code>, test de conceptos y autoevaluación con la rúbrica interactiva.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Sección de Introducción -->
         <section id="introduccion" class="card p-6 md:p-8">
-            <h2 class="text-3xl font-bold mb-4 section-title">Introducción: El Salto a un Nivel Superior</h2>
-            <p class="text-lg leading-relaxed mb-4">
-                ¡Bienvenidos a 3º de la ESO! Ya sois unos expertos en la programación con bloques. Ahora, es momento de dar el siguiente paso y aprender a programar con un lenguaje de código real, como <span class="font-bold">Python</span>. Veréis que muchos conceptos son los mismos, solo cambia la forma en que los escribimos.
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-chess-knight text-amber-500"></i> El Desafío del Aula de Jaque
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                ¡Bienvenidos a 3º de la ESO! En cursos anteriores aprendisteis a pensar como programadores utilizando bloques en Scratch. Ahora ha llegado el momento de dar un salto decisivo: <strong>aprender a escribir código real</strong> para dar respuesta a un reto del instituto.
             </p>
-            <p class="text-lg leading-relaxed">
-                Esta unidad es un puente entre lo que ya sabéis y lo que estáis a punto de descubrir.
-            </p>
-        </section>
-
-        <!-- CYR.3.A.1. Lenguajes de programación: tipos y paradigmas. -->
-        <section id="lenguajes" class="card p-6 md:p-8">
-            <h2 class="text-3xl font-bold mb-4 section-title">1. Lenguajes de Programación: Tipos y Paradigmas</h2>
-            <p class="text-lg leading-relaxed mb-4">
-                Existen miles de lenguajes de programación. Se pueden clasificar de varias formas. La que más nos interesa es la diferencia entre:
-            </p>
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <div class="bg-blue-100 p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold mb-2 text-blue-800">Visuales (Bloques)</h3>
-                    <p class="text-md leading-relaxed text-blue-700 mb-2">
-                        Como Scratch, son ideales para principiantes. Se basan en arrastrar y soltar bloques que representan instrucciones.
-                    </p>
-                    <p class="text-md leading-relaxed font-bold text-blue-700">Ventajas:</p>
-                    <ul class="list-disc list-inside space-y-1 text-sm text-blue-700">
-                        <li>Intuitivos y visuales.</li>
-                        <li>Evitan errores de sintaxis.</li>
-                        <li>Aprendizaje rápido.</li>
-                    </ul>
-                </div>
-                <div class="bg-green-100 p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold mb-2 text-green-800">Textuales (Código)</h3>
-                    <p class="text-md leading-relaxed text-green-700 mb-2">
-                        Como Python, son los lenguajes profesionales. Las instrucciones se escriben con texto.
-                    </p>
-                    <p class="text-md leading-relaxed font-bold text-green-700">Ventajas:</p>
-                    <ul class="list-disc list-inside space-y-1 text-sm text-green-700">
-                        <li>Más flexibles y potentes.</li>
-                        <li>Se usan para crear aplicaciones complejas.</li>
-                        <li>Mayor control sobre el programa.</li>
-                    </ul>
-                </div>
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-4">
+                <h3 class="font-bold text-amber-900 text-sm md:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-bullseye"></i> Nuestro Gran Objetivo del Trimestre:
+                </h3>
+                <p class="text-sm text-amber-800 mt-1">
+                    Construir la <strong>IA oficial de Ajedrez del IES Cañada Rosal</strong> para que cualquier compañero o compañera pueda jugar contra ella en un ordenador del centro durante los recreos (dentro del programa <em>Aula de Jaque</em>).
+                </p>
             </div>
+            <p class="text-base text-slate-600 leading-relaxed">
+                En esta primera unidad aprenderemos cómo se traducen las ideas de bloques a líneas de código reales, creando el <strong>"cerebro evaluador"</strong> que permitirá a la máquina valorar qué piezas capturar y cómo tomar la mejor decisión.
+            </p>
         </section>
 
-        <!-- CYR.3.A.2. Elementos de los programas. -->
-        <section id="elementos" class="card p-6 md:p-8">
-            <h2 class="text-3xl font-bold mb-4 section-title">2. Elementos Fundamentales de la Programación</h2>
-            <p class="text-lg leading-relaxed mb-4">
-                Los elementos básicos de un programa son los mismos en Scratch y en Python. La diferencia es cómo se escriben.
-            </p>
-            <div class="grid md:grid-cols-2 gap-8 mt-6">
-                <div>
-                    <h3 class="text-xl font-semibold mb-2">Variables: Datos en Contenedores</h3>
-                    <p class="text-md leading-relaxed mb-2">
-                        Una variable es un espacio de memoria para guardar datos (números, texto, etc.).
-                    </p>
-                    <div class="bg-gray-100 p-4 rounded-lg my-2 text-sm">
-                        <p class="font-bold mb-1 text-gray-800">En Scratch:</p>
-                        <p class="font-mono text-gray-700">`crear variable [puntos]`</p>
-                        <p class="font-bold mt-2 mb-1 text-gray-800">En Python:</p>
-                        <p class="font-mono text-gray-700">`puntos = 0`</p>
+        <!-- Nueva Sección: Práctica Guiada Profesor + Clase (Sin dar por hecho HTML) -->
+        <section id="crear-js" class="card p-6 md:p-8 border-2 border-emerald-500/30">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-chalkboard-user text-emerald-600"></i> 🛠️ Práctica Guiada: Crear y Ejecutar tu Primer Código JS
+            </h2>
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-6 text-xs md:text-sm text-amber-900 leading-relaxed">
+                <strong>⚠️ Nota Importante:</strong> En esta primera unidad aún no hemos estudiado el lenguaje HTML (lo aprenderemos a fondo en la Unidad 2). Por ello, el profesor o profesora nos facilitará una plantilla básica (o podéis descargarla aquí) para conectar nuestro código de JavaScript.
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-300 p-4 rounded-xl mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">📄</span>
+                    <div>
+                        <h4 class="font-bold text-emerald-950 text-sm md:text-base">Plantilla de la Práctica Guiada: index_prueba.html</h4>
+                        <p class="text-xs text-emerald-800">Abre la demo en el navegador o descarga la plantilla comprimida (.zip).</p>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-2">Estructuras de Control</h3>
-                    <p class="text-md leading-relaxed mb-2">
-                        Son las instrucciones que controlan el flujo del programa. Las principales son las condicionales y los bucles.
-                    </p>
-                    <div class="bg-gray-100 p-4 rounded-lg my-2 text-sm">
-                        <p class="font-bold mb-1 text-gray-800">En Scratch:</p>
-                        <p class="font-mono text-gray-700">`si <tocado por el ratón?> entonces { ... }`</p>
-                        <p class="font-bold mt-2 mb-1 text-gray-800">En Python (condicional):</p>
-                        <p class="font-mono text-gray-700">`if tocado_raton:`<br>`    # ... código ...`</p>
-                        <p class="font-bold mt-2 mb-1 text-gray-800">En Python (bucle):</p>
-                        <p class="font-mono text-gray-700">`while True:`<br>`    # ... código ...`</p>
-                    </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="index_prueba.html" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition-all">
+                        <i class="fa-solid fa-eye text-sm"></i> Ver Demo
+                    </a>
+                    <a href="index_prueba.zip" download="index_prueba.zip" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow-sm transition-all">
+                        <i class="fa-solid fa-file-zipper text-sm"></i> Descargar Plantilla (.zip)
+                    </a>
                 </div>
             </div>
-        </section>
 
-        <!-- CYR.3.A.3. Secuencia de instrucciones. CYR.3.A.4. Tareas repetitivas y condicionales. -->
-        <section id="algoritmos-logica" class="card p-6 md:p-8">
-            <h2 class="text-3xl font-bold mb-4 section-title">3. Algoritmos y Lógica con Código</h2>
-            <p class="text-lg leading-relaxed mb-4">
-                La lógica de un programa sigue siendo la misma. La única diferencia es que ahora la escribimos.
+            <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-users"></i> Ejercicio Guiado Paso a Paso: "El Profesor con la Clase"
+            </h3>
+            <p class="text-xs md:text-sm text-slate-700 mb-4 leading-relaxed">
+                Sigue las instrucciones del profesorado en la pantalla de la clase mientras realizas estos 3 pasos en tu ordenador:
             </p>
+
             <div class="space-y-4">
-                <h3 class="text-xl font-semibold mb-2">Algoritmos</h3>
-                <p class="text-md leading-relaxed">
-                    Un algoritmo es una secuencia de instrucciones para resolver un problema. En Python, la secuencia es la clave: las instrucciones se ejecutan de arriba a abajo.
-                </p>
-                <div class="bg-gray-100 p-4 rounded-lg my-2 text-sm">
-                    <p class="font-bold mb-1 text-gray-800">Ejemplo de secuencia en Python:</p>
-                    <p class="font-mono text-gray-700">`print("Hola")`<br>`print("Adiós")`</p>
+                <!-- Paso 1 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-extrabold flex items-center justify-center shrink-0">1</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">Paso 1: Crear el archivo de código <code>mi_script.js</code></h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Abrimos el editor de código (VS Code o Thonny). Creamos un archivo nuevo y lo guardamos con el nombre <code>mi_script.js</code> en nuestra carpeta de trabajo. Escribimos estas 2 líneas:
+                        </p>
+                        <div class="mt-2 p-2.5 bg-slate-950 text-amber-300 rounded font-mono text-xs border border-slate-800">
+                            let nombreJugador = "Alumno IES Cañada Rosal";<br>
+                            console.log("¡Hola, " + nombreJugador + "! Tu script se ha ejecutado correctamente.");
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Bucles `for` y `while`</h3>
-                <p class="text-md leading-relaxed">
-                    Python nos da más control sobre los bucles. El bucle `for` es ideal para repetir un número exacto de veces, y el bucle `while` para repetir mientras una condición sea verdadera.
-                </p>
-                <div class="bg-gray-100 p-4 rounded-lg my-2 text-sm">
-                    <p class="font-bold mb-1 text-gray-800">Bucle `for`:</p>
-                    <p class="font-mono text-gray-700">`for i in range(5):`<br>`    print("Hola " + str(i))`</p>
-                    <p class="font-bold mt-2 mb-1 text-gray-800">Bucle `while`:</p>
-                    <p class="font-mono text-gray-700">`contador = 0`<br>`while contador < 5:`<br>`    print("Hola")`<br>`    contador = contador + 1`</p>
+
+                <!-- Paso 2 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-extrabold flex items-center justify-center shrink-0">2</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">Paso 2: Conectar el archivo JS dentro de la plantilla HTML</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-2">
+                            Abrimos la plantilla <code>index_prueba.html</code> facilitada por el profesor. Buscamos la línea final justo antes de la etiqueta de cierre <code>&lt;/body&gt;</code> y añadimos la línea <code>&lt;script&gt;</code> juntos en clase:
+                        </p>
+                        <div class="p-2.5 bg-slate-950 text-slate-200 rounded font-mono text-xs border border-slate-800">
+                            &lt;!-- El profesor guiará en la pizarra cómo escribir esta línea --&gt;<br>
+                            <span class="text-emerald-400">&lt;script src="mi_script.js"&gt;&lt;/script&gt;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-extrabold flex items-center justify-center shrink-0">3</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">Paso 3: Abrir la Consola del Navegador (F12)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Hacemos doble clic en <code>index_prueba.html</code> para abrirlo en Chrome o Firefox. Pulsamos la tecla <kbd class="px-1.5 py-0.5 bg-slate-200 border border-slate-300 rounded font-mono text-[10px]">F12</kbd> (o hacemos <em>Clic Derecho &rarr; Inspeccionar</em>) y seleccionamos la pestaña <strong>Consola</strong>. ¡Verás aparecer tu mensaje impreso en pantalla!
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- CYR.3.A.5. Pantallas de interacción con el usuario. -->
-        <section id="interaccion" class="card p-6 md:p-8">
-            <h2 class="text-3xl font-bold mb-4 section-title">4. Interacción en el Texto</h2>
-            <p class="text-lg leading-relaxed mb-4">
-                La interacción en Python se hace con la consola. Podemos pedir datos al usuario (<span class="font-bold">input</span>) y mostrarle información (<span class="font-bold">output</span>).
+        <!-- Sección 1: Lenguajes de Programación (Bloques vs Código) -->
+        <section id="lenguajes" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-code text-amber-500"></i> 1. Lenguajes de Programación: El Panorama Real
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                Existe una enorme variedad de lenguajes de programación en el mundo tecnológico (como <strong>C++</strong>, <strong>Java</strong>, <strong>C#</strong>, <strong>PHP</strong> o <strong>Python</strong>). Sin embargo, entre los más populares e influyentes destacan dos grandes gigantes:
             </p>
-            <p class="text-md leading-relaxed">
-                <span class="font-bold">Actividad Práctica:</span> Crea un programa en Python que pida al usuario su nombre y luego le dé la bienvenida.
+            <ul class="list-disc list-inside text-sm text-slate-700 mb-6 space-y-1 pl-2">
+                <li><strong>Python:</strong> Famoso por su simplicidad y muy utilizado en investigación de Inteligencia Artificial y Ciencia de Datos.</li>
+                <li><strong>JavaScript (JS):</strong> El lenguaje nativo de la Web. Se ejecuta directamente en todos los navegadores del mundo (Chrome, Firefox, Edge) sin necesidad de instalar nada.</li>
+            </ul>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Tarjeta Bloques -->
+                <div class="bg-blue-50/70 border border-blue-200 p-6 rounded-xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="p-2 bg-blue-500 text-white rounded-lg"><i class="fa-solid fa-cubes text-xl"></i></div>
+                        <h3 class="text-xl font-bold text-blue-900">Programación Visual (Bloques)</h3>
+                    </div>
+                    <p class="text-sm text-blue-800 leading-relaxed mb-3">
+                        Usada en Scratch. Se basa en encajar piezas visuales para evitar errores de escritura.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-blue-900 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Intuitiva y rápida de entender.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Imposible cometer faltas de ortografía (sintaxis).</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-xmark text-red-500"></i> Limitada para proyectos complejos y aplicaciones web reales.</li>
+                    </ul>
+                </div>
+
+                <!-- Tarjeta Código Textual -->
+                <div class="bg-emerald-50/70 border border-emerald-200 p-6 rounded-xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="p-2 bg-emerald-600 text-white rounded-lg"><i class="fa-solid fa-terminal text-xl"></i></div>
+                        <h3 class="text-xl font-bold text-emerald-900">Programación Textual (JavaScript / Python)</h3>
+                    </div>
+                    <p class="text-sm text-emerald-800 leading-relaxed mb-3">
+                        Entre la gran variedad de lenguajes existentes, <strong>JavaScript</strong> nos permite crear la IA y la interfaz web del ajedrez en el navegador.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-emerald-900 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Funciona en cualquier ordenador del instituto.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Permite conectar gráficos con inteligencia artificial.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Requiere atención al escribir llaves <code>{}</code> y puntos y comas <code>;</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Estructuras Básicas de JS con equivalencias en Scratch -->
+        <section id="estructuras" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-layer-group text-amber-500"></i> 2. Fundamentos de JavaScript: Equivalencias con Scratch
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-6">
+                Todo lo que hacíais en Scratch con bloques de colores tiene una equivalencia exacta en código real de JavaScript:
             </p>
-            <div class="bg-gray-100 p-4 rounded-lg my-2 text-sm">
-                <p class="font-mono text-gray-700">
-                    `nombre = input("¿Cuál es tu nombre? ")`<br>
-                    `print("Hola, " + nombre)`
+
+            <div class="space-y-6">
+                <!-- 1. Secuenciales -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-white">
+                    <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-down-1-9"></i> 1. Estructuras Secuenciales (Instrucciones en orden)
+                    </h3>
+                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">
+                        Las ordenes se ejecutan una tras otra, de arriba a abajo.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 font-mono text-xs">
+                        <div class="p-3 bg-blue-950/60 border border-blue-800 rounded text-blue-200">
+                            <span class="font-sans font-bold text-blue-400 block mb-1">🐱 En Scratch (Bloques Apilados):</span>
+                            [al hacer clic en bandera verde]<br>
+                            [fijar puntos a (10)]<br>
+                            [decir "¡Partida Iniciada!"]
+                        </div>
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded text-emerald-400">
+                            <span class="font-sans font-bold text-emerald-400 block mb-1">💻 En JavaScript (Código Real):</span>
+                            let puntos = 10;<br>
+                            console.log("¡Partida Iniciada!");
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Condicionales -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-white">
+                    <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-code-branch"></i> 2. Estructuras Condicionales (`if`, `else if`, `else`)
+                    </h3>
+                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">
+                        Permiten tomar decisiones. Equivale al bloque <code class="text-amber-400">si &lt;...&gt; entonces / si no</code> de Scratch.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 font-mono text-xs">
+                        <div class="p-3 bg-blue-950/60 border border-blue-800 rounded text-blue-200">
+                            <span class="font-sans font-bold text-blue-400 block mb-1">🐱 En Scratch (Bloque de Control):</span>
+                            [si &lt;(puntosIA) &gt; (puntosHumano)&gt; entonces]<br>
+                            &nbsp;&nbsp;[decir "Ventaja IA"]<br>
+                            [si no]<br>
+                            &nbsp;&nbsp;[decir "Ventaja Alumno"]
+                        </div>
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded text-emerald-400">
+                            <span class="font-sans font-bold text-emerald-400 block mb-1">💻 En JavaScript (Código Real):</span>
+                            if (puntosIA &gt; puntosHumano) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log("Ventaja IA");<br>
+                            } else {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log("Ventaja Alumno");<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Iterativas (Bucles) -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 text-white">
+                    <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-rotate"></i> 3. Estructuras Iterativas o Bucles (`for`, `while`)
+                    </h3>
+                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">
+                        Repiten acciones. Equivale al bloque <code class="text-amber-400">repetir (8)</code> o <code class="text-amber-400">por siempre</code> en Scratch.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 font-mono text-xs">
+                        <div class="p-3 bg-blue-950/60 border border-blue-800 rounded text-blue-200">
+                            <span class="font-sans font-bold text-blue-400 block mb-1">🐱 En Scratch (Bloque Repetir):</span>
+                            [repetir (8)]<br>
+                            &nbsp;&nbsp;[analizar fila del tablero]
+                        </div>
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded text-emerald-400">
+                            <span class="font-sans font-bold text-emerald-400 block mb-1">💻 En JavaScript (Bucle `for`):</span>
+                            for (let fila = 0; fila &lt; 8; fila++) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;analizarFila(fila);<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Piezas y Variables (Valores de las piezas) -->
+        <section id="elementos" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-coins text-amber-500"></i> 3. Variables: Asignando Valor a las Piezas
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                Para que la IA sepa si va ganando o perdiendo, usa <strong>Variables</strong> declaradas con <code>let</code> o constantes fijas con <code>const</code>.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <!-- En Scratch -->
+                <div class="bg-slate-900 text-white p-5 rounded-xl border border-slate-800">
+                    <span class="text-xs font-mono text-amber-400 uppercase tracking-wider block mb-2">En Scratch (Bloques)</span>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-blue-400 border border-slate-800">
+                        fijar [peon] a (10)<br>
+                        fijar [caballo] a (30)<br>
+                        fijar [dama] a (90)
+                    </div>
+                </div>
+
+                <!-- En Código Real -->
+                <div class="bg-slate-900 text-white p-5 rounded-xl border border-slate-800">
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider block mb-2">En JavaScript (Código Real)</span>
+                    <div class="bg-slate-950 p-3 rounded font-mono text-xs text-amber-300 border border-slate-800">
+                        const valorPeon = 10;<br>
+                        const valorCaballo = 30;<br>
+                        const valorDama = 90;
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla Resumen de Piezas -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs text-left text-slate-700 border-collapse">
+                    <thead class="text-xs uppercase bg-slate-100 text-slate-700 border-b border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-4">Pieza</th>
+                            <th class="py-2.5 px-4">Variable en Código</th>
+                            <th class="py-2.5 px-4">Valor Numérico</th>
+                            <th class="py-2.5 px-4">Razón Estratégica</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="py-2 px-4 font-bold flex items-center gap-2">♟️ Peón</td>
+                            <td class="py-2 px-4 font-mono text-amber-600">valorPeon</td>
+                            <td class="py-2 px-4 font-bold">10 puntos</td>
+                            <td class="py-2 px-4 text-slate-500">Unidad básica del tablero.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 font-bold flex items-center gap-2">♞ Caballo / ♝ Alfil</td>
+                            <td class="py-2 px-4 font-mono text-amber-600">valorPiezaMenor</td>
+                            <td class="py-2 px-4 font-bold">30 puntos</td>
+                            <td class="py-2 px-4 text-slate-500">Piezas menores de ataque rápido.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 font-bold flex items-center gap-2">♜ Torre</td>
+                            <td class="py-2 px-4 font-mono text-amber-600">valorTorre</td>
+                            <td class="py-2 px-4 font-bold">50 puntos</td>
+                            <td class="py-2 px-4 text-slate-500">Pieza pesada de gran alcance.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 font-bold flex items-center gap-2">♛ Dama</td>
+                            <td class="py-2 px-4 font-mono text-amber-600">valorDama</td>
+                            <td class="py-2 px-4 font-bold">90 puntos</td>
+                            <td class="py-2 px-4 text-slate-500">La pieza más poderosa del juego.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sección 4: ZONA DE PRÁCTICAS INTERACTIVAS -->
+        <section id="interactivo" class="card p-6 md:p-8 border-2 border-amber-500/40 bg-slate-950 text-white space-y-8">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-400 flex items-center gap-3">
+                    <i class="fa-solid fa-gamepad"></i> ⚡ Zona de Prácticas e Interactivas
+                </h2>
+                <p class="text-xs md:text-sm text-slate-300 mt-1 leading-relaxed">
+                    Completa los dos minijuegos y los ejercicios prácticos para consolidar la sintaxis antes del entregable final:
                 </p>
+            </div>
+
+            <!-- RETO A: Unir Conceptos Scratch ⇄ JS -->
+            <div class="p-5 bg-slate-900 rounded-xl border border-slate-800">
+                <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-object-ungroup"></i> Reto A: Une el Bloque de Scratch con su Código JavaScript
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-4 text-xs font-mono">
+                    <div class="space-y-2">
+                        <div class="p-2 bg-blue-950 text-blue-200 rounded border border-blue-800 font-sans">Bloque 1: <code>[fijar puntos a (10)]</code></div>
+                        <div class="p-2 bg-blue-950 text-blue-200 rounded border border-blue-800 font-sans">Bloque 2: <code>[si &lt;jaque&gt; entonces]</code></div>
+                        <div class="p-2 bg-blue-950 text-blue-200 rounded border border-blue-800 font-sans">Bloque 3: <code>[repetir (8)]</code></div>
+                    </div>
+                    <div class="space-y-2">
+                        <div>
+                            <select id="m1" class="w-full bg-slate-800 text-amber-400 p-2 rounded border border-slate-700">
+                                <option value="">Selecciona bloque para: let puntos = 10;</option>
+                                <option value="1">Bloque 1</option>
+                                <option value="2">Bloque 2</option>
+                                <option value="3">Bloque 3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="m2" class="w-full bg-slate-800 text-amber-400 p-2 rounded border border-slate-700">
+                                <option value="">Selecciona bloque para: if (jaque === true)</option>
+                                <option value="1">Bloque 1</option>
+                                <option value="2">Bloque 2</option>
+                                <option value="3">Bloque 3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="m3" class="w-full bg-slate-800 text-amber-400 p-2 rounded border border-slate-700">
+                                <option value="">Selecciona bloque para: for (let i=0; i&lt;8; i++)</option>
+                                <option value="1">Bloque 1</option>
+                                <option value="2">Bloque 2</option>
+                                <option value="3">Bloque 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="comprobarUnir()" class="mt-4 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs cursor-pointer">
+                    Comprobar Emparejamientos
+                </button>
+                <p id="feedback-unir" class="mt-2 text-xs font-sans font-semibold hidden"></p>
+            </div>
+
+            <!-- RETO B: Rellenar Huecos de Código (6 Preguntas) -->
+            <div class="p-5 bg-slate-900 rounded-xl border border-slate-800">
+                <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-code"></i> Reto B: Rellena los Huecos de Código (6 Preguntas)
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4 text-xs font-mono">
+                    <!-- Preguntas 1 a 6 -->
+                    <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">1. Declarar variable cambiante:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="q1" class="bg-slate-800 text-amber-400 p-1.5 rounded border border-slate-700"><option value="">--</option><option value="let">let</option><option value="if">if</option></select>
+                            <span>puntuacion = 0;</span>
+                        </div>
+                        <p id="feedback-q1" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">2. Valor fijo inmutable:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="q2" class="bg-slate-800 text-amber-400 p-1.5 rounded border border-slate-700"><option value="">--</option><option value="const">const</option><option value="let">let</option></select>
+                            <span>valorPeon = 10;</span>
+                        </div>
+                        <p id="feedback-q2" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">3. Evaluar una condición:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="q3" class="bg-slate-800 text-amber-400 p-1.5 rounded border border-slate-700"><option value="">--</option><option value="if">if</option><option value="for">for</option></select>
+                            <span>(jaque === true) { ... }</span>
+                        </div>
+                        <p id="feedback-q3" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">4. Camino alternativo de la condición:</label>
+                        <div class="flex items-center gap-2">
+                            <span>if (v) {}</span>
+                            <select id="q4" class="bg-slate-800 text-amber-400 p-1.5 rounded border border-slate-700"><option value="">--</option><option value="else">else</option><option value="let">let</option></select>
+                            <span>{}</span>
+                        </div>
+                        <p id="feedback-q4" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">5. Bucle para repetir 8 veces:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="q5" class="bg-slate-800 text-amber-400 p-1.5 rounded border border-slate-700"><option value="">--</option><option value="for">for</option><option value="while">while</option></select>
+                            <span>(let i=0; i&lt;8; i++)</span>
+                        </div>
+                        <p id="feedback-q5" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">6. Devolver resultado de función:</label>
+                        <div class="flex items-center gap-2">
+                            <select id="q6" class="bg-slate-800 text-amber-400 p-1.5 rounded border border-slate-700"><option value="">--</option><option value="return">return</option><option value="const">const</option></select>
+                            <span>resultado;</span>
+                        </div>
+                        <p id="feedback-q6" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+                </div>
+                <button onclick="comprobarHuecos()" class="mt-4 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs cursor-pointer">
+                    Comprobar Mis 6 Respuestas
+                </button>
             </div>
         </section>
 
         <!-- Sección de Actividades y Evaluación -->
         <section id="actividades-evaluacion" class="card p-6 md:p-8">
-            <h2 class="text-3xl font-bold mb-4 section-title">Actividades de Evaluación</h2>
-            <p class="text-lg mb-6">
-                Estas actividades te permitirán demostrar tu habilidad en la programación, tanto con bloques como con código.
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-clipboard-check text-amber-500"></i> Actividades de Evaluación & Proyecto UD1
+            </h2>
+            <p class="text-base text-slate-700 mb-6 leading-relaxed">
+                Para asegurar una excelente calificación en esta primera unidad, realizaremos primero una actividad guiada sencilla de afianzamiento y, a continuación, el reto práctico en el prototipo de código.
             </p>
 
-            <!-- Criterios de Evaluación -->
-            <div class="mb-8">
-                <h3 class="text-xl font-bold mb-2">Criterios de Evaluación</h3>
-                <ul class="list-disc list-inside text-md text-gray-700 space-y-1">
-                    <li><span class="font-bold">1.3.</span> Entender cómo funciona un programa informático, la manera de elaborarlo y sus principales componentes.</li>
-                    <li><span class="font-bold">2.1.</span> Conocer y resolver la variedad de problemas posibles, desarrollando un programa informático y generalizando las soluciones, tanto de forma individual como trabajando en equipo, colaborando y comunicándose de forma adecuada.</li>
+            <!-- Criterios de Evaluación Oficiales -->
+            <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Criterios de Evaluación Oficiales:</h3>
+                <ul class="list-disc list-inside text-xs md:text-sm text-slate-700 space-y-1 font-medium">
+                    <li><strong class="text-slate-900">Criterio 1.3:</strong> Entender cómo funciona un programa informático, la manera de elaborarlo y sus principales componentes (variables, condicionales y bucles).</li>
+                    <li><strong class="text-slate-900">Criterio 2.1:</strong> Conocer y resolver problemas desarrollando un programa informático y generalizando las soluciones tanto de forma individual como en equipo.</li>
                 </ul>
             </div>
 
-            <!-- Proyecto Final -->
-            <div>
-                <h3 class="text-xl font-bold mb-4">Proyecto Final: El Conversor Interactivo</h3>
-                <p class="text-md leading-relaxed mb-4">
-                    Tu misión es crear dos programas, uno en Scratch y otro en Python, que hagan lo mismo: convertir una temperatura de Celsius a Fahrenheit.
+            <!-- ACTIVIDAD 1: Guiada y sencilla con Pistas -->
+            <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl mb-6">
+                <h3 class="text-base font-bold text-emerald-900 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-star text-amber-500"></i> Actividad 1 (Individual): Test de Conceptos y Cálculo de Ventaja
+                </h3>
+                <p class="text-xs text-emerald-800 leading-relaxed mb-4">
+                    Responde en tu cuaderno o documento digital a las siguientes cuestiones sencillas:
                 </p>
-                <p class="text-md font-bold mb-2">Requisitos Mínimos:</p>
-                <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-                    <li><span class="font-bold">Programa en Scratch:</span><br>
-                        - Pide al usuario la temperatura en Celsius.<br>
-                        - Usa una variable para guardar el resultado.<br>
-                        - Muestra la temperatura convertida en la pantalla.</li>
-                    <li><span class="font-bold">Programa en Python:</span><br>
-                        - Pide al usuario la temperatura en Celsius (usando `input()`).<br>
-                        - Realiza el cálculo matemático `(temperatura * 9/5) + 32`.<br>
-                        - Muestra la temperatura convertida (usando `print()`).</li>
-                </ul>
-                <div class="bg-blue-100 p-4 rounded-lg mt-4 text-sm text-blue-800">
-                    <p class="font-semibold">Evaluación:</p>
-                    <p>Este proyecto se evaluará en base a la funcionalidad de ambos programas, la correcta aplicación de los conceptos (variables, operaciones matemáticas, entrada/salida) y la comparación de cómo se resuelven los mismos problemas con dos lenguajes de programación diferentes.</p>
+                <ol class="list-decimal list-inside text-xs md:text-sm text-emerald-950 space-y-3 font-medium pl-1">
+                    <li>Explica con tus palabras la diferencia entre declarar una variable con <code>let</code> y evaluar una condición con <code>if</code>.</li>
+                    
+                    <!-- Ejercicio 2 guiado con pista clara -->
+                    <li class="bg-white p-3.5 rounded-lg border border-emerald-200 shadow-sm">
+                        <span><strong>Cálculo de puntuación del tablero:</strong> Si en una posición del tablero las Blancas conservan <strong>2 Peones</strong> (10 pts c/u) y <strong>1 Torre</strong> (50 pts), mientras que las Negras conservan <strong>1 Dama</strong> (90 pts):</span>
+                        <div class="mt-2 p-2.5 bg-amber-50 rounded border border-amber-200 text-xs text-amber-900 font-sans font-normal leading-relaxed">
+                            💡 <strong>¿Cómo resolverlo paso a paso?</strong><br>
+                            • <strong>Paso A:</strong> Suma las piezas de las Blancas: <code>(10 + 10 + 50) = 70 puntos</code>.<br>
+                            • <strong>Paso B:</strong> Suma las piezas de las Negras: <code>90 puntos</code>.<br>
+                            • <strong>Paso C:</strong> Compara ambas cifras <code>(70 vs 90)</code> e indica qué bando va ganando y por cuántos puntos de ventaja.
+                        </div>
+                    </li>
+
+                    <li>Escribe en tu cuaderno una línea de código en JavaScript que cree la variable <code>valorAlfil</code> con un valor de 30 puntos.</li>
+                </ol>
+            </div>
+
+            <!-- ACTIVIDAD 2: Proyecto Entregable UD1 -->
+            <div class="bg-slate-950 text-white p-6 rounded-xl border border-slate-800">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="p-2.5 bg-amber-500 text-slate-950 rounded-lg font-bold text-xl"><i class="fa-solid fa-chess-board"></i></div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-extrabold text-amber-400">Reto Práctico UD1: Programando el Cerebro de la IA</h3>
+                        <p class="text-xs text-slate-400">Actividad práctica en el archivo <code>ia.js</code></p>
+                    </div>
                 </div>
+
+                <!-- Explicación de Entrega para la Evaluación -->
+                <div class="bg-emerald-950/80 border border-emerald-500/40 p-4 rounded-xl mb-5 text-xs md:text-sm text-emerald-100">
+                    <h4 class="font-bold text-emerald-400 text-sm mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-base"></i> 📤 ¿Qué debes subir para que la tarea sea evaluada?
+                    </h4>
+                    <p class="leading-relaxed">
+                        Una vez realizadas y comprobadas tus modificaciones en el ordenador de clase, debes subir a la tarea de <strong>Google Classroom / Moodle</strong> únicamente tu archivo modificado: <code class="bg-slate-900 text-amber-300 px-1.5 py-0.5 rounded font-mono">ia.js</code>.
+                    </p>
+                </div>
+
+                <div class="space-y-4 text-xs md:text-sm text-slate-200">
+                    <!-- Tarea A Detallada -->
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-amber-400 text-base mb-2 flex items-center gap-2">
+                            <span>🎯 Tarea A: Personalizar la Puntuación de Piezas</span>
+                            <span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-normal">Líneas 14-22 de ia.js</span>
+                        </h4>
+                        <ol class="list-decimal list-inside space-y-1.5 text-slate-300 leading-relaxed pl-1">
+                            <li>Abre el archivo <code class="text-amber-300 font-mono">ia.js</code> en tu editor de código (VS Code o Thonny).</li>
+                            <li>Busca el bloque de código <code class="text-amber-300 font-mono">var VALORES_PIEZAS = { ... };</code> indicado con el banner amarillo <code>✏️ TAREA A</code>.</li>
+                            <li>Modifica los números para cambiar cómo valora la IA cada pieza. Por ejemplo, cambia la Torre (<code class="text-amber-300">r: 50</code>) a <code class="text-emerald-400 font-bold">60</code> o los Peones (<code class="text-amber-300">p: 10</code>) a <code class="text-emerald-400 font-bold">15</code>.</li>
+                            <li>Guarda el archivo, recarga <code class="text-amber-300 font-mono">index.html</code> en tu navegador y juega una partida para comprobar cómo reacciona la máquina.</li>
+                        </ol>
+                    </div>
+
+                    <!-- Tarea B Detallada -->
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-amber-400 text-base mb-2 flex items-center gap-2">
+                            <span>🎯 Tarea B: Crear una Regla Condicional con 'if'</span>
+                            <span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-normal">Líneas 55-65 de ia.js</span>
+                        </h4>
+                        <ol class="list-decimal list-inside space-y-1.5 text-slate-300 leading-relaxed pl-1">
+                            <li>En el mismo archivo <code class="text-amber-300 font-mono">ia.js</code>, desplázate hasta la función <code class="text-amber-300 font-mono">evaluarTablero(juego)</code>.</li>
+                            <li>Busca el comentario destacado <code>✏️ TAREA B (ALUMNADO)</code>.</li>
+                            <li>Añade tu propia estructura condicional <code class="text-amber-300 font-mono">if</code> para darle una ventaja extra a la IA. Por ejemplo, escribe la siguiente línea para otorgarle +10 puntos extra a la Dama:
+                                <div class="mt-2 p-2 bg-slate-950 text-emerald-400 rounded font-mono text-xs border border-slate-800">
+                                    if (pieza.type === 'q') { valor = valor + 10; }
+                                </div>
+                            </li>
+                            <li>Guarda los cambios y verifica en la Consola (F12) o en la pantalla de juego cómo se aplica tu nueva regla.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="mt-5 p-3.5 bg-amber-500/20 border border-amber-500/40 rounded-lg text-xs text-amber-100 flex flex-col md:flex-row items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-amber-400 text-lg"></i>
+                        <span><strong>Archivos del Proyecto:</strong> Descarga la carpeta de trabajo o prueba la demo online.</span>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <a href="proyecto_ajedrez_ia/index.html" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-amber-300 font-bold px-3 py-1.5 rounded text-[11px] transition-all">
+                            <i class="fa-solid fa-gamepad"></i> Probar Demo Online
+                        </a>
+                        <a href="proyecto_ajedrez_ia.zip" download="proyecto_ajedrez_ia.zip" class="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded text-[11px] transition-all">
+                            <i class="fa-solid fa-download"></i> Descargar Proyecto (.zip)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Rúbrica Interactiva de Evaluación UD1 -->
+        <section id="rubrica" class="card p-6 md:p-8 border-2 border-emerald-500/40 bg-gradient-to-r from-emerald-50/50 to-teal-50/50 shadow-lg">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-emerald-950 flex items-center gap-3 section-title border-emerald-500">
+                        <i class="fa-solid fa-square-poll-vertical text-emerald-600"></i> 📊 Rúbrica Interactiva de Evaluación (UD1)
+                    </h2>
+                    <p class="text-xs md:text-sm text-emerald-800 mt-1 leading-relaxed">
+                        Selecciona la casilla correspondiente para cada uno de los 5 aspectos para calcular la nota automatizada sobre 10 puntos:
+                    </p>
+                </div>
+                <div id="rubricScoreBadge" class="bg-emerald-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-emerald-500">
+                    <span>Nota Final:</span> <span id="totalScore">0.0</span> / 10
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs text-left bg-white rounded-xl shadow-sm border border-emerald-200">
+                    <thead class="bg-slate-900 text-white uppercase text-[11px] tracking-wider font-bold">
+                        <tr>
+                            <th class="py-3 px-4 w-1/4 border border-slate-800">Aspectos de Evaluación</th>
+                            <th class="py-3 px-3 text-center bg-red-900/90 border border-slate-800">Insuficiente<br><span class="text-[10px] font-normal">(1 - 4 pts)</span></th>
+                            <th class="py-3 px-3 text-center bg-amber-800/90 border border-slate-800">Suficiente / Bien<br><span class="text-[10px] font-normal">(5 - 6 pts)</span></th>
+                            <th class="py-3 px-3 text-center bg-blue-800/90 border border-slate-800">Notable<br><span class="text-[10px] font-normal">(7 - 8 pts)</span></th>
+                            <th class="py-3 px-3 text-center bg-emerald-800/90 border border-slate-800">Sobresaliente<br><span class="text-[10px] font-normal">(9 - 10 pts)</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-emerald-100 font-medium text-slate-800">
+                        <!-- Fila 1: Comprensión de Sintaxis -->
+                        <tr class="hover:bg-emerald-50/40 transition">
+                            <td class="p-3 font-bold text-slate-900 bg-slate-50 border border-emerald-100">
+                                💻 1. Comprensión de Sintaxis y Código JS
+                                <span class="block text-[11px] font-normal text-slate-500 mt-0.5">Diferencia entre bloques y código real, precisión al escribir llaves <code>{}</code> y comas. (Peso: 20%)</span>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(1, 3, this)" class="rubric-btn r-row-1 w-full py-2.5 px-1 rounded border border-red-200 hover:bg-red-50 text-[11px] font-semibold cursor-pointer">1 - 4 pts<br><span class="text-[10px] text-slate-500 font-normal">Dificultades severas</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(1, 5.5, this)" class="rubric-btn r-row-1 w-full py-2.5 px-1 rounded border border-amber-200 hover:bg-amber-50 text-[11px] font-semibold cursor-pointer">5 - 6 pts<br><span class="text-[10px] text-slate-500 font-normal">Sintaxis básica</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(1, 7.5, this)" class="rubric-btn r-row-1 w-full py-2.5 px-1 rounded border border-blue-200 hover:bg-blue-50 text-[11px] font-semibold cursor-pointer">7 - 8 pts<br><span class="text-[10px] text-slate-500 font-normal">Buen dominio</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(1, 9.5, this)" class="rubric-btn r-row-1 w-full py-2.5 px-1 rounded border border-emerald-200 hover:bg-emerald-50 text-[11px] font-semibold cursor-pointer">9 - 10 pts ⭐<br><span class="text-[10px] text-slate-500 font-normal">Excelente fluidez</span></button>
+                            </td>
+                        </tr>
+
+                        <!-- Fila 2: Variables y Piezas -->
+                        <tr class="hover:bg-emerald-50/40 transition">
+                            <td class="p-3 font-bold text-slate-900 bg-slate-50 border border-emerald-100">
+                                🪙 2. Uso de Variables y Valores de Piezas
+                                <span class="block text-[11px] font-normal text-slate-500 mt-0.5">Declaración correcta con <code>let</code>/<code>const</code> y asignación de valores numéricos de ajedrez. (Peso: 20%)</span>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(2, 3, this)" class="rubric-btn r-row-2 w-full py-2.5 px-1 rounded border border-red-200 hover:bg-red-50 text-[11px] font-semibold cursor-pointer">1 - 4 pts<br><span class="text-[10px] text-slate-500 font-normal">Confunde variables</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(2, 5.5, this)" class="rubric-btn r-row-2 w-full py-2.5 px-1 rounded border border-amber-200 hover:bg-amber-50 text-[11px] font-semibold cursor-pointer">5 - 6 pts<br><span class="text-[10px] text-slate-500 font-normal">Declara con guía</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(2, 7.5, this)" class="rubric-btn r-row-2 w-full py-2.5 px-1 rounded border border-blue-200 hover:bg-blue-50 text-[11px] font-semibold cursor-pointer">7 - 8 pts<br><span class="text-[10px] text-slate-500 font-normal">Uso correcto</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(2, 9.5, this)" class="rubric-btn r-row-2 w-full py-2.5 px-1 rounded border border-emerald-200 hover:bg-emerald-50 text-[11px] font-semibold cursor-pointer">9 - 10 pts ⭐<br><span class="text-[10px] text-slate-500 font-normal">Manejo óptimo</span></button>
+                            </td>
+                        </tr>
+
+                        <!-- Fila 3: Estructuras Condicionales e Iterativas -->
+                        <tr class="hover:bg-emerald-50/40 transition">
+                            <td class="p-3 font-bold text-slate-900 bg-slate-50 border border-emerald-100">
+                                🔀 3. Lógica Condicional e Iterativa
+                                <span class="block text-[11px] font-normal text-slate-500 mt-0.5">Aplicación de <code>if/else</code> para tomar decisiones y bucles <code>for</code> para recorrer casillas. (Peso: 20%)</span>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(3, 3, this)" class="rubric-btn r-row-3 w-full py-2.5 px-1 rounded border border-red-200 hover:bg-red-50 text-[11px] font-semibold cursor-pointer">1 - 4 pts<br><span class="text-[10px] text-slate-500 font-normal">No aplica lógica</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(3, 5.5, this)" class="rubric-btn r-row-3 w-full py-2.5 px-1 rounded border border-amber-200 hover:bg-amber-50 text-[11px] font-semibold cursor-pointer">5 - 6 pts<br><span class="text-[10px] text-slate-500 font-normal">Condicional simple</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(3, 7.5, this)" class="rubric-btn r-row-3 w-full py-2.5 px-1 rounded border border-blue-200 hover:bg-blue-50 text-[11px] font-semibold cursor-pointer">7 - 8 pts<br><span class="text-[10px] text-slate-500 font-normal">Aplica condicional/bucle</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(3, 9.5, this)" class="rubric-btn r-row-3 w-full py-2.5 px-1 rounded border border-emerald-200 hover:bg-emerald-50 text-[11px] font-semibold cursor-pointer">9 - 10 pts ⭐<br><span class="text-[10px] text-slate-500 font-normal">Lógica avanzada</span></button>
+                            </td>
+                        </tr>
+
+                        <!-- Fila 4: Modificación del Cerebro de la IA -->
+                        <tr class="hover:bg-emerald-50/40 transition">
+                            <td class="p-3 font-bold text-slate-900 bg-slate-50 border border-emerald-100">
+                                ♟️ 4. Modificación del Cerebro de la IA (`ia.js`)
+                                <span class="block text-[11px] font-normal text-slate-500 mt-0.5">Adaptación con éxito del código evaluador del prototipo para mejorar la jugabilidad. (Peso: 20%)</span>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(4, 3, this)" class="rubric-btn r-row-4 w-full py-2.5 px-1 rounded border border-red-200 hover:bg-red-50 text-[11px] font-semibold cursor-pointer">1 - 4 pts<br><span class="text-[10px] text-slate-500 font-normal">Incompleto</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(4, 5.5, this)" class="rubric-btn r-row-4 w-full py-2.5 px-1 rounded border border-amber-200 hover:bg-amber-50 text-[11px] font-semibold cursor-pointer">5 - 6 pts<br><span class="text-[10px] text-slate-500 font-normal">Modifica la tabla</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(4, 7.5, this)" class="rubric-btn r-row-4 w-full py-2.5 px-1 rounded border border-blue-200 hover:bg-blue-50 text-[11px] font-semibold cursor-pointer">7 - 8 pts<br><span class="text-[10px] text-slate-500 font-normal">Resuelve el reto</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(4, 9.5, this)" class="rubric-btn r-row-4 w-full py-2.5 px-1 rounded border border-emerald-200 hover:bg-emerald-50 text-[11px] font-semibold cursor-pointer">9 - 10 pts ⭐<br><span class="text-[10px] text-slate-500 font-normal">Mejora la IA</span></button>
+                            </td>
+                        </tr>
+
+                        <!-- Fila 5: Actitud y Esfuerzo -->
+                        <tr class="hover:bg-emerald-50/40 transition">
+                            <td class="p-3 font-bold text-slate-900 bg-slate-50 border border-emerald-100">
+                                💪 5. Esfuerzo, Trabajo Diario y Autonomía
+                                <span class="block text-[11px] font-normal text-slate-500 mt-0.5">Constancia diaria en el aula, ganas de aprender, superar bloqueos y trabajo colaborativo. (Peso: 20%)</span>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(5, 3, this)" class="rubric-btn r-row-5 w-full py-2.5 px-1 rounded border border-red-200 hover:bg-red-50 text-[11px] font-semibold cursor-pointer">1 - 4 pts<br><span class="text-[10px] text-slate-500 font-normal">Poco interés</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(5, 5.5, this)" class="rubric-btn r-row-5 w-full py-2.5 px-1 rounded border border-amber-200 hover:bg-amber-50 text-[11px] font-semibold cursor-pointer">5 - 6 pts<br><span class="text-[10px] text-slate-500 font-normal">Constancia básica</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(5, 7.5, this)" class="rubric-btn r-row-5 w-full py-2.5 px-1 rounded border border-blue-200 hover:bg-blue-50 text-[11px] font-semibold cursor-pointer">7 - 8 pts<br><span class="text-[10px] text-slate-500 font-normal">Muy proactivo</span></button>
+                            </td>
+                            <td class="p-2 text-center border border-emerald-100">
+                                <button type="button" onclick="setRubricScore(5, 9.5, this)" class="rubric-btn r-row-5 w-full py-2.5 px-1 rounded border border-emerald-200 hover:bg-emerald-50 text-[11px] font-semibold cursor-pointer">9 - 10 pts ⭐<br><span class="text-[10px] text-slate-500 font-normal">Ejemplar</span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-gray-800 text-white p-6 text-center rounded-t-xl mt-12">
-        <p>&copy; 2025 Computación y Robótica - 3º ESO. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Material de apoyo para el curso.</p>
+    <!-- Pie de página -->
+    <footer class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800 mt-12">
+        <p>&copy; 2026 Computación y Robótica - 3º ESO | IES Cañada Rosal</p>
+        <p class="mt-1 text-slate-500">Material didáctico adaptado al currículo andaluz (Orden 30 de mayo de 2023).</p>
     </footer>
+
+    <!-- Lógica de las Actividades Interactivas y Rúbrica -->
+    <script>
+        function comprobarUnir() {
+            const m1 = document.getElementById('m1').value;
+            const m2 = document.getElementById('m2').value;
+            const m3 = document.getElementById('m3').value;
+            const feedback = document.getElementById('feedback-unir');
+
+            if (m1 === '1' && m2 === '2' && m3 === '3') {
+                feedback.textContent = '🎉 ¡Excelente! Has emparejado los 3 bloques de Scratch con su código equivalente en JavaScript.';
+                feedback.className = 'mt-3 text-xs font-sans font-bold text-emerald-400 block p-2 bg-emerald-950/60 rounded border border-emerald-800';
+            } else {
+                feedback.textContent = '❌ Revisa los emparejamientos: Bloque 1 es let, Bloque 2 es if, y Bloque 3 es bucle for.';
+                feedback.className = 'mt-3 text-xs font-sans font-bold text-red-400 block p-2 bg-red-950/60 rounded border border-red-800';
+            }
+        }
+
+        function comprobarHuecos() {
+            const resp = {
+                q1: { el: document.getElementById('q1').value, target: 'let', msgCorrect: '✅ ¡Correcto! "let" declara variables cambiantes.', msgErr: '❌ Usamos "let" para variables que cambian.' },
+                q2: { el: document.getElementById('q2').value, target: 'const', msgCorrect: '✅ ¡Correcto! "const" fija valores inmutables.', msgErr: '❌ Para valores fijos usamos "const".' },
+                q3: { el: document.getElementById('q3').value, target: 'if', msgCorrect: '✅ ¡Correcto! "if" evalúa condiciones.', msgErr: '❌ Usamos "if" para evaluar condiciones.' },
+                q4: { el: document.getElementById('q4').value, target: 'else', msgCorrect: '✅ ¡Correcto! "else" es el camino alternativo.', msgErr: '❌ El camino alternativo es "else".' },
+                q5: { el: document.getElementById('q5').value, target: 'for', msgCorrect: '✅ ¡Correcto! "for" repite bucles un número conocido de veces.', msgErr: '❌ Usamos "for" para iteraciones conocidas.' },
+                q6: { el: document.getElementById('q6').value, target: 'return', msgCorrect: '✅ ¡Correcto! "return" devuelve el resultado.', msgErr: '❌ Usamos "return" para devolver el valor.' }
+            };
+
+            for (let i = 1; i <= 6; i++) {
+                const item = resp['q' + i];
+                const feedbackEl = document.getElementById('feedback-q' + i);
+                
+                if (item.el === item.target) {
+                    feedbackEl.textContent = item.msgCorrect;
+                    feedbackEl.className = 'mt-1 text-xs font-sans font-semibold text-emerald-400 block';
+                } else {
+                    feedbackEl.textContent = item.msgErr;
+                    feedbackEl.className = 'mt-1 text-xs font-sans font-semibold text-red-400 block';
+                }
+            }
+        }
+
+        // LÓGICA DE LA RÚBRICA INTERACTIVA DE EVALUACIÓN
+        let rubricScores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+        function setRubricScore(row, score, btn) {
+            rubricScores[row] = score;
+
+            document.querySelectorAll('.r-row-' + row).forEach(b => {
+                b.classList.remove('bg-emerald-600', 'bg-blue-600', 'bg-amber-600', 'bg-red-600', 'text-white', 'shadow-md');
+                b.classList.add('bg-white', 'text-slate-800');
+            });
+
+            btn.classList.remove('bg-white', 'text-slate-800');
+            if (score >= 9) {
+                btn.classList.add('bg-emerald-600', 'text-white', 'shadow-md');
+            } else if (score >= 7) {
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+            } else if (score >= 5) {
+                btn.classList.add('bg-amber-600', 'text-white', 'shadow-md');
+            } else {
+                btn.classList.add('bg-red-600', 'text-white', 'shadow-md');
+            }
+
+            let sum = 0;
+            let count = 0;
+            for (let key in rubricScores) {
+                if (rubricScores[key] > 0) {
+                    sum += rubricScores[key];
+                    count++;
+                }
+            }
+
+            let total = (count > 0) ? (sum / 5.0) : 0;
+            document.getElementById('totalScore').textContent = total.toFixed(1);
+        }
+    </script>
 
 </body>
 </html>
-

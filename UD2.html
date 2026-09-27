@@ -3,593 +3,649 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somos desarrolladores web</title>
+    <title>UD 2: Somos Desarrolladores Web - Diseñando el Aula de Jaque | CyR 3º ESO</title>
     <!-- Enlace a Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Incluimos Three.js desde CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Fuente Inter para una mejor legibilidad -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Color de fondo suave */
-            color: #334155; /* Color de texto principal */
+            background-color: #f8fafc;
+            color: #1e293b;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
         }
         .section-title {
-            border-left: 8px solid #06b6d4; /* Borde turquesa para títulos de sección */
+            border-left: 6px solid #0284c7; /* Azul cian para Desarrollo Web */
             padding-left: 1rem;
         }
         .card {
             background-color: #ffffff;
-            border-radius: 0.75rem; /* Bordes redondeados */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
         }
-        .btn-primary {
-            background-color: #3b82f6; /* Azul más fuerte */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s ease;
+        .nav-link {
+            transition: all 0.2s ease;
         }
-        .btn-primary:hover {
-            background-color: #2563eb;
-        }
-        .quiz-option {
-            background-color: #e2e8f0;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        .quiz-option:hover {
-            background-color: #cbd5e1;
-        }
-        /* Clases para feedback visual */
-        .correct {
-            background-color: #d1fae5; /* Verde muy claro */
-            border: 2px solid #10b981; /* Borde verde */
-            font-weight: 600;
-        }
-        .incorrect {
-            background-color: #fee2e2; /* Rojo muy claro */
-            border: 2px solid #ef4444; /* Borde rojo */
-        }
-        .evaluation-criteria {
-            background-color: #f0f9ff; /* Light blue background for criteria */
-            border-left: 4px solid #38bdf8; /* Blue border */
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            font-style: italic;
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        /* CSS para animaciones */
-        .animated-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .animated-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        .nav-link:hover {
+            background-color: #0284c7;
+            color: #ffffff;
         }
         .code-block {
-            background-color: #1e293b;
+            background-color: #0f172a;
             color: #f8fafc;
             padding: 1rem;
             border-radius: 0.5rem;
             overflow-x: auto;
             font-family: monospace;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             line-height: 1.5;
+            border: 1px solid #334155;
         }
-        /* Estilo para el botón de Chuleta (lo hacemos distintivo) */
-.btn-cheatsheet {
-    display: inline-flex;
-    align-items: center;
-    background-color: #ef4444; /* Rojo vibrante */
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 9999px; /* Píldora */
-    font-size: 1.25rem;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-    transition: all 0.3s ease;
-}
-.btn-cheatsheet:hover {
-    background-color: #dc2626;
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
-}
+        /* Botón de Chuleta */
+        .btn-cheatsheet {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0284c7;
+            color: white;
+            padding: 0.85rem 1.75rem;
+            border-radius: 9999px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+            transition: all 0.3s ease;
+        }
+        .btn-cheatsheet:hover {
+            background-color: #0369a1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+        }
     </style>
 </head>
 <body class="antialiased">
-    <header class="bg-gradient-to-r from-blue-700 to-cyan-500 text-white p-6 shadow-lg rounded-b-xl">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-            <h1 class="text-4xl font-extrabold mb-2 md:mb-0">💻 Somos desarrolladores web ✨</h1>
-            <nav>
-                <ul class="flex space-x-6 text-lg font-medium">
-                    <li><a href="#introduccion" class="hover:text-gray-200 transition-colors duration-300">Introducción</a></li>
-                    <li><a href="#repaso-estructura" class="hover:text-gray-200 transition-colors duration-300">Repaso HTML</a></li>
-                    <li><a href="#estructura-web" class="hover:text-gray-200 transition-colors duration-300">Estructura Semántica</a></li>
-                    <li><a href="#servidores-tipologia" class="hover:text-gray-200 transition-colors duration-300">Servidores</a></li>
-                    <li><a href="#animacion-formatos" class="hover:text-gray-200 transition-colors duration-300">Animación Web</a></li>
-                    <li><a href="#threejs-3d" class="hover:text-gray-200 transition-colors duration-300">Three.js (3D)</a></li>
-                    <li><a href="#actividades-evaluables" class="hover:text-gray-200 transition-colors duration-300">Actividades Evaluables</a></li>
-                    <li><a href="#proyecto-final" class="hover:text-gray-200 transition-colors duration-300">Proyecto Final</a></li>
-                    <li><a href="#cuestionario" class="hover:text-gray-200 transition-colors duration-300">Cuestionario</a></li>
-                </ul>
-            </nav>
+
+    <!-- Header de la Unidad 2 -->
+    <header class="bg-gradient-to-r from-sky-600 via-cyan-600 to-teal-600 text-white p-6 md:p-10 text-center shadow-md">
+        <div class="container mx-auto">
+            <div class="inline-block bg-white/20 text-white font-semibold text-xs px-3.5 py-1 rounded-full mb-3 backdrop-blur-sm border border-white/30">
+                🌐 Aula de Jaque - Construyendo la Interfaz Web
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">Somos Desarrolladores Web: HTML & CSS</h1>
+            <p class="text-lg md:text-xl font-light opacity-95 max-w-2xl mx-auto">
+                Unidad 2 - 3º ESO: Aprende a estructurar y diseñar la interfaz visual del juego de ajedrez donde jugará todo el instituto.
+            </p>
         </div>
     </header>
 
-    <main class="container mx-auto p-8 space-y-12">
-
-        <!-- Introducción -->
-        <section id="introduccion" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">¡El Gran Salto al Desarrollo Web!</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                ¡Bienvenidos al desarrollo web! En 1º de la ESO tuviste una pequeña introducción. Ahora, en 3º de la ESO, vamos a quitarnos el sombrero de usuarios para ponernos el de creadores. No solo verás la web, la entenderás, la estructurarás y le darás vida.
-            </p>
-            <p class="text-lg mb-4 leading-relaxed">
-                Aprenderemos a construir páginas modernas, atractivas y dinámicas usando el poder combinado de HTML y CSS, y exploraremos cómo las animaciones web hacen que la experiencia del usuario sea increíble. Además, daremos un paso al desarrollo 3D con librerías avanzadas.
-            </p>
-            <div class="flex justify-center mt-6">
-                <img src="web_ud2.png" alt="Desarrollo Web en un ordenador" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/3b82f6/ffffff?text=Desarrollo+Web+3ESO';">
-            </div>
-            <p class="text-center text-sm text-gray-500 mt-2">
-                 - El lienzo digital te espera.
-            </p>
-        </section>
-
-        <!-- REPASO DE CURSO ANTERIOR (AÑADIDO) -->
-        <section id="repaso-estructura" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">Repaso: Construyendo la Estructura Base (1º/2º ESO)</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                Antes de profundizar, es crucial recordar las etiquetas básicas que forman la base de cualquier página web. Debes dominar estas etiquetas para construir el esqueleto de forma correcta.
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4 text-purple-600">Miniproyecto Guiado: Creando un CV Básico</h3>
-            <p class="text-lg mb-4 leading-relaxed">
-                Copia y pega el siguiente código en un archivo nuevo (`cv-repaso.html`). Luego, modifícalo para incluir tu propia información.
-            </p>
-            <div class="code-block">
-                &lt;!DOCTYPE html&gt;<br>
-                &lt;html lang="es"&gt;<br>
-                &lt;head&gt;<br>
-                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
-                &nbsp;&nbsp;&lt;title&gt;Mi CV Básico&lt;/title&gt;<br>
-                &lt;/head&gt;<br>
-                &lt;body&gt;<br>
-                &nbsp;&nbsp;&lt;h1&gt;[Tu Nombre Completo]&lt;/h1&gt;<br>
-                &nbsp;&nbsp;&lt;img src="[URL_IMAGEN_TUYA]" alt="Foto de perfil" width="100"&gt;<br>
-                &nbsp;&nbsp;&lt;p&gt;Soy estudiante de 3º de la ESO apasionado por la robótica y la tecnología.&lt;/p&gt;<br>
-                <br>
-                &nbsp;&nbsp;&lt;h2&gt;Mis Hobbies&lt;/h2&gt;<br>
-                &nbsp;&nbsp;&lt;ul&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Programar en Scratch&lt;/li&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ol&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Mi mejor juego es...&lt;/li&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ol&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Jugar al fútbol&lt;/li&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Leer ciencia ficción&lt;/li&gt;<br>
-                &nbsp;&nbsp;&lt;/ul&gt;<br>
-                <br>
-                &nbsp;&nbsp;&lt;h2&gt;Contacto&lt;/h2&gt;<br>
-                &nbsp;&nbsp;&lt;p&gt;Puedes visitar mi perfil en &lt;a href="[URL_DE_INTERES]"&gt;este enlace&lt;/a&gt;.&lt;/p&gt;<br>
-                &lt;/body&gt;<br>
-                &lt;/html&gt;
-            </div>
-            <p class="text-lg mt-6 text-center">
-                <strong class="text-red-600">Etiquetas repasadas:</strong> <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>.
-            </p>
-        </section>
-
-
-        <!-- CYR.3.E.1. Análisis de la estructura de las páginas web. -->
-        <section id="estructura-web" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">1. Estructura de las Páginas Web: El Esqueleto Semántico</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                En 1º, aprendimos que HTML es el esqueleto. En 3º, vamos a analizar ese esqueleto usando etiquetas semánticas, que son etiquetas que le dan un significado claro al contenido, no solo apariencia.
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4">Etiquetas Semánticas Clave:</h3>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li><strong class="text-red-600">&lt;header&gt;:</strong> Contiene la introducción o el grupo de navegación (ej. logo, menú).</li>
-                <li><strong class="text-red-600">&lt;nav&gt;:</strong> Contiene los enlaces de navegación principales.</li>
-                <li><strong class="text-red-600">&lt;main&gt;:</strong> Contiene el contenido único y principal de la página.</li>
-                <li><strong class="text-red-600">&lt;section&gt;:</strong> Agrupa contenido relacionado (ej. una sección de "servicios").</li>
-                <li><strong class="text-red-600">&lt;article&gt;:</strong> Contenido independiente, como una entrada de blog o una noticia.</li>
-                <li><strong class="text-red-600">&lt;footer&gt;:</strong> Contiene información de contacto, derechos de autor o enlaces secundarios.</li>
+    <!-- Menú de navegación ajustado sin barras de scroll -->
+    <nav class="sticky top-0 z-50 bg-slate-900 text-slate-200 shadow-xl border-b border-slate-800">
+        <div class="container mx-auto px-4 py-2.5">
+            <ul class="flex flex-wrap justify-center items-center gap-1.5 md:gap-3 text-xs md:text-sm font-semibold">
+                <li><a href="#planificacion" class="nav-link px-2.5 py-1.5 rounded-lg text-sky-300">📌 Fases</a></li>
+                <li><a href="#introduccion" class="nav-link px-2.5 py-1.5 rounded-lg">Introducción</a></li>
+                <li><a href="#html-base" class="nav-link px-2.5 py-1.5 rounded-lg">1. Estructura HTML</a></li>
+                <li><a href="#css-estilos" class="nav-link px-2.5 py-1.5 rounded-lg">2. Estilos CSS & Flexbox</a></li>
+                <li><a href="#analisis-ajedrez" class="nav-link px-2.5 py-1.5 rounded-lg text-amber-300">♟️ Interfaz Ajedrez</a></li>
+                <li><a href="#zona-practica" class="nav-link px-2.5 py-1.5 rounded-lg text-cyan-300">⚡ Zona Práctica</a></li>
+                <li><a href="#actividades-evaluables" class="nav-link px-2.5 py-1.5 rounded-lg">Actividades</a></li>
+                <li><a href="#rubrica" class="nav-link px-2.5 py-1.5 rounded-lg text-emerald-400">📊 Rúbrica</a></li>
             </ul>
-            <p class="text-lg mb-4 leading-relaxed mt-4">
-                Usar estas etiquetas no solo organiza tu código, sino que ayuda a los motores de búsqueda (como Google) y a los lectores de pantalla para personas con discapacidad visual a entender mejor tu web.
-            </p>
-            <div class="flex justify-center mt-6">
-                <img src="estructura_ud2.png" alt="Diagrama de Estructura Semántica HTML" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/f87171/ffffff?text=Estructura+Sem\u00E1ntica+HTML';">
-            </div>
-            <p class="text-center text-sm text-gray-500 mt-2">
-                 - El mapa de tu página web.
-            </p>
-            <p class="text-lg mt-6">
-                <strong class="text-blue-600">¡Actividad Práctica!</strong> Analiza tu web favorita (Netflix, una tienda de videojuegos, el blog del colegio). Identifica qué partes corresponderían a &lt;header&gt;, &lt;nav&gt;, &lt;main&gt; y &lt;footer&gt;.
-            </p>
-        </section>
+        </div>
+    </nav>
 
-        <!-- CYR.3.E.2. Servidores web: tipología. -->
-        <section id="servidores-tipologia" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">2. Servidores Web: Tipología Avanzada</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                Ya sabes que un servidor web almacena y entrega las páginas. En 3º, vamos a ver los diferentes tipos de servidores y cómo se usan en la industria:
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4">Tipologías de Servidores:</h3>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li><strong class="text-green-600">Servidores Dedicados:</strong> Un ordenador físico entero es usado por un solo cliente. Ofrece el máximo rendimiento, seguridad y control. (Imagina un gimnasio que es solo para ti).</li>
-                <li><strong class="text-green-600">Servidores Compartidos:</strong> Muchos sitios web pequeños comparten el mismo servidor físico y sus recursos. Es la opción más barata y común para webs sencillas. (Imagina un autobús compartido).</li>
-                <li><strong class="text-green-600">Servidores en la Nube (Cloud Hosting):</strong> El sitio web se aloja en una red de servidores virtuales. Esto permite escalar el sitio web (crecer o reducirse) de forma muy fácil y solo pagas por lo que usas. Es la tecnología más moderna. (Imagina un taxi que se adapta a cuántas personas sois).</li>
-            </ul>
-            <p class="text-lg mb-4 leading-relaxed mt-4">
-                Entender la tipología es clave para saber dónde almacenar un sitio web, dependiendo de su tamaño y tráfico esperado.
-            </p>
-            <div class="flex justify-center mt-6">
-                <img src="servidores_ud2.png" alt="Tipos de Servidores Web" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/059669/ffffff?text=Tipos+de+Servidores+Web';">
-            </div>
-            <p class="text-center text-sm text-gray-500 mt-2">
-                 - El "almacén" de los datos web.
-            </p>
-            <p class="text-lg mt-6">
-                <strong class="text-blue-600">¡Actividad Práctica!</strong> Si fueras a crear una web para un gran evento (ej. un festival de música), ¿qué tipo de servidor elegirías (Dedicado, Compartido, o Nube)? Justifica tu respuesta.
-            </p>
-        </section>
+    <main class="container mx-auto p-4 md:p-8 space-y-8">
 
-        <!-- CYR.3.E.3. Formatos de animación web. -->
-        <section id="animacion-formatos" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">3. Formatos y Tipos de Animación Web</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                La animación da vida a la web. Para que un elemento se mueva, podemos usar diferentes formatos y técnicas:
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4">Formatos basados en Imágenes:</h3>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li><strong class="text-purple-600">GIF:</strong> El formato más antiguo. Ideal para animaciones cortas y de pocos colores. Su inconveniente es que el tamaño del archivo suele ser grande.</li>
-                <li><strong class="text-purple-600">APNG (Animated PNG):</strong> Una versión moderna y de alta calidad del GIF, que soporta más colores y transparencia.</li>
-                <li><strong class="text-purple-600">Vídeo (MP4, WebM):</strong> El más eficiente para animaciones largas o complejas.</li>
-            </ul>
-            <h3 class="text-2xl font-semibold mt-6 mb-4">Formatos basados en Código (los más usados hoy):</h3>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li><strong class="text-purple-600">Animaciones y Transiciones CSS:</strong> Permiten mover, rotar o cambiar elementos usando el lenguaje de estilos. Es muy eficiente y ligero.</li>
-                <li><strong class="text-purple-600">SVG (Scalable Vector Graphics):</strong> Animación basada en vectores. Se ve perfecto en cualquier tamaño de pantalla. Ideal para logos y gráficos.</li>
-                <li><strong class="text-purple-600">Animación JavaScript (JS):</strong> Permite animaciones complejas y basadas en la lógica del programa (ej. efectos en juegos o transiciones complejas entre vistas).</li>
-            </ul>
-            <div class="flex justify-center mt-6">
-                <img src="giphy.gif" alt="Comparativa de Formatos de Animación Web" class="rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2" onerror="this.onerror=null;this.src='https://placehold.co/600x350/a78bfa/ffffff?text=Formatos+de+Animaci\u00F3n';">
-            </div>
-            <p class="text-center text-sm text-gray-500 mt-2">
-                 - El tipo de animación afecta la velocidad de carga.
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">¡Actividad Práctica! Insertando un GIF Animado</h3>
-            <p class="text-lg mb-4 leading-relaxed">
-                Tu misión: Descargar un GIF animado e insertarlo en una página web básica para demostrar la animación por imagen.
-            </p>
-            <ol class="list-decimal list-inside text-lg space-y-2 ml-4">
-                <li>Ve a <a href="https://giphy.com" target="_blank" class="text-blue-500 hover:underline">Giphy.com</a> y busca un GIF que te guste (ej. de un robot).</li>
-                <li>Descarga o copia la URL del GIF (asegúrate de que termina en `.gif`).</li>
-                <li>Crea un archivo HTML simple y usa la etiqueta <code>&lt;img&gt;</code> para insertarlo:</li>
-            </ol>
-        </section>
-
-        <!-- Three.js (AÑADIDO) -->
-        <section id="threejs-3d" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">4. Three.js: Dando el Salto a la Animación 3D en la Web</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                Para llevar la interactividad y la animación al siguiente nivel, usamos librerías de JavaScript especializadas. Three.js es la más popular para crear gráficos en 3D directamente en el navegador. ¡Es lo que se usa para crear juegos y visualizaciones profesionales!
-            </p>
-            <p class="text-lg mb-4 leading-relaxed">
-                <strong class="text-cyan-600">Conceptos clave en Three.js:</strong>
-                <ul class="list-disc list-inside text-lg space-y-1 ml-4">
-                    <li><strong class="font-bold">Escena (Scene):</strong> El contenedor donde viven todos los objetos.</li>
-                    <li><strong class="font-bold">Cámara (Camera):</strong> Define lo que el usuario ve de la escena.</li>
-                    <li><strong class="font-bold">Renderizador (Renderer):</strong> Dibuja la escena para que la veamos en el &lt;canvas&gt; de HTML.</li>
-                    <li><strong class="font-bold">Malla (Mesh):</strong> La combinación de una geometría (forma, ej. cubo) y un material (color, textura).</li>
-                </ul>
-            </p>
-            
-            <h3 class="text-2xl font-semibold mt-6 mb-4 text-cyan-600">Miniproyecto Guiado: Creando un Cubo 3D</h3>
-            <p class="text-lg mb-4 leading-relaxed">
-                ¡Añade un &lt;canvas&gt; con un ID único al inicio de tu &lt;body&gt;! Luego, copia el siguiente código JavaScript (o crea un archivo .js y enlázalo) para crear y animar tu primer cubo.
-            </p>
-
-            <div class="code-block h-96 overflow-y-scroll">
-                &lt;script&gt;<br>
-                // 1. Configuración básica de Three.js<br>
-                const scene = new THREE.Scene();<br>
-                const camera = new THREE.PerspectiveCamera(75, 400 / 300, 0.1, 1000); // Ajusta 400/300 a tu canvas<br>
-                const renderer = new THREE.WebGLRenderer();<br>
-                renderer.setSize(400, 300); // Tamaño del canvas en píxeles<br>
-                document.getElementById('threejs-container').appendChild(renderer.domElement);<br>
-                <br>
-                // 2. Creación del cubo (Geometría y Material)<br>
-                const geometry = new THREE.BoxGeometry(1, 1, 1); // Cubo de 1x1x1<br>
-                const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Color verde<br>
-                const cube = new THREE.Mesh(geometry, material);<br>
-                scene.add(cube);<br>
-                <br>
-                camera.position.z = 5; // Mover la cámara hacia atrás para ver el cubo<br>
-                <br>
-                // 3. Función de animación (Loop)<br>
-                function animate() {<br>
-                &nbsp;&nbsp;requestAnimationFrame(animate);<br>
-                &nbsp;&nbsp;// Rotar el cubo en los ejes X e Y<br>
-                &nbsp;&nbsp;cube.rotation.x += 0.01;<br>
-                &nbsp;&nbsp;cube.rotation.y += 0.01;<br>
-                &nbsp;&nbsp;renderer.render(scene, camera);<br>
-                }<br>
-                <br>
-                animate();<br>
-                &lt;/script&gt;
-            </div>
-            
-            <p class="text-lg mt-6">
-                <strong class="text-blue-600">¡Reto Avanzado!</strong> Intenta cambiar la geometría del cubo a una esfera (`THREE.SphereGeometry`) o modificar la velocidad de rotación.
-            </p>
-        </section>
-
-        <!-- CYR.3.E.4. Herramientas de animación web. (ANTIGUA SECCIÓN 4, AHORA CONSOLIDADA) -->
-        <section id="herramientas-animacion" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">5. Otras Herramientas de Diseño y Desarrollo Web</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                Además de Three.js, existen muchas otras herramientas esenciales que un desarrollador web de 3º de la ESO debe conocer para crear webs modernas:
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4">Herramientas Clave para Diseño y CSS:</h3>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li><strong class="text-orange-600">Figma / Sketch:</strong> Se utilizan para diseñar la interfaz visual y la experiencia de usuario (UX/UI) antes de escribir cualquier código.</li>
-                <li><strong class="text-orange-600">Tailwind CSS:</strong> El framework de CSS que estamos usando. Permite diseñar rápidamente interfaces responsive y atractivas sin escribir CSS tradicional.</li>
-                <li><strong class="text-orange-600">Lottie:</strong> Herramienta que permite integrar animaciones vectoriales complejas (creadas en software como After Effects) de forma muy ligera en la web, usando JavaScript.</li>
-            </ul>
-        </section>
-        
-        <div class="flex justify-center my-10">
-    <!-- Enlace al archivo de chuleta. Asume que está en el mismo directorio (index.html) -->
-    <a href="chuleta_html.html" target="_blank" class="btn-cheatsheet">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-        Ver Chuleta HTML/CSS
-    </a>
-</div>
-        
-        <section id="actividades-evaluables" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">Actividades Evaluables: Consolidando el Desarrollo Web</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                Estas actividades sencillas te ayudarán a aplicar y demostrar los conocimientos fundamentales de la unidad, preparándote para el proyecto final.
-            </p>
-
-            <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">Actividad 1: Analizando un Sistema de Alojamiento</h3>
-            <p class="text-lg mb-4 leading-relaxed">
-                Elige una página web de alto tráfico (ej. la web de un equipo de fútbol famoso o una tienda online de videojuegos). Investiga y responde en un documento de texto a las siguientes preguntas:
-            </p>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li>¿Qué tipología de servidor crees que utilizaría esta web (Dedicado, Compartido, Nube)? ¿Por qué?</li>
-                <li>Identifica al menos 3 riesgos potenciales de seguridad que podrían surgir si el servidor no está bien protegido.</li>
-            </ul>
-            <div class="evaluation-criteria">
-                <p><strong>Criterios trabajados:</strong></p>
-                <ul class="list-disc list-inside ml-4">
-                    <li>5.1 Conocer la construcción de aplicaciones informáticas y web, entendiendo su funcionamiento interno, de forma segura, responsable y respetuosa.</li>
-                </ul>
-            </div>
-
-            <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">Actividad 2: Desafío de Diseño Semántico y Solución</h3>
-            <p class="text-lg mb-4 leading-relaxed">
-                Crea un archivo HTML llamado `desafio-semantico.html`. Tu misión es crear la estructura de una página de un blog sobre robótica:
-            </p>
-            <ol class="list-decimal list-inside text-lg space-y-2 ml-4">
-                <li>Define la estructura usando las etiquetas semánticas <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> y <code>&lt;footer&gt;</code>.</li>
-                <li>Dentro de <code>&lt;main&gt;</code>, usa dos etiquetas <code>&lt;article&gt;</code> para simular dos entradas de blog diferentes.</li>
-                <li>Añade una animación CSS a la etiqueta <code>&lt;header&gt;</code> (ej. un cambio de color suave al cargar la página) para demostrar la interactividad.</li>
-            </ol>
-            <p class="text-lg mt-4">
-                Explica brevemente cómo esta estructura soluciona el problema de la organización y accesibilidad del contenido.
-            </p>
-            <div class="evaluation-criteria">
-                <p><strong>Criterios trabajados:</strong></p>
-                <ul class="list-disc list-inside ml-4">
-                    <li>5.2. Conocer y resolver la variedad de problemas potencialmente presentes en el desarrollo de una aplicación web, tratando de generalizar posibles soluciones.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Proyecto Final de Unidad -->
-        <section id="proyecto-final" class="card p-8 animated-card">
-            <h2 class="text-3xl font-bold mb-6 section-title">Proyecto Final: "Mi Portafolio Web 3D"</h2>
-            <p class="text-lg mb-4 leading-relaxed">
-                Crearás una página web multipágina que sirva como tu portafolio digital. El requisito principal es que demuestres el uso de estructuras semánticas, diseño CSS avanzado y animación 3D.
-            </p>
-            <h3 class="text-2xl font-semibold mt-6 mb-4">Requisitos del Proyecto:</h3>
-            <ul class="list-disc list-inside text-lg space-y-2 ml-4">
-                <li><strong class="font-bold">1. Estructura y Estilos:</strong>
-                    <ul>
-                        <li>Usa al menos las etiquetas semánticas: &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;footer&gt;.</li>
-                        <li>Aplica estilos responsive con CSS/Tailwind para que se vea bien en móvil y escritorio.</li>
-                    </ul>
-                </li>
-                <li><strong class="font-bold">2. Animación 3D (OBLIGATORIO):</strong>
-                    <ul>
-                        <li>La página principal debe incluir un elemento visual creado y animado con Three.js (ej. un cubo, una esfera, un texto 3D).</li>
-                        <li>Implementa al menos 2 animaciones CSS y 2 transiciones CSS adicionales.</li>
-                    </ul>
-                </li>
-                <li><strong class="font-bold">3. Seguridad, Responsabilidad y Generalización:</strong>
-                    <ul>
-                        <li>El contenido debe ser seguro, respetuoso y no contener información personal sensible. Debes citar la fuente de las imágenes/recursos.</li>
-                        <li>Explica cómo el uso de etiquetas semánticas y CSS/JS generaliza la solución para otros proyectos.</li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="evaluation-criteria">
-                <p><strong>Criterios trabajados:</strong></p>
-                <ul class="list-disc list-inside ml-4">
-                    <li>5.1 Conocer la construcción de aplicaciones informáticas y web, entendiendo su funcionamiento interno, de forma segura, responsable y respetuosa.</li>
-                    <li>5.2. Conocer y resolver la variedad de problemas potencialmente presentes en el desarrollo de una aplicación web, tratando de generalizar posibles soluciones.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Cuestionario -->
-        <section id="cuestionario" class="card p-8">
-            <h2 class="text-3xl font-bold mb-6 section-title">Cuestionario: ¡Demuestra lo que sabes de Desarrollo Web!</h2>
-            <p class="text-lg mb-6 leading-relaxed">
-                Responde a las siguientes preguntas para comprobar lo que has aprendido en esta unidad.
-            </p>
-
-            <form id="quizFormWeb3ESO" onsubmit="event.preventDefault(); checkQuizWeb3ESO();">
-                <!-- Pregunta 1 -->
-                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="b">
-                    <p class="font-semibold text-xl mb-4">1. ¿Cuál es el objetivo principal de las etiquetas semánticas en HTML (como &lt;header&gt; o &lt;footer&gt;)?</p>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q1" value="a"> a) Darle color al texto de la página.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q1" value="b"> b) Dar un significado claro al contenido para navegadores y buscadores.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q1" value="c"> c) Ejecutar animaciones 3D.
-                    </label>
-                </div>
-
-                <!-- Pregunta 2 -->
-                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="c">
-                    <p class="font-semibold text-xl mb-4">2. ¿Qué tipo de servidor web es ideal para un sitio con tráfico variable y que paga solo por los recursos que utiliza?</p>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q2" value="a"> a) Servidor Dedicado.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q2" value="b"> b) Servidor Compartido.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q2" value="c"> c) Servidor en la Nube (Cloud Hosting).
-                    </label>
-                </div>
-
-                <!-- Pregunta 3 -->
-                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="b">
-                    <p class="font-semibold text-xl mb-4">3. ¿Qué formato de animación basado en código es ideal para gráficos que deben verse nítidos en cualquier tamaño de pantalla?</p>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q3" value="a"> a) GIF.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q3" value="b"> b) SVG.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q3" value="c"> c) APNG.
-                    </label>
-                </div>
-
-                <!-- Pregunta 4 -->
-                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="a">
-                    <p class="font-semibold text-xl mb-4">4. ¿Qué librería de JavaScript se recomienda para crear gráficos 3D directamente en el navegador?</p>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q4" value="a"> a) Three.js.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q4" value="b"> b) Tailwind.css.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q4" value="c"> c) Lottie.
-                    </label>
-                </div>
-
-                <!-- Pregunta 5 -->
-                <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-sm" data-answer="b">
-                    <p class="font-semibold text-xl mb-4">5. ¿Cuál es un requisito de seguridad y responsabilidad al crear tu portafolio web?</p>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q5" value="a"> a) Incluir tu dirección y teléfono completos.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q5" value="b"> b) Evitar compartir información personal sensible y citar fuentes.
-                    </label>
-                    <label class="quiz-option block">
-                        <input type="radio" name="q5" value="c"> c) Usar únicamente el color azul para los enlaces.
-                    </label>
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" id="checkAnswersBtnWeb3ESO" class="btn-primary">Comprobar Respuestas</button>
-                    <p class="text-sm text-gray-500 mt-2">
-                        Nota: Este cuestionario no guarda tus respuestas.
+        <!-- Planificación Didáctica Flexible y Orientativa -->
+        <section id="planificacion" class="card p-6 bg-gradient-to-r from-sky-50 to-cyan-50 border-l-8 border-sky-500 shadow-md">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-3xl">📌</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-950">Planificación y Fases Didácticas de la Unidad 2</h3>
+                    <p class="text-xs font-semibold text-sky-900 bg-sky-200/60 inline-block px-2.5 py-1 rounded-md mt-1">
+                        ⏱️ Planificación flexible y orientativa: Adaptable según el ritmo de trabajo del alumnado (~5-6 sesiones estimadas).
                     </p>
                 </div>
-            </form>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+                <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm">
+                    <p class="font-bold text-sky-900 mb-1">Fase 1: Estructura y Semántica HTML (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Aprendizaje de etiquetas principales (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;div&gt;</code>) y construcción del esqueleto básico de la web.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm">
+                    <p class="font-bold text-sky-900 mb-1">Fase 2: Estilos CSS y Maquetación (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Uso de selectores, colores HSL/HEX, bordes, sombras y disposición con Flexbox para centrar elementos en pantalla.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm">
+                    <p class="font-bold text-sky-900 mb-1">Fase 3: Personalización del Ajedrez y Evaluación (Orientativo ~2 sesiones)</p>
+                    <p class="text-slate-600">Edición del archivo <code>estilos.css</code> en el proyecto del ajedrez, retos prácticos e interacción con la rúbrica automatizada.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Introducción -->
+        <section id="introduccion" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-laptop-code text-sky-600"></i> Del Algoritmo a la Pantalla Visual
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                En la Unidad 1 aprendimos a pensar como programadores y a darle lógica al "cerebro" de la Inteligencia Artificial mediante JavaScript. Sin embargo, ningún usuario podría jugar al ajedrez en un ordenador del centro viendo únicamente líneas de código en una terminal negra.
+            </p>
+            <div class="bg-sky-50 border-l-4 border-sky-500 p-4 rounded-r-lg mb-4">
+                <h3 class="font-bold text-sky-950 text-sm md:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-palette"></i> Nuestro Desafío en la Unidad 2:
+                </h3>
+                <p class="text-sm text-sky-900 mt-1">
+                    Diseñar y maquetar la <strong>interfaz visual del juego de ajedrez</strong> utilizando los dos pilares fundamentales de la Web: <strong>HTML</strong> (para crear el esqueleto de la página) y <strong>CSS</strong> (para darle colores, estilos modernos, botones atractivos y una maquetación adaptada a ordenadores y móviles).
+                </p>
+            </div>
+            <p class="text-base text-slate-600 leading-relaxed">
+                Al finalizar esta unidad, sabrás cómo conectar las etiquetas HTML con las reglas de estilo CSS para que el tablero, los botones de reinicio y los marcadores luzcan como una aplicación profesional.
+            </p>
+        </section>
+
+        <!-- SECCIÓN 1: El Lenguaje HTML y la Estructura Semántica -->
+        <section id="html-base" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-brands fa-html5 text-orange-500 text-3xl"></i> 1. El Lenguaje HTML: El Esqueleto Semántico
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                <strong>HTML</strong> (<em>HyperText Markup Language</em>) no es un lenguaje de programación, sino un <strong>lenguaje de marcado de etiquetas</strong>. Su función es estructurar el contenido de una página web indicándole al navegador qué elemento es un título, qué parte es un párrafo, un botón o una imagen.
+            </p>
+
+            <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-cubes text-sky-600"></i> Estructura Básica de un Documento HTML5
+            </h3>
+            <div class="code-block mb-6">
+&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="es"&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;Aula de Jaque - IES Cañada Rosal&lt;/title&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;header&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Ajedrez con Inteligencia Artificial&lt;/h1&gt;<br>
+&nbsp;&nbsp;&lt;/header&gt;<br>
+&nbsp;&nbsp;&lt;main&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Juega contra la máquina durante los recreos.&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&gt;Nueva Partida&lt;/button&gt;<br>
+&nbsp;&nbsp;&lt;/main&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;
+            </div>
+
+            <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-sitemap text-sky-600"></i> Etiquetas Semánticas Clave que Debes Conocer
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                    <strong class="text-sky-700 font-mono text-sm block mb-1">&lt;header&gt;</strong>
+                    <span>Cabecera de la página. Contiene el título del juego, el logo del centro o el menú de opciones.</span>
+                </div>
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                    <strong class="text-sky-700 font-mono text-sm block mb-1">&lt;main&gt;</strong>
+                    <span>Contenido principal único de la página (en nuestro caso, donde se aloja el tablero de ajedrez).</span>
+                </div>
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                    <strong class="text-sky-700 font-mono text-sm block mb-1">&lt;div&gt;</strong>
+                    <span>Contenedor genérico para agrupar elementos (por ejemplo, la caja del marcador de puntos o el panel lateral).</span>
+                </div>
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                    <strong class="text-sky-700 font-mono text-sm block mb-1">&lt;button&gt;</strong>
+                    <span>Botón interactivo que el usuario puede pulsar (ej: "Reiniciar Partida", "Cambiar Bando").</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: Estilos CSS y Flexbox -->
+        <section id="css-estilos" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-brands fa-css3-alt text-sky-500 text-3xl"></i> 2. CSS: Dando Estilo, Color y Diseño a la Web
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                Si HTML es el esqueleto de un edificio, <strong>CSS</strong> (<em>Cascading Style Sheets</em>) es la pintura, la iluminación y la decoración. Nos permite cambiar colores, tamaños de letra, añadir bordes suaves y colocar los elementos exactamente donde queramos.
+            </p>
+
+            <h3 class="text-lg font-bold text-slate-900 mt-6 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-paint-roller text-sky-600"></i> ¿Cómo se Escribe una Regla CSS?
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <p class="text-xs md:text-sm text-slate-600 mb-2 leading-relaxed">
+                        Una regla de CSS consta de un <strong>selector</strong> (a qué elemento aplicamos el estilo) y un bloque de <strong>propiedades y valores</strong>:
+                    </p>
+                    <div class="code-block">
+/* Cambiar el aspecto de los botones */<br>
+<span class="text-amber-300">.btn-juego</span> {<br>
+&nbsp;&nbsp;<span class="text-sky-400">background-color</span>: #0284c7;<br>
+&nbsp;&nbsp;<span class="text-sky-400">color</span>: white;<br>
+&nbsp;&nbsp;<span class="text-sky-400">padding</span>: 10px 20px;<br>
+&nbsp;&nbsp;<span class="text-sky-400">border-radius</span>: 8px;<br>
+&nbsp;&nbsp;<span class="text-sky-400">font-weight</span>: bold;<br>
+}
+                    </div>
+                </div>
+                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200 text-xs md:text-sm">
+                    <h4 class="font-bold text-sky-950 mb-2">💡 Los 3 Selectores Más Usados:</h4>
+                    <ul class="space-y-2 text-slate-700">
+                        <li><strong>1. Selector de Etiqueta:</strong> Modifica todas las etiquetas de un tipo (ej: <code>button { ... }</code>).</li>
+                        <li><strong>2. Selector de Clase (<code>.nombre</code>):</strong> Modifica elementos con la clase dada (ej: <code>.btn-juego</code>). ¡Se puede reutilizar en varios botones!</li>
+                        <li><strong>3. Selector de ID (<code>#nombre</code>):</strong> Modifica un elemento único en toda la página (ej: <code>#tablero-ajedrez</code>).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-arrows-to-dot text-sky-600"></i> Maquetación Moderna con Flexbox
+            </h3>
+            <p class="text-xs md:text-sm text-slate-700 mb-4 leading-relaxed">
+                Para alinear el tablero de ajedrez al lado del panel de marcadores o centrar los botones en pantalla, utilizamos <strong>Flexbox</strong> (<code>display: flex</code>):
+            </p>
+            <div class="p-4 bg-slate-950 text-slate-200 rounded-xl border border-slate-800 font-mono text-xs mb-4">
+                .contenedor-juego {<br>
+                &nbsp;&nbsp;display: flex; <span class="text-slate-500">/* Activa la maquetación flexible */</span><br>
+                &nbsp;&nbsp;justify-content: center; <span class="text-slate-500">/* Centra los elementos horizontalmente */</span><br>
+                &nbsp;&nbsp;align-items: center; <span class="text-slate-500">/* Centra los elementos verticalmente */</span><br>
+                &nbsp;&nbsp;gap: 20px; <span class="text-slate-500">/* Separación entre el tablero y el panel */</span><br>
+                }
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: Análisis de la Interfaz del Proyecto de Ajedrez -->
+        <section id="analisis-ajedrez" class="card p-6 md:p-8 border-2 border-amber-500/30">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-chess-board text-amber-600"></i> 3. Análisis de la Interfaz del Aula de Jaque
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed text-slate-700 mb-4">
+                Vamos a abrir los archivos de nuestro proyecto base (<code class="bg-slate-100 text-amber-700 px-1.5 py-0.5 rounded font-mono text-sm">proyecto_ajedrez_ia/index.html</code> y <code class="bg-slate-100 text-amber-700 px-1.5 py-0.5 rounded font-mono text-sm">estilos.css</code>) para comprender cómo están estructurados y cómo se conectan:
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-200">
+                    <h3 class="font-bold text-amber-950 text-base mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-code text-amber-600"></i> Estructura HTML en <code>index.html</code>
+                    </h3>
+                    <ul class="text-xs md:text-sm text-slate-700 space-y-2">
+                        <li>• Contenedor principal <code>&lt;div id="board"&gt;</code> donde la librería renderiza las 64 casillas del tablero.</li>
+                        <li>• Caja de marcadores <code>&lt;div id="evaluacion-score"&gt;</code> para mostrar la ventaja de la IA.</li>
+                        <li>• Selector de nivel <code>&lt;select id="dificultad"&gt;</code> con opciones (Nivel 1, 2 y 3).</li>
+                        <li>• Enlace al script del cerebro <code>&lt;script src="ia.js"&gt;&lt;/script&gt;</code> al final del cuerpo.</li>
+                    </ul>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200">
+                    <h3 class="font-bold text-sky-950 text-base mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-sky-600"></i> Estilos CSS en <code>estilos.css</code>
+                    </h3>
+                    <ul class="text-xs md:text-sm text-slate-700 space-y-2">
+                        <li>• Fondo oscuro elegante para resaltar el tablero en los ordenadores del centro.</li>
+                        <li>• Efectos de resaltado <code>:hover</code> en los botones para dar feedback al pasar el ratón.</li>
+                        <li>• Bordes redondeados <code>border-radius: 12px</code> y sombras proyectadas <code>box-shadow</code>.</li>
+                        <li>• Diseño adaptable (Responsive) para pantallas pequeñas o monitores de clase.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Botón Chuleta HTML/CSS -->
+            <div class="flex justify-center my-6">
+                <a href="chuleta_html.html" target="_blank" class="btn-cheatsheet">
+                    <i class="fa-solid fa-file-lines mr-3 text-xl"></i> Ver Chuleta HTML/CSS Interactiva
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: Zona Práctica Interactiva (Rellenar Huecos) -->
+        <section id="zona-practica" class="card p-6 md:p-8 bg-slate-900 text-white">
+            <h2 class="text-2xl md:text-3xl font-bold mb-3 text-cyan-400 flex items-center gap-3">
+                <i class="fa-solid fa-bolt text-amber-400"></i> ⚡ Zona Práctica: Retos de HTML & CSS
+            </h2>
+            <p class="text-xs md:text-sm text-slate-300 mb-6 leading-relaxed">
+                Selecciona la opción correcta en cada uno de los 6 huecos de código para maquetar la interfaz del juego y pulsa el botón para comprobar tu puntuación en tiempo real:
+            </p>
+
+            <div id="quiz-container-ud2" class="space-y-4 text-xs md:text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Pregunta 1 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">1. Etiqueta para el contenido principal único:</label>
+                        <div class="flex items-center gap-2">
+                            <span>&lt;</span>
+                            <select id="ud2-q1" class="bg-slate-800 text-cyan-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="main">main</option>
+                                <option value="div">div</option>
+                                <option value="section">section</option>
+                            </select>
+                            <span>&gt;...&lt;/main&gt;</span>
+                        </div>
+                        <p id="feedback-ud2-q1" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">2. Propiedad CSS para el color de fondo:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <select id="ud2-q2" class="bg-slate-800 text-cyan-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="background-color">background-color</option>
+                                <option value="color">color</option>
+                                <option value="border-color">border-color</option>
+                            </select>
+                            <span>: #0f172a;</span>
+                        </div>
+                        <p id="feedback-ud2-q2" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">3. Símbolo para seleccionar una Clase en CSS:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <select id="ud2-q3" class="bg-slate-800 text-cyan-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value=".">. (Punto)</option>
+                                <option value="#"># (Almohadilla)</option>
+                                <option value="*">* (Asterisco)</option>
+                            </select>
+                            <span>boton-juego { color: white; }</span>
+                        </div>
+                        <p id="feedback-ud2-q3" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 4 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">4. Activar maquetación flexible en CSS:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <span>display:</span>
+                            <select id="ud2-q4" class="bg-slate-800 text-cyan-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="flex">flex</option>
+                                <option value="block">block</option>
+                                <option value="inline">inline</option>
+                            </select>
+                            <span>;</span>
+                        </div>
+                        <p id="feedback-ud2-q4" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 5 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">5. Etiqueta HTML para un botón pulsable:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <span>&lt;</span>
+                            <select id="ud2-q5" class="bg-slate-800 text-cyan-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="button">button</option>
+                                <option value="input">input</option>
+                                <option value="a">a</option>
+                            </select>
+                            <span>&gt;Reiniciar Partida&lt;/button&gt;</span>
+                        </div>
+                        <p id="feedback-ud2-q5" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+
+                    <!-- Pregunta 6 -->
+                    <div class="p-3.5 bg-slate-950 rounded-lg border border-slate-800">
+                        <label class="block mb-1 text-slate-300 font-sans">6. Redondear las esquinas de un elemento:</label>
+                        <div class="flex items-center gap-2 font-mono">
+                            <select id="ud2-q6" class="bg-slate-800 text-cyan-400 p-1.5 rounded border border-slate-700">
+                                <option value="">--</option>
+                                <option value="border-radius">border-radius</option>
+                                <option value="border-width">border-width</option>
+                                <option value="padding">padding</option>
+                            </select>
+                            <span>: 10px;</span>
+                        </div>
+                        <p id="feedback-ud2-q6" class="mt-1 text-xs font-sans hidden"></p>
+                    </div>
+                </div>
+
+                <button onclick="comprobarHuecosUD2()" class="mt-4 px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-lg text-xs cursor-pointer shadow-md transition-all">
+                    Comprobar Mis 6 Respuestas HTML/CSS
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE ACTIVIDADES Y EVALUACIÓN -->
+        <section id="actividades-evaluables" class="card p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 section-title flex items-center gap-3">
+                <i class="fa-solid fa-clipboard-check text-sky-600"></i> Actividades Evaluables & Reto de Diseño UD2
+            </h2>
+            <p class="text-base text-slate-700 mb-6 leading-relaxed">
+                Realizaremos una actividad teórica individual de análisis semántico y, a continuación, el reto práctico de personalización visual del proyecto.
+            </p>
+
+            <!-- Criterios de Evaluación Oficiales -->
+            <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Criterios de Evaluación Oficiales:</h3>
+                <ul class="list-disc list-inside text-xs md:text-sm text-slate-700 space-y-1 font-medium">
+                    <li><strong class="text-slate-900">Criterio 5.1:</strong> Conocer la construcción de aplicaciones informáticas y web, entendiendo su funcionamiento interno, de forma segura, responsable y respetuosa.</li>
+                    <li><strong class="text-slate-900">Criterio 5.2:</strong> Conocer y resolver la variedad de problemas potencialmente presentes en el desarrollo de una aplicación web, tratando de generalizar posibles soluciones.</li>
+                </ul>
+            </div>
+
+            <!-- ACTIVIDAD 1: Análisis Semántico en Cuaderno -->
+            <div class="bg-sky-50 border border-sky-200 p-5 rounded-xl mb-6">
+                <h3 class="text-base font-bold text-sky-950 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-ruler text-sky-600"></i> Actividad 1 (Individual): Análisis y Wireframe Semántico
+                </h3>
+                <p class="text-xs text-sky-900 leading-relaxed mb-3">
+                    Responde en tu cuaderno o documento digital a las siguientes dos cuestiones:
+                </p>
+                <ol class="list-decimal list-inside text-xs md:text-sm text-sky-950 space-y-2 font-medium pl-1">
+                    <li>Dibuja el boceto (wireframe) de una página web para el <em>Aula de Jaque</em> e indica dónde ubicarías las etiquetas <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;div class="tablero"&gt;</code> y <code>&lt;footer&gt;</code>.</li>
+                    <li>Explica por qué es mejor utilizar una clase CSS (<code>.btn-juego</code>) en lugar de dar estilos individualmente a cada botón uno por uno.</li>
+                </ol>
+            </div>
+
+            <!-- ACTIVIDAD 2: Entregable Práctico - Personalización CSS -->
+            <div class="bg-slate-950 text-white p-6 rounded-xl border border-slate-800">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="p-2.5 bg-cyan-500 text-slate-950 rounded-lg font-bold text-xl"><i class="fa-solid fa-palette"></i></div>
+                    <div>
+                        <h3 class="text-lg md:text-xl font-extrabold text-cyan-400">Reto Práctico UD2: Personalizar los Estilos del Juego</h3>
+                        <p class="text-xs text-slate-400">Modificación directa del archivo <code>estilos.css</code></p>
+                    </div>
+                </div>
+
+                <!-- Explicación de Entrega -->
+                <div class="bg-emerald-950/80 border border-emerald-500/40 p-4 rounded-xl mb-5 text-xs md:text-sm text-emerald-100">
+                    <h4 class="font-bold text-emerald-400 text-sm mb-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-base"></i> 📤 ¿Qué debes subir para que la tarea sea evaluada?
+                    </h4>
+                    <p class="leading-relaxed">
+                        Una vez personalizado tu diseño, debes subir a la tarea de <strong>Google Classroom / Moodle</strong> únicamente tu archivo modificado: <code class="bg-slate-900 text-cyan-300 px-1.5 py-0.5 rounded font-mono">estilos.css</code> (o el proyecto comprimido en <code>.zip</code>).
+                    </p>
+                </div>
+
+                <div class="space-y-4 text-xs md:text-sm text-slate-200">
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-cyan-400 text-base mb-2 flex items-center gap-2">
+                            <span>🎯 Tarea A: Cambiar la Paleta de Colores de la Interfaz</span>
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Abre <code>proyecto_ajedrez_ia/estilos.css</code>. Cambia el color de fondo principal (<code>background-color</code>) a una tonalidad personalizada (azul oscuro, verde turquesa o gris grafito) y modifica el color de los botones principales.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-cyan-400 text-base mb-2 flex items-center gap-2">
+                            <span>🎯 Tarea B: Rediseñar los Bordes y Sombras</span>
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Añade un borde redondeado más pronunciado (<code>border-radius: 16px;</code>) al contenedor del marcador e implementa un efecto de sombra personalizada (<code>box-shadow</code>) al pasar el ratón por encima de los botones.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-5 p-3.5 bg-cyan-500/20 border border-cyan-500/40 rounded-lg text-xs text-cyan-100 flex flex-col md:flex-row items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-cyan-400 text-lg"></i>
+                        <span><strong>Archivos del Proyecto:</strong> Descarga la carpeta de trabajo o prueba la demo online.</span>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <a href="proyecto_ajedrez_ia/index.html" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-cyan-300 font-bold px-3 py-1.5 rounded text-[11px] transition-all">
+                            <i class="fa-solid fa-gamepad"></i> Probar Demo Online
+                        </a>
+                        <a href="proyecto_ajedrez_ia.zip" download="proyecto_ajedrez_ia.zip" class="inline-flex items-center gap-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-3 py-1.5 rounded text-[11px] transition-all">
+                            <i class="fa-solid fa-download"></i> Descargar Proyecto (.zip)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN RÚBRICA INTERACTIVA DE EVALUACIÓN UD2 -->
+        <section id="rubrica" class="card p-6 md:p-8 border-2 border-emerald-500/40 bg-gradient-to-r from-emerald-50/50 to-teal-50/50 shadow-lg">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-emerald-950 flex items-center gap-3 section-title border-emerald-500">
+                        <i class="fa-solid fa-square-poll-vertical text-emerald-600"></i> 📊 Rúbrica Interactiva de Evaluación (UD2)
+                    </h2>
+                    <p class="text-xs md:text-sm text-emerald-800 mt-1 leading-relaxed">
+                        Selecciona la casilla correspondiente para cada una de las 5 tareas evaluadas para calcular la nota automatizada sobre 10 puntos:
+                    </p>
+                </div>
+                <div id="rubricScoreBadgeUD2" class="bg-emerald-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-emerald-500">
+                    <span>Nota Final:</span> <span id="totalScoreUD2">0.0</span> / 10
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs text-left bg-white rounded-xl shadow-sm border border-emerald-200">
+                    <thead class="bg-slate-900 text-white uppercase text-[11px] tracking-wider font-bold">
+                        <tr>
+                            <th class="p-3 border-b border-slate-800">Tarea / Aspecto Evaluado</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-emerald-900/60">Excelente (2.0 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-blue-900/60">Notable (1.5 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-amber-900/60">Bien (1.0 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-orange-900/60">Insuficiente (0.5 pts)</th>
+                            <th class="p-3 border-b border-slate-800 text-center bg-red-900/60">No Presentado (0 pts)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-emerald-100 font-medium text-slate-700">
+                        <!-- Fila 1 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">1. Estructura y Maquetación Semántica HTML</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD2(0, 2.0, this)"><input type="radio" name="r_ud2_0" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Diseña bocetos semánticos impecables con &lt;header&gt;, &lt;main&gt;, &lt;div&gt; y &lt;footer&gt;.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD2(0, 1.5, this)"><input type="radio" name="r_ud2_0" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Estructura correcta con la mayoría de etiquetas semánticas.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD2(0, 1.0, this)"><input type="radio" name="r_ud2_0" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Estructura incompleta o con etiquetas genéricas sin semántica.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD2(0, 0.5, this)"><input type="radio" name="r_ud2_0" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Esquema muy básico desorganizado.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD2(0, 0, this)"><input type="radio" name="r_ud2_0" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">No demuestra estructura semántica.</span></td>
+                        </tr>
+                        <!-- Fila 2 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">2. Aplicación de Estilos y Paleta de Colores</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD2(1, 2.0, this)"><input type="radio" name="r_ud2_1" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Personaliza background-color y componentes con una paleta armónica y gran contraste.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD2(1, 1.5, this)"><input type="radio" name="r_ud2_1" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Modifica fondos y componentes correctamente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD2(1, 1.0, this)"><input type="radio" name="r_ud2_1" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Cambia colores de forma aislada sin contraste suficiente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD2(1, 0.5, this)"><input type="radio" name="r_ud2_1" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Colores sin legibilidad o errores de sintaxis CSS.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD2(1, 0, this)"><input type="radio" name="r_ud2_1" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">No aplica estilos de color.</span></td>
+                        </tr>
+                        <!-- Fila 3 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">3. Diseño de Bordes, Sombras y Efectos Visuales</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD2(2, 2.0, this)"><input type="radio" name="r_ud2_2" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Implementa border-radius, box-shadow y estado :hover impecable en botones y paneles.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD2(2, 1.5, this)"><input type="radio" name="r_ud2_2" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Aplica bordes redondeados y sombras correctamente.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD2(2, 1.0, this)"><input type="radio" name="r_ud2_2" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Aplica bordes pero olvida las sombras o el efecto :hover.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD2(2, 0.5, this)"><input type="radio" name="r_ud2_2" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Intento de bordes con errores de sintaxis en CSS.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD2(2, 0, this)"><input type="radio" name="r_ud2_2" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sin efectos ni bordes estilizados.</span></td>
+                        </tr>
+                        <!-- Fila 4 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">4. Organización del Código y Reutilización de Clases</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD2(3, 2.0, this)"><input type="radio" name="r_ud2_3" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Comprende y justifica la ventaja de reutilizar clases CSS (.btn-juego) frente a reglas repetidas.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD2(3, 1.5, this)"><input type="radio" name="r_ud2_3" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Organiza el código CSS con clases reutilizables.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD2(3, 1.0, this)"><input type="radio" name="r_ud2_3" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Repite código CSS sin aprovechar las clases.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD2(3, 0.5, this)"><input type="radio" name="r_ud2_3" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Código CSS desorganizado o difícil de mantener.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD2(3, 0, this)"><input type="radio" name="r_ud2_3" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sin evidencia de organización.</span></td>
+                        </tr>
+                        <!-- Fila 5 -->
+                        <tr class="hover:bg-emerald-50/50">
+                            <td class="p-3 font-bold text-slate-900">5. Entrega del Entregable y Trabajo en el Aula</td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-emerald-100/60 transition-colors" onclick="selectRubricUD2(4, 2.0, this)"><input type="radio" name="r_ud2_4" value="2.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sube el entregable en plazo con nombre correcto, gran trabajo diario y autonomía.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-blue-100/60 transition-colors" onclick="selectRubricUD2(4, 1.5, this)"><input type="radio" name="r_ud2_4" value="1.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Sube en plazo con constancia y buen trabajo de aula.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-amber-100/60 transition-colors" onclick="selectRubricUD2(4, 1.0, this)"><input type="radio" name="r_ud2_4" value="1.0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Entrega con retraso o requiere apoyo continuo.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-orange-100/60 transition-colors" onclick="selectRubricUD2(4, 0.5, this)"><input type="radio" name="r_ud2_4" value="0.5" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">Entrega incompleta o con desinterés.</span></td>
+                            <td class="p-2 text-center cursor-pointer hover:bg-red-100/60 transition-colors" onclick="selectRubricUD2(4, 0, this)"><input type="radio" name="r_ud2_4" value="0" class="cursor-pointer"><br><span class="text-[10px] text-slate-500">No entrega en la plataforma.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
     </main>
 
-    <footer class="bg-gray-800 text-white p-6 text-center rounded-t-xl mt-12">
-        <p>&copy; 2025 Computación y Robótica - 3º ESO. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Material didáctico creado para la unidad "Somos desarrolladores web".</p>
+    <footer class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800 mt-12">
+        <p>&copy; 2026 Computación y Robótica - 3º ESO | IES Cañada Rosal</p>
+        <p class="mt-1 text-slate-500">Diseñado con tecnología web estándar para el proyecto Aula de Jaque.</p>
     </footer>
 
+    <!-- Scripts Interactivos para UD2 -->
     <script>
-        // Definición de las respuestas correctas para cada pregunta
-        const CORRECT_ANSWERS_WEB_3ESO = {
-            q1: 'b', // 1. Dar un significado claro al contenido para navegadores y buscadores.
-            q2: 'c', // 2. Servidor en la Nube (Cloud Hosting).
-            q3: 'b', // 3. SVG.
-            q4: 'a', // 4. Three.js. (Actualizado)
-            q5: 'b'  // 5. Evitar compartir información personal sensible y citar fuentes.
-        };
+        // Lógica de validación del Quiz interactivo de la UD2
+        function comprobarHuecosUD2() {
+            const soluciones = {
+                'ud2-q1': 'main',
+                'ud2-q2': 'background-color',
+                'ud2-q3': '.',
+                'ud2-q4': 'flex',
+                'ud2-q5': 'button',
+                'ud2-q6': 'border-radius'
+            };
 
-        function checkQuizWeb3ESO() {
-            const form = document.getElementById('quizFormWeb3ESO');
-            // Selector para encontrar los contenedores de preguntas
-            const questions = form.querySelectorAll('.mb-8.p-6.bg-gray-50.rounded-lg.shadow-sm');
-            
-            // Recorrer todas las preguntas
-            questions.forEach((questionDiv, index) => {
-                const questionName = `q${index + 1}`;
-                const correctAnswer = CORRECT_ANSWERS_WEB_3ESO[questionName];
-                const selectedOption = form.querySelector(`input[name="${questionName}"]:checked`);
-                
-                // Limpiar clases de feedback anteriores
-                const options = questionDiv.querySelectorAll('.quiz-option');
-                options.forEach(opt => {
-                    opt.classList.remove('correct', 'incorrect');
-                    opt.style.border = 'none'; 
-                });
-                
-                // Si hay una opción seleccionada
-                if (selectedOption) {
-                    const selectedValue = selectedOption.value;
-                    const selectedLabel = selectedOption.closest('label');
-                    
-                    if (selectedValue === correctAnswer) {
-                        // Respuesta correcta seleccionada
-                        selectedLabel.classList.add('correct');
-                    } else {
-                        // Respuesta incorrecta seleccionada: Marcar incorrecta y mostrar la correcta
-                        selectedLabel.classList.add('incorrect');
-                        
-                        // Buscar y marcar la respuesta correcta
-                        const correctInput = questionDiv.querySelector(`input[value="${correctAnswer}"]`);
-                        if (correctInput) {
-                            correctInput.closest('label').classList.add('correct');
-                        }
-                    }
+            let aciertos = 0;
+
+            for (let q in soluciones) {
+                const select = document.getElementById(q);
+                const feedback = document.getElementById('feedback-' + q);
+                const val = select.value;
+
+                if (val === soluciones[q]) {
+                    aciertos++;
+                    select.className = "bg-emerald-900/80 text-emerald-200 p-1.5 rounded border border-emerald-500 font-bold";
+                    feedback.textContent = "✓ ¡Correcto!";
+                    feedback.className = "mt-1 text-xs font-sans text-emerald-400 font-bold";
                 } else {
-                    // Si no se selecciona ninguna opción, solo mostrar la correcta para estudio
-                    const correctInput = questionDiv.querySelector(`input[value="${correctAnswer}"]`);
-                    if (correctInput) {
-                        correctInput.closest('label').classList.add('correct');
-                    }
+                    select.className = "bg-red-900/80 text-red-200 p-1.5 rounded border border-red-500 font-bold";
+                    feedback.textContent = "✗ Respuesta recomendada: " + soluciones[q];
+                    feedback.className = "mt-1 text-xs font-sans text-red-400 font-bold";
                 }
-            });
+            }
+
+            alert("¡Has obtenido " + aciertos + " de 6 aciertos en los retos de HTML & CSS!");
         }
 
-        // Configurar el botón para que ejecute la función
-        document.getElementById('checkAnswersBtnWeb3ESO').type = 'button';
-        document.getElementById('checkAnswersBtnWeb3ESO').onclick = checkQuizWeb3ESO;
-        
+        // Lógica de Rúbrica Automatizada para UD2
+        let rubricScoresUD2 = [0, 0, 0, 0, 0];
+
+        function selectRubricUD2(rowIndex, score, cell) {
+            rubricScoresUD2[rowIndex] = score;
+            
+            const row = cell.parentElement;
+            const inputs = row.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                if (parseFloat(input.value) === score) {
+                    input.checked = true;
+                }
+            });
+
+            const total = rubricScoresUD2.reduce((a, b) => a + b, 0);
+            document.getElementById('totalScoreUD2').textContent = total.toFixed(1);
+
+            const badge = document.getElementById('rubricScoreBadgeUD2');
+            if (total >= 9.0) {
+                badge.className = "bg-emerald-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-emerald-500 animate-bounce";
+            } else if (total >= 5.0) {
+                badge.className = "bg-sky-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-sky-500";
+            } else {
+                badge.className = "bg-amber-600 text-white font-extrabold px-5 py-2.5 rounded-xl text-lg shadow-md flex items-center gap-2 shrink-0 border border-amber-500";
+            }
+        }
     </script>
+
 </body>
 </html>
-

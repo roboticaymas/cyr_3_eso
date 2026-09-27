@@ -88,6 +88,22 @@
         .sidebar-link:hover i.fa-robot { color: #eab308; }
         .sidebar-link:hover i.fa-mobile-screen { color: #e879f9; }
 
+        .sidebar-link-disabled {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #64748b;
+            background-color: #020617;
+            opacity: 0.65;
+            cursor: not-allowed;
+            user-select: none;
+            font-size: 0.95rem;
+            border: 1px solid #1e293b;
+        }
+
         /* --- CONTENIDO PRINCIPAL --- */
         .main-content {
             margin-left: 300px; /* Ancho del sidebar */
@@ -165,25 +181,36 @@
             <h2 class="text-2xl font-extrabold text-white tracking-tight">
                 <i class="fa-solid fa-terminal mr-2 text-blue-500"></i> CyR 3º ESO
             </h2>
-            <p class="text-xs text-slate-400 mt-1 uppercase tracking-widest font-semibold">Curso 2024/25</p>
+            <p class="text-xs text-emerald-400 mt-1 uppercase tracking-widest font-semibold">📌 1er Trimestre Activo</p>
         </div>
 
         <nav class="nav-scroll">
             <ul>
                 <li class="px-4 py-2 mt-2 mb-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Bloque 1: Programación</li>
-                <li><a href="UD1.html" class="sidebar-link"><i class="fa-solid fa-code"></i> UD 1: Repaso Programación</a></li>
-                <li><a href="UD2.html" class="sidebar-link"><i class="fa-solid fa-globe"></i> UD 2: Desarrollo Web</a></li>
-                <li><a href="UD3.html" class="sidebar-link"><i class="fa-solid fa-brain"></i> UD 3: Inteligencia Artificial</a></li>
+                <li><a href="UD1.html" class="sidebar-link border-l-2 border-emerald-400 bg-slate-800/60 text-white flex justify-between items-center"><span><i class="fa-solid fa-code"></i> UD 1: Repaso Programación</span> <span class="text-[10px] bg-emerald-500 text-slate-950 px-1.5 py-0.5 rounded font-bold">ACTIVA</span></a></li>
+                <li><a href="UD2.html" class="sidebar-link border-l-2 border-emerald-400 bg-slate-800/60 text-white flex justify-between items-center"><span><i class="fa-solid fa-globe"></i> UD 2: Desarrollo Web</span> <span class="text-[10px] bg-emerald-500 text-slate-950 px-1.5 py-0.5 rounded font-bold">ACTIVA</span></a></li>
+                <li><a href="UD3.html" class="sidebar-link border-l-2 border-emerald-400 bg-slate-800/60 text-white flex justify-between items-center"><span><i class="fa-solid fa-brain"></i> UD 3: Inteligencia Artificial</span> <span class="text-[10px] bg-emerald-500 text-slate-950 px-1.5 py-0.5 rounded font-bold">ACTIVA</span></a></li>
 
                 <li class="px-4 py-2 mt-6 mb-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Bloque 2: Datos y Redes</li>
-                <li><a href="UD4.html" class="sidebar-link"><i class="fa-solid fa-database"></i> UD 4: Big Data</a></li>
-                <li><a href="UD5.html" class="sidebar-link"><i class="fa-solid fa-network-wired"></i> UD 5: Internet de las Cosas</a></li>
-                <li><a href="UD6.html" class="sidebar-link"><i class="fa-solid fa-shield-halved"></i> UD 6: Ciberseguridad</a></li>
+                <li><div class="sidebar-link-disabled"><span><i class="fa-solid fa-database mr-2 text-slate-600"></i> UD 4: Top Secret 🕵️‍♂️</span> <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueada</span></div></li>
+                <li><div class="sidebar-link-disabled"><span><i class="fa-solid fa-network-wired mr-2 text-slate-600"></i> UD 5: Top Secret 🕵️‍♂️</span> <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueada</span></div></li>
+                <li><div class="sidebar-link-disabled"><span><i class="fa-solid fa-shield-halved mr-2 text-slate-600"></i> UD 6: Top Secret 🕵️‍♂️</span> <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueada</span></div></li>
 
                 <li class="px-4 py-2 mt-6 mb-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Bloque 3: Ingeniería</li>
-                <li><a href="UD7.html" class="sidebar-link"><i class="fa-solid fa-microchip"></i> UD 7: Sistemas Computación</a></li>
-                <li><a href="UD8.html" class="sidebar-link"><i class="fa-solid fa-robot"></i> UD 8: Robótica Aplicada</a></li>
-                <li><a href="UD9.html" class="sidebar-link"><i class="fa-solid fa-mobile-screen"></i> UD 9: Apps Móviles</a></li>
+                <li><div class="sidebar-link-disabled"><span><i class="fa-solid fa-microchip mr-2 text-slate-600"></i> UD 7: Top Secret 🕵️‍♂️</span> <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueada</span></div></li>
+                <li><div class="sidebar-link-disabled"><span><i class="fa-solid fa-robot mr-2 text-slate-600"></i> UD 8: Top Secret 🕵️‍♂️</span> <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueada</span></div></li>
+                <li><div class="sidebar-link-disabled"><span><i class="fa-solid fa-mobile-screen mr-2 text-slate-600"></i> UD 9: Top Secret 🕵️‍♂️</span> <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueada</span></div></li>
+
+                <li class="px-4 py-2 mt-6 mb-2 text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center justify-between">
+                    <span>🚀 Proyecto Estrella</span>
+                    <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/40">BONUS</span>
+                </li>
+                <li>
+                    <div class="sidebar-link-disabled bg-amber-950/30 border-amber-800/40 text-amber-200/70">
+                        <span><i class="fa-solid fa-helicopter mr-2 text-amber-500/60"></i> Proyecto Dron ESP32 🚁</span>
+                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">🔒 Bloqueado</span>
+                    </div>
+                </li>
             </ul>
         </nav>
 
@@ -195,14 +222,17 @@
     <main class="main-content">
         
         <div class="header-card animate-fade-in-up">
-            <div class="mb-6 inline-block p-4 rounded-full bg-blue-50 text-blue-600 text-5xl">
+            <div class="inline-block bg-emerald-100 text-emerald-800 font-semibold text-xs md:text-sm px-4 py-1.5 rounded-full mb-6 shadow-sm border border-emerald-300">
+                ✨ Programación 1er Trimestre: Unidades 1, 2 y 3 habilitadas
+            </div>
+            <div class="mb-4 inline-block p-4 rounded-full bg-blue-50 text-blue-600 text-5xl block mx-auto w-fit">
                 <i class="fa-solid fa-layer-group"></i>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 gradient-text">
                 Computación y Robótica
             </h1>
             <p class="text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Bienvenido al centro de mando digital de 3º de la ESO. Desde aquí accederás a todos los módulos del curso: inteligencia artificial, ciberseguridad, robótica industrial y mucho más.
+                Bienvenido al centro de mando digital de 3º de la ESO. Navega por las unidades disponibles del primer trimestre (UD1, UD2 y UD3). Las unidades restantes se irán desbloqueando a lo largo del curso.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-8">
@@ -218,6 +248,22 @@
                     <h3 class="font-bold text-slate-800 mb-2"><i class="fa-solid fa-shield-cat text-red-500 mr-2"></i> Proteger</h3>
                     <p class="text-sm text-slate-500">Aprende defensa digital y ética de datos.</p>
                 </div>
+            </div>
+
+            <!-- Teaser Proyecto Dron ESP32 -->
+            <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-left flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mb-8">
+                <div class="flex items-center space-x-3">
+                    <div class="p-3 bg-amber-500/20 text-amber-600 rounded-lg text-2xl shrink-0">
+                        <i class="fa-solid fa-helicopter"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-sm md:text-base">🚀 Proyecto Estrella: Dron Autónomo ESP32</h4>
+                        <p class="text-xs text-slate-600">Diseño, ensamblaje y programación de un dron con microcontrolador ESP32 y sensores avanzados.</p>
+                    </div>
+                </div>
+                <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 flex items-center gap-1 shrink-0">
+                    <i class="fa-solid fa-lock text-[10px]"></i> Próximamente
+                </span>
             </div>
 
             <a href="UD1.html" class="btn-start">
